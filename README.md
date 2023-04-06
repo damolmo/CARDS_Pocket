@@ -33,45 +33,45 @@ Muestra el menu principal junto a varias opciones, entre ellas :
 ``` Clasificación```
 ``` Reglas ```
 
-<img src="screens/screen_home.png">
+<img src="screens/screen_home.png" width="200" height="400">
 <br/>
 
 ## Pantalla de jugadores
 Elige modo de juego, contra la CPU o modo dos jugadores
 
-<img src="screens/screen_players.png">
+<img src="screens/screen_players.png" width="200" height="400">
 <br/>
 
 ## Pantalla de nombre
 Elige el nombre de los jugadores 
 
-<img src="screens/screen_players_name.png">
+<img src="screens/screen_players_name.png" width="200" height="400">
 <br/>
 
 ## Tablero de juego
 Donde ocurre toda la acción de la aplicación.
 Cuenta con opciones de silenciar audio y guardar progreso
 
-<img src="screens/screen_board.png">
+<img src="screens/screen_board.png" width="200" height="400">
 <br/>
 
 ## Menu de pausa
 Permite pausar el juego así como salir del mismo
 
-<img src="screens/screen_pause.png">
+<img src="screens/screen_pause.png" width="200" height="400">
 <br/>
 
 ## Pantalla de victoria
 Muestra el ganador actual y permite volver a incio o volver a jugar una revancha
 
-<img src="screens/screen_winner.png">
+<img src="screens/screen_winner.png" width="200" height="400">
 <br/>
 
 ## Pantalla de clasificación
 Muestra un listado con los ganadores y estadísticas de los mismos
 
-<img src="screens/screen_classification.png">
-<img src="screens/screen_classification_details.png">
+<img src="screens/screen_classification.png" width="200" height="400">
+<img src="screens/screen_classification_details.png" width="200" height="400">
 <br/>
 
 
