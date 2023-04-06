@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.uno_pocket">
+    package="com.daviiid99.uno_pocket">
    <application
         android:label="UNO Pocket"
         android:name="${applicationName}"
