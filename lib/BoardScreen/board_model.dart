@@ -49,6 +49,11 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   late CountdownTimer countDown;
   late StreamSubscription<CountdownTimer> current;
   bool saving = false;
+  bool playerOneRequestedUno = false;
+  bool playerTwoRequestedUno = false;
+  bool unoEvent = false;
+  int unoEventAmount =  0;
+  String playerUnoEventName = "";
 
 
   @override
@@ -246,6 +251,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     // Users are able to pick a random card from deck if needed
     if (isPlayerOneTurn && !playerOnePicked && !blockCurrentUser && !fired){
       // Add card
+      if (playerOneRequestedUno) playerOneRequestedUno = false;
+      notifyListeners();
       Random randomCard = Random();
       int randomCardIndex  =  randomCard.nextInt(availableCards);
       playerOneCards.add(cards[randomCardIndex]);
@@ -256,6 +263,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       notifyListeners();
     } else if (isPlayerTwoTurn && !playerTwoPicked && !blockCurrentUser && !fired){
       // Add card
+      if (playerTwoRequestedUno) playerTwoRequestedUno = false;
+      notifyListeners();
       Random randomCard = Random();
       int randomCardIndex  =  randomCard.nextInt(availableCards);
       playerTwoCards.add(cards[randomCardIndex]);
@@ -302,6 +311,50 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
        x4Counter = 0;
        consumedTurn = 0;
        notifyListeners();
+     }
+   }
+
+   checkUnoChance(){
+    // This method checks if the opposite users have just one card left
+     if (isPlayerOneTurn && playerOneCards.length == 1 && !playerOneRequestedUno){
+       // Good decission here ;)
+       playerOneRequestedUno = true;
+       notifyListeners();
+     }
+
+     else if (isPlayerTwoTurn  && playerTwoCards.length == 1 && !playerTwoRequestedUno){
+       // Good decission here ;)
+       playerTwoRequestedUno = true;
+       notifyListeners();
+     }
+
+     else {
+       if (isPlayerOneTurn) {
+         // Check if player two cards
+         if (playerTwoCards.length == 1 && !playerTwoRequestedUno) {
+           // UNO!
+           int newCards = playerOneCards.length + 1;
+           unoEventAmount = newCards;
+           playerUnoEventName = playerTwoName;
+           unoEvent = true;
+           notifyListeners();
+           while (playerTwoCards.length < newCards) {
+             generateApplyRandomCard(false);
+           }
+         }
+       } else if (isPlayerTwoTurn) {
+         if (playerOneCards.length == 1 && !playerOneRequestedUno) {
+           //UNO!
+           int newCards = playerTwoCards.length + 1;
+           playerUnoEventName = playerOneName;
+           unoEventAmount = newCards;
+           unoEvent = true;
+           notifyListeners();
+           while (playerOneCards.length < newCards) {
+             generateApplyRandomCard(true);
+           }
+         }
+       }
      }
    }
 
@@ -380,18 +433,21 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
     else if (card.name.contains("x2") && !x2Card && !x4Card){
       // NEXT USER SHOULD USE X2 TOO
-      setCurrentCardValues(card);
-      updateUserValuesAfterLaunch(card);
-      x2Card = true;
-      x2Counter++;
-      userLaunched = true;
-      blockCurrentUser = true;
-      notifyListeners();
-      currentCardDetails();
-      currentPlayerDetails();
+      if (currentCardColor == card.color || currentCard.contains("draw_2")){
+        setCurrentCardValues(card);
+        updateUserValuesAfterLaunch(card);
+        x2Card = true;
+        x2Counter++;
+        userLaunched = true;
+        blockCurrentUser = true;
+        notifyListeners();
+        currentCardDetails();
+        currentPlayerDetails();
+      }
+
     }
 
-    else if (currentCardColor == card.color && !blockCurrentUser && !x4Card && !x2Card){
+    else if (currentCardColor == card.color && !x4Card && !x2Card){
       print("same color?");
       // Both cards have the same color
       // This complaints with the main rule of the game
@@ -402,7 +458,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       blockCurrentUser = true;
       userLaunched = true;
       notifyListeners();
-    } else if (currentCardValue == card.value && !blockCurrentUser && !x4Card && !x2Card && !card.name.contains("Skip") && !card.name.contains("Reverse") ){
+    } else if (currentCardValue == card.value && !x4Card && !x2Card && !card.name.contains("Skip") && !card.name.contains("Reverse") ){
       print("same value?");
       // Different color but same value
       // Passed

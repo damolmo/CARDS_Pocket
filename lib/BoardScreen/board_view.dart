@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:uno_pocket/BoardScreen/widgets/unoScreen.dart';
 import 'package:uno_pocket/BoardScreen/widgets/userScore.dart';
 import '../Screens/screens.dart';
 
@@ -76,36 +77,36 @@ class BoardView extends StackedView<BoardModel>{
           body: Stack(
             children: [
               // Background Theme
-              if (!viewModel.userDismised && !viewModel.colorChanger)
+              if (!viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
               BackgroundTheme(),
 
               // UserName Widget
-              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger)
+              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
               UserNameWidget(viewModel: viewModel,),
 
               // Timer Widget
-              if (!viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.colorChanger)
+              if (!viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
               TimerWidget(viewModel: viewModel),
 
               // New Turn Button
               // Only shows if a turn comes to an end
-              if (viewModel.newTurnButton  && !viewModel.userDismised)
+              if (viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.unoEvent)
                 PlayerReady(viewModel: viewModel),
 
               // Current Card
-              if(!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger)
+              if(!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
               CurrentCard(viewModel: viewModel),
 
               // Current User Cards
-              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger)
+              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
                 UserCards(viewModel: viewModel),
 
               // User Buttons
-              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger)
+              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
                 Buttons(viewModel: viewModel,),
 
               // User Score
-              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger)
+              if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
                 UserScore(viewModel: viewModel),
 
               // Dismiss Windows
@@ -115,6 +116,10 @@ class BoardView extends StackedView<BoardModel>{
               // Color Changer screen
               if (viewModel.colorChanger)
                 ColorChanger(viewModel: viewModel),
+
+              // UNO Event window
+              if (viewModel.unoEvent)
+                UnoScreen(viewModel: viewModel),
 
             ],
           ),

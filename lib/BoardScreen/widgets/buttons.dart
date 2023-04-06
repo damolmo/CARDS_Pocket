@@ -22,7 +22,11 @@ class Buttons extends StatelessWidget{
       child: Row(
         children: [
           // UNO Button
-          Image.asset("assets/buttons/UNO.png", width: width * 0.2, height: height * 0.2,),
+          InkWell(
+            onTap : (){
+              viewModel.checkUnoChance();
+             },
+            child : Image.asset("assets/buttons/UNO.png", width: width * 0.2, height: height * 0.2,)),
           SizedBox(width: width * 0.55,),
           InkWell(
             onTap: (){

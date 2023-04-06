@@ -1,4 +1,4 @@
-package com.example.uno_pocket
+package com.daviiid99.uno_pocket
 
 import io.flutter.embedding.android.FlutterActivity
 
