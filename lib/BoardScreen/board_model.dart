@@ -108,7 +108,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   getCards() async {
     // Get all cards from database
     if (IO.Platform.isMacOS || IO.Platform.isAndroid || IO.Platform.isIOS) {
-
       try {
       cards = await Cards.retrieveCards();
       notifyListeners();
@@ -119,7 +118,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         notifyListeners();
       }
     } else {
-      print("HELLO FLUTTER");
       cards = CardsData.webAssets();
       notifyListeners();
     }
