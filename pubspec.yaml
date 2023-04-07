@@ -66,6 +66,7 @@ flutter:
 
   assets:
     # android and iOS path structure
+    - assets/
     - assets/logo/
     - assets/deck/blue/
     - assets/deck/green/
