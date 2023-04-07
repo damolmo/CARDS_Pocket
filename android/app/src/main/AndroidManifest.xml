@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.daviiid99.uno_pocket">
+    package="com.daviiid99.juno_pocket">
    <application
-        android:label="UNO Pocket"
+        android:label="JUNO Pocket"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
