@@ -65,6 +65,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    # android and iOS path structure
     - assets/logo/
     - assets/deck/blue/
     - assets/deck/green/
@@ -81,6 +82,24 @@ flutter:
     - assets/saveGame/
     - assets/loadGame/
     - assets/unoChance/
+
+    # web, windows and Linux path structure
+    - assets/assets/logo/
+    - assets/assets/deck/blue/
+    - assets/assets/deck/green/
+    - assets/assets/deck/orange/
+    - assets/assets/deck/red/
+    - assets/assets/deck/wild/
+    - assets/assets/sounds/
+    - assets/assets/players/
+    - assets/assets/buttons/
+    - assets/assets/warnings/
+    - assets/assets/winners/
+    - assets/assets/classification/
+    - assets/assets/colorChanger/
+    - assets/assets/saveGame/
+    - assets/assets/loadGame/
+    - assets/assets/unoChance/
 
 flutter_icons:
   image_path: "assets/logo/logo.png"
