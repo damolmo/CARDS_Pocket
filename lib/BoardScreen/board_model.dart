@@ -123,6 +123,11 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     // Set initial current card within all cards available
     Random random = Random();
     int index = random.nextInt(availableCards);
+
+    while (cards[index].name.contains("Wild x4")){
+      index = random.nextInt(availableCards);
+    }
+
     currentCard = cards[index].uri;
     currentCardColor = cards[index].color;
     currentCardValue = cards[index].value;

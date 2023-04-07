@@ -52,7 +52,7 @@ class NextPlayerName extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.1,
-      margin: EdgeInsets.only(top: height * 0.1),
+      margin: EdgeInsets.only(),
       child: viewModel.isPlayerOneTurn ? Text(viewModel.playerOneName, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 50), textAlign: TextAlign.center,) :  Text(viewModel.playerTwoName, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 50), textAlign: TextAlign.center,),
     );
   }
