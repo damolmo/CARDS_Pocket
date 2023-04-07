@@ -5,6 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:quiver/async.dart';
 import '../Screens/screens.dart';
 import 'dart:math';
+import 'dart:io' as IO;
 
 class BoardModel extends BaseViewModel with MusicControl implements Initialisable{
 
@@ -106,12 +107,21 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
   getCards() async {
     // Get all cards from database
-    try {
+    if (IO.Platform.isMacOS || IO.Platform.isAndroid || IO.Platform.isIOS) {
+
+      try {
       cards = await Cards.retrieveCards();
-    }
+      notifyListeners();
+      }
     catch (e){
-      CardsData.insertCards();
-      cards = await Cards.retrieveCards();
+        CardsData.insertCards();
+        cards = await Cards.retrieveCards();
+        notifyListeners();
+      }
+    } else {
+      print("HELLO FLUTTER");
+      cards = CardsData.webAssets();
+      notifyListeners();
     }
 
     availableCards =  cards.length;
