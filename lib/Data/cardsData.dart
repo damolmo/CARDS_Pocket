@@ -151,7 +151,7 @@ class CardsData{
     // This method creates a card for each value in Hash Map
 
     Cards.createTable(); // Create table
-    Map<String,dynamic> map = cards;
+    Map<String,dynamic> map = cards_web;
 
     if (IO.Platform.isAndroid || IO.Platform.isIOS || IO.Platform.isMacOS){
        map = cards;
