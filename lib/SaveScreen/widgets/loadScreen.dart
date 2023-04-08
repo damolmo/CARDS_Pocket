@@ -98,12 +98,12 @@ class BackupsList extends StatelessWidget{
                         borderRadius: BorderRadius.circular(30),
                         child : Image.asset("assets/logo/logo.png", width: width * 0.2, height: height * 0.2,),
                       ),
-                      SizedBox(width: width * 0.05,),
+                      const Spacer(),
 
                       // Right Game Name
-                      Text(viewModel.saves[index].saveName, style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center, maxLines: 3,),
+                      Text(viewModel.saves[index].saveName, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: width * 0.05), textAlign: TextAlign.center, maxLines: 3,),
 
-                      SizedBox(width: width * 0.05,)
+                      const Spacer(),
                     ],
                    ),
                 ),
@@ -130,16 +130,16 @@ backupPreview (BuildContext context, SaveModel viewModel, int index){
             height: double.maxFinite,
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(30)
+              borderRadius: BorderRadius.circular(100)
             ),
             margin: EdgeInsets.only(top: height * 0.05, bottom: height * 0.05, left: width * 0.05, right: width * 0.05),
             child: Column(
               children: [
                 // Game Preview
                 Container(
-                  width: width * 0.3,
-                  height: height * 0.2,
-                  margin: EdgeInsets.only(bottom: height * 0.1, top: height * 0.05),
+                  width: width * 0.55,
+                  height: height * 0.25,
+                  margin: EdgeInsets.only(bottom: height * 0.05, top: height * 0.05),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
@@ -153,10 +153,12 @@ backupPreview (BuildContext context, SaveModel viewModel, int index){
                 Container(
                   width: double.maxFinite,
                   height: height * 0.2,
-                  margin: EdgeInsets.only(left:  width * 0.2, right: width * 0.2, bottom: height * 0.1),
+                  margin: EdgeInsets.only(bottom: height * 0.1),
                   child : Row(
                     children: [
-                      Text(viewModel.saves[index].saveName, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 50),),
+                      const Spacer(),
+                      Text(viewModel.saves[index].saveName, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 30), textAlign: TextAlign.center,),
+                      const Spacer(),
                     ],
                    ),
                 ),
@@ -165,7 +167,7 @@ backupPreview (BuildContext context, SaveModel viewModel, int index){
                 Container(
                   width: double.maxFinite,
                   height: height * 0.15,
-                  margin: EdgeInsets.only(left: width * 0.1, right: width * 0.1, bottom: height * 0.05 ),
+                  margin: EdgeInsets.only(left: width * 0.02, right: width * 0.02, bottom: height * 0.05 ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child : TextButton(
@@ -176,7 +178,7 @@ backupPreview (BuildContext context, SaveModel viewModel, int index){
                       viewModel.player.pause();
                       viewModel.readUserChoosedSave(index, context);
                     },
-                    child: Text("Cargar Partida", style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),),
+                    child: Text("Cargar Partida", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                     ),
                   ),
                 )
