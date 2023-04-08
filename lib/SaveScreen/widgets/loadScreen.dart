@@ -172,6 +172,7 @@ backupPreview (BuildContext context, SaveModel viewModel, int index){
                       backgroundColor: Colors.blueAccent
                     ),
                     onPressed :  (){
+                      viewModel.player.pause();
                       viewModel.readUserChoosedSave(index, context);
                     },
                     child: Text("Cargar Partida", style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.bold),),
