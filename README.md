@@ -9,9 +9,7 @@ Juego de cartas multiplataforma escrito en Flutter
 # Compatibilidad
 - [x] android
 - [x] iOS
-- [x] macOS 
-- [x] Windows
-- [x] Linux
+- [x] macOS
 
 # Dependencias
 Las dependencias de software libre que hacen que este proyecto sea posible
