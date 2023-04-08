@@ -56,6 +56,9 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   bool unoEvent = false;
   int unoEventAmount =  0;
   String playerUnoEventName = "";
+  bool showColorChangerNotification = false;
+  Color colorChanged = Colors.red;
+  String colorChangedStr = "";
 
   @override
   void initialise(){
@@ -132,7 +135,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     Random random = Random();
     int index = random.nextInt(availableCards);
 
-    while (cards[index].name.contains("Wild x4")){
+    while (cards[index].name.contains("Wild")){
       index = random.nextInt(availableCards);
     }
 

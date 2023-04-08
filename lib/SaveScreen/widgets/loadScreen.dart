@@ -98,11 +98,12 @@ class BackupsList extends StatelessWidget{
                         borderRadius: BorderRadius.circular(30),
                         child : Image.asset("assets/logo/logo.png", width: width * 0.2, height: height * 0.2,),
                       ),
-                      const Spacer(),
+                      SizedBox(width: width * 0.05,),
 
                       // Right Game Name
-                      Text(viewModel.saves[index].saveName, style: TextStyle(color: Colors.black, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-                      const Spacer(),
+                      Text(viewModel.saves[index].saveName, style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center, maxLines: 3,),
+
+                      SizedBox(width: width * 0.05,)
                     ],
                    ),
                 ),

@@ -25,6 +25,7 @@ export '../BoardScreen/widgets/userCards.dart';
 export '../BoardScreen/widgets/buttons.dart';
 export '../BoardScreen/widgets/userScore.dart';
 export '../BoardScreen/widgets/dismissWindow.dart';
+export '../BoardScreen/widgets/colorChangerNotification.dart';
 import '../BoardScreen/widgets/unoScreen.dart';
 export '../musicControl.dart';
 export '../WinnerScreen/winner_model.dart';
