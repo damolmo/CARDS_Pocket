@@ -57,7 +57,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   int unoEventAmount =  0;
   String playerUnoEventName = "";
 
-
   @override
   void initialise(){
     getCards();

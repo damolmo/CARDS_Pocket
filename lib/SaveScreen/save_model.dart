@@ -35,6 +35,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     // A method to read all existing saves on database
     try {
       saves =  await Save.retrieveSavesFromDataBase();
+      saves.forEach((element) {print(element.saveName);});
       notifyListeners();
     }
     catch (e){
@@ -81,7 +82,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     }
 
     // Time to Navigate to board, again
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: true, player: boardModel.player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards,)));
+    player.pause();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: true, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true,)));
 
   }
 
@@ -122,7 +124,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
 
     notifyListeners();
 
-    File playerTwoJson = File("${data.path}/${fileName}_${boardModel.playerTwoName}");
+    File playerTwoJson = File("${data.path}/${fileName}_${boardModel.playerTwoName}.json");
     playerTwoJson.createSync();
     jsonString = jsonEncode(playerTwoCards);
     playerTwoJson.writeAsStringSync(jsonString);

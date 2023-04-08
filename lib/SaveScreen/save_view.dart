@@ -24,7 +24,6 @@ class SaveView extends StackedView<SaveModel>{
       ){
 
     viewModel.saveGame = isSaveGame;
-    viewModel.notifyListeners();
     viewModel.boardModel = boardModel;
     viewModel.player = player;
 
