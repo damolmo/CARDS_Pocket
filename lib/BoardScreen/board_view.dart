@@ -139,6 +139,10 @@ class BoardView extends StackedView<BoardModel>{
               if (viewModel.unoEvent)
                 UnoScreen(viewModel: viewModel),
 
+              // Show Color Changed Notification
+              if (viewModel.showColorChangerNotification)
+                ColorChangerNotification(viewModel: viewModel),
+
             ],
           ),
         ),

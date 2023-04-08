@@ -83,6 +83,8 @@ class SaveField extends StatelessWidget{
               ClipRRect(
               borderRadius: BorderRadius.circular(80),
                 child : TextField(
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 35),
                   onTap: (){
                     viewModel.isWriting = true;
                     viewModel.notifyListeners();

@@ -56,6 +56,9 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   bool unoEvent = false;
   int unoEventAmount =  0;
   String playerUnoEventName = "";
+  bool showColorChangerNotification = false;
+  Color colorChanged = Colors.red;
+  String colorChangedStr = "";
 
   @override
   void initialise(){
