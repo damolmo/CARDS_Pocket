@@ -17,17 +17,19 @@ class BoardView extends StackedView<BoardModel>{
     required this.playerTwoCards,
     required this.isTwoPlayersMode,
     required this.player,
+    required this.isBackup,
     super.key,
 });
 
   final String playerOneName;
   final String playerTwoName;
-  final int playerOneScore;
-  final int playerTwoScore;
-  final List<Cards> playerOneCards;
-  final List<Cards> playerTwoCards;
+  int playerOneScore;
+  int playerTwoScore;
+  List<Cards> playerOneCards;
+  List<Cards> playerTwoCards;
   final bool isTwoPlayersMode;
   final AudioPlayer player;
+  bool isBackup;
 
 
   @override
@@ -37,15 +39,20 @@ class BoardView extends StackedView<BoardModel>{
       Widget? child
       ){
 
+    onViewModelReady(viewModel);
+
     viewModel.playerOneName =  playerOneName;
     viewModel.playerTwoName = playerTwoName;
-    if (playerOneScore > 0 ) viewModel.playerOneScore = playerOneScore;
-    if (playerTwoScore > 0 ) viewModel.playerTwoScore = playerTwoScore;
-    viewModel.playerOneCards = playerOneCards;
-    viewModel.playerTwoCards = playerTwoCards;
+    if (isBackup){
+      viewModel.playerOneScore = playerOneScore;
+      viewModel.playerTwoScore = playerTwoScore;
+      viewModel.playerOneCards = playerOneCards;
+      viewModel.playerTwoCards = playerTwoCards;
+      isBackup = false;
+    }
+
     viewModel.isTwoPlayersMode =  isTwoPlayersMode;
     viewModel.player = player;
-    viewModel.notifyListeners();
     viewModel.keepMusic(player, context, "keep");
 
     return WillPopScope(
