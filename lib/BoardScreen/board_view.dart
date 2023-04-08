@@ -11,6 +11,10 @@ class BoardView extends StackedView<BoardModel>{
   BoardView({
     required this.playerOneName,
     required this.playerTwoName,
+    required this.playerOneScore,
+    required this.playerTwoScore,
+    required this.playerOneCards,
+    required this.playerTwoCards,
     required this.isTwoPlayersMode,
     required this.player,
     super.key,
@@ -18,6 +22,10 @@ class BoardView extends StackedView<BoardModel>{
 
   final String playerOneName;
   final String playerTwoName;
+  final int playerOneScore;
+  final int playerTwoScore;
+  final List<Cards> playerOneCards;
+  final List<Cards> playerTwoCards;
   final bool isTwoPlayersMode;
   final AudioPlayer player;
 
@@ -31,8 +39,13 @@ class BoardView extends StackedView<BoardModel>{
 
     viewModel.playerOneName =  playerOneName;
     viewModel.playerTwoName = playerTwoName;
+    if (playerOneScore > 0 ) viewModel.playerOneScore = playerOneScore;
+    if (playerTwoScore > 0 ) viewModel.playerTwoScore = playerTwoScore;
+    viewModel.playerOneCards = playerOneCards;
+    viewModel.playerTwoCards = playerTwoCards;
     viewModel.isTwoPlayersMode =  isTwoPlayersMode;
     viewModel.player = player;
+    viewModel.notifyListeners();
     viewModel.keepMusic(player, context, "keep");
 
     return WillPopScope(
@@ -63,11 +76,9 @@ class BoardView extends StackedView<BoardModel>{
                 const Spacer(),
                 IconButton(
                     onPressed: (){
-                      var snack = SnackBar(content: Text("Función disponible próximamente", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold, ), textAlign: TextAlign.center,),behavior: SnackBarBehavior.floating ,);
-                      ScaffoldMessenger.of(context).showSnackBar(snack);
-                      //viewModel.saving = true;
-                      //viewModel.notifyListeners();
-                      //Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel,)));
+                      viewModel.saving = true;
+                      viewModel.notifyListeners();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player)));
                     },
                     icon: Icon(Icons.save_rounded, color: Colors.white, size: 35,)),
 

@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../Screens/screens.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SaveModel extends BaseViewModel with MusicControl implements Initialisable{
 
@@ -8,10 +13,15 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
   TextEditingController saveName = TextEditingController(text: "");
   bool isWriting = false;
   late BoardModel boardModel;
+  List<Save> saves = [];
+  late String boardPreview;
+  String playerOneCardsUri = "";
+  String playerTwoCardsUri = "";
+  late AudioPlayer player;
 
   @override
   void initialise(){
-
+    readSavesFromDataBase();
   }
 
   onReturnToBoard(BuildContext context){
@@ -19,7 +29,143 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     boardModel.saving = false;
     boardModel.notifyListeners();
     Navigator.pop(context);
+  }
 
+  readSavesFromDataBase() async {
+    // A method to read all existing saves on database
+    try {
+      saves =  await Save.retrieveSavesFromDataBase();
+      notifyListeners();
+    }
+    catch (e){
+      print("No existen saves, aún");
+    }
+  }
+
+  readUserChoosedSave(int index, BuildContext context) async {
+    // User choosed save
+    // We're going to restore it
+
+    // Point to the choosed save
+    Save save = saves[index];
+
+    // Assign JSON path to local variable
+    playerOneCardsUri =  save.playerOneCardsUri;
+    playerTwoCardsUri = save.playerTwoCardsUri;
+
+    // Create files with given uri
+    File playerOneCardsFile = File(playerOneCardsUri);
+    File playerTwoCardsFile = File(playerTwoCardsUri);
+    print("uri :  ${playerOneCardsUri}");
+
+    // Decode JSON files into strings
+    String playerOneCardsStr = playerOneCardsFile.readAsStringSync();
+    String playerTwoCardsStr = playerTwoCardsFile.readAsStringSync();
+
+    // Decode JSON files
+    List<dynamic> playerOneCardsRaw = jsonDecode(playerOneCardsStr);
+    List<dynamic> playerTwoCardsRaw = jsonDecode(playerTwoCardsStr);
+
+    // Create Cards instance from map
+    List<Cards> playerOneCards = [];
+    List<Cards> playerTwoCards = [];
+
+    for (Map<String,dynamic> card in  playerOneCardsRaw){
+      Cards currentCard = Cards.fromMap(card);
+      playerOneCards.add(currentCard);
+    }
+
+    for(Map<String,dynamic> card in playerTwoCardsRaw){
+      Cards currentCard = Cards.fromMap(card);
+      playerTwoCards.add(currentCard);
+    }
+
+    // Time to Navigate to board, again
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: true, player: boardModel.player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards,)));
+
+  }
+
+  createCardsJsonFiles(String fileName) async {
+    // This method will create two JSON files under data
+    // Usefull to restore users cards later
+
+    // First, get Documents path
+    final Directory data = await getApplicationDocumentsDirectory();
+
+    print("Directory => ${data}");
+
+    // Recover users Cards
+    List<Cards> playerOne = boardModel.playerOneCards;
+    List<Cards> playerTwo = boardModel.playerTwoCards;
+
+    // Create Lists of Map from user cards
+    List<Map<String,dynamic>> playerOneCards = [];
+    List<Map<String,dynamic>> playerTwoCards = [];
+
+    for (Cards card in playerOne){
+      Map<String,dynamic> current = card.toMap();
+      playerOneCards.add(current);
+    }
+
+    for (Cards card in playerTwo){
+      Map<String,dynamic> current  = card.toMap();
+      playerTwoCards.add(current);
+    }
+
+    // Generate JSON files
+    File playerOneJson = File("${data.path}/${fileName}_${boardModel.playerOneName}.json");
+    playerOneJson.createSync();
+    String jsonString = jsonEncode(playerOneCards);
+    playerOneJson.writeAsStringSync(jsonString);
+    playerOneCardsUri = playerOneJson.path;
+    print("Directory => ${playerOneCardsUri}");
+
+    notifyListeners();
+
+    File playerTwoJson = File("${data.path}/${fileName}_${boardModel.playerTwoName}");
+    playerTwoJson.createSync();
+    jsonString = jsonEncode(playerTwoCards);
+    playerTwoJson.writeAsStringSync(jsonString);
+    playerTwoCardsUri =  playerTwoJson.path;
+    print("Directory => ${playerTwoCardsUri}");
+    notifyListeners();
+
+  }
+
+  writeSaveIntoDataBase(String saveName) async {
+    // This method is used to write a new save into db
+    bool saveExists = false;
+    await createCardsJsonFiles(saveName);
+
+    Save.createSavesTable();
+
+    // Generate Save
+    Save currentSave = Save(
+        saveName: saveName,
+        playerOneName: boardModel.playerOneName,
+        playerTwoName: boardModel.playerTwoName,
+        playerOneScore: boardModel.playerOneScore.toString(),
+        playerTwoScore: boardModel.playerTwoScore.toString(),
+        currentCard: boardModel.currentCard,
+        playerOneCardsUri: playerOneCardsUri,
+        playerTwoCardsUri: playerTwoCardsUri);
+
+    // Check if fileName exists before creating a new entry
+    List<Save> temp = await Save.retrieveSavesFromDataBase();
+    temp.forEach((save) {
+      if (save.saveName ==  saveName){
+        saveExists = true;
+        notifyListeners();
+      }
+    });
+
+    if (saveExists){
+      Save.updateSave(currentSave);
+      print("successfull updated ");
+    } else {
+      Save.insertSavesIntoDataBase(currentSave);
+      print("success created");
+    }
   }
 
 

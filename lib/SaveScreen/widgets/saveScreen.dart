@@ -141,7 +141,9 @@ class SaveButton extends StatelessWidget{
           backgroundColor: Colors.greenAccent,
         ),
         onPressed : (){
-          // TO-DO
+          viewModel.writeSaveIntoDataBase(viewModel.saveName.text);
+          viewModel.killCurrentMusic(viewModel.player);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
         },
         child: Text("Guardar Partida", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
         ),

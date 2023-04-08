@@ -1,7 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:uno_pocket/BoardScreen/board_model.dart';
 import 'package:uno_pocket/ClassificationScreen/classification_view.dart';
 import 'package:uno_pocket/PlayersScreen/players_view.dart';
+import 'package:uno_pocket/SaveScreen/save_view.dart';
 
 class OptionsMenu extends StatelessWidget{
   @override
@@ -45,6 +47,27 @@ class OptionsMenu extends StatelessWidget{
 
           SizedBox(height: height * 0.015,),
 
+
+          // Reanudar Partida
+          SizedBox(
+            height: height * 0.1,
+            width: width * 0.8,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child : TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.black
+                ),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(boardModel: BoardModel(), isSaveGame: false, player: player)));
+                },
+                child: const Text("Reanudar Partida", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+              ),
+            ),
+          ),
+
+          SizedBox(height: height * 0.015,),
+
           // Clasificacion
           SizedBox(
             width: width * 0.8,
@@ -64,26 +87,8 @@ class OptionsMenu extends StatelessWidget{
             ),
           ),
 
-          SizedBox(height: height * 0.015,),
 
-          // Instrucciones
-          SizedBox(
-            height: height * 0.1,
-            width: width * 0.8,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child : TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black
-                ),
-                onPressed: (){
-                  var snack = SnackBar(content: Text("Disponible próximamente", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold, ), textAlign: TextAlign.center,),behavior: SnackBarBehavior.floating ,);
-                  ScaffoldMessenger.of(context).showSnackBar(snack);
-                },
-                child: const Text("Reglas", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-              ),
-            ),
-          )
+
         ],
       ),
     );

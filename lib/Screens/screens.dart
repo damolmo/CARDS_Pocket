@@ -6,6 +6,7 @@ export '../TitleScreen/widgets/optionsMenu.dart';
 export '../GenericWidgets/copyrightFooter.dart';
 export '../DataBases/cards.dart';
 export '../DataBases/clasification.dart';
+export '../DataBases/save.dart';
 export '../Data/cardsData.dart';
 export '../PlayersScreen/players_model.dart';
 export '../PlayersScreen/players_view.dart';

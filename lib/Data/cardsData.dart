@@ -105,7 +105,7 @@ class CardsData{
       }
     }
 
-    return   cardsFinal;
+    return cardsFinal;
   }
 
 }
