@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uno_pocket/BoardScreen/board_model.dart';
+import '../../Screens/screens.dart';
 
 class ColorChangerNotification extends StatelessWidget{
   @override
@@ -18,8 +18,8 @@ class ColorChangerNotification extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: height * 0.2,
-      margin: EdgeInsets.only(left: width * 0.5, right: width * 0.5, top: height * 0.3),
+      height: height * 0.15,
+      margin: EdgeInsets.only(left: width * 0.05, right: width * 0.05, top: height * 0.1),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.9),
         borderRadius: BorderRadius.circular(30),
@@ -27,13 +27,13 @@ class ColorChangerNotification extends StatelessWidget{
       child: Row(
         children: [
           // Color Square
-          SizedBox(width: width * 0.5,),
+          SizedBox(width: width * 0.05,),
           Container(
-            width: width * 0.05,
+            width: width * 0.1,
             height: height * 0.05,
-            margin: EdgeInsets.only(right: width * 0.02),
+            margin: EdgeInsets.only(right: width * 0.05, top: height * 0.05, bottom: height * 0.05),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(10),
               color: viewModel.colorChanged,
             ),
           ),
@@ -47,7 +47,7 @@ class ColorChangerNotification extends StatelessWidget{
                 viewModel.notifyListeners();
               }
               , icon: Icon(Icons.close_rounded, color: Colors.white, size: 25,)),
-          SizedBox(width: width * 0.5,)
+          SizedBox(width: width * 0.05,)
         ],
       ),
     );
