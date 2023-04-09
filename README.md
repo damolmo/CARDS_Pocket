@@ -3,8 +3,16 @@
 ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 ![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
 
-# UNO Pocket
+# CARDS Pocket
 Juego de cartas multiplataforma escrito en Flutter
+
+
+# Descargas
+Descarga o juega en línea a CARDS Pocket
+
+<a href="https://play.google.com/store/apps/details?id=com.daviiid99.uno_pocket"><img src="buttons/android.png" width="400" height="100"></a></br>
+<a href="https://github.com/daviiid99/CARDS_Pocket/releases/download/latest/CARDS_Pocket_Beta_macOS-aarch64.zip"><img src="buttons/apple.png" width="400" height="100"></a></br>
+<a href="https://daviiid99.github.io/CARDS_Pocket/webApp"><img src="buttons/chrome.png" width="400" height="100"></a></br>
 
 # Compatibilidad
 - [x] android
