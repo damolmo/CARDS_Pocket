@@ -17,9 +17,9 @@ class WildCardNotification extends StatelessWidget{
     final width = MediaQuery.of(context).size.width;
 
     return Container(
-      width: width  * 0.8,
+      width: width  * 0.9,
       height: height * 0.15,
-      margin: EdgeInsets.only(top: viewModel.showColorChangerNotification ? height * 0.22 :  height * 0.05, left: width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(top: viewModel.showColorChangerNotification ? height * 0.22 :  height * 0.05, left: width * 0.05, right: width * 0.05),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.5),
         borderRadius: BorderRadius.circular(30),
@@ -27,14 +27,14 @@ class WildCardNotification extends StatelessWidget{
       child: Row(
         children: [
           // Current Wild Card
+
           SizedBox(width: width * 0.05,),
+
           Image.asset(viewModel.currentCard, width: width * 0.1, height: height * 0.1,),
           const Spacer(),
-
           // Message
-          Text(viewModel.wildCardStr, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+          Text(viewModel.wildCardStr, style: TextStyle(color: Colors.white, fontSize: width * 0.05, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
           const Spacer(),
-
           // Close Button
           IconButton(
             onPressed : (){
@@ -45,6 +45,7 @@ class WildCardNotification extends StatelessWidget{
             icon: const Icon(Icons.close_rounded, color: Colors.white, size: 25,),
 
           ),
+
           SizedBox(width: width * 0.05,),
         ],
       ),
