@@ -81,7 +81,7 @@ class PlayerField extends StatelessWidget{
                  if (viewModel.isTwoPlayerMode && viewModel.isPlayerOneFieldComplete){
                    print("Player 2 :  ${viewModel.playerTwoName.text}");
                    player.pause();
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, isTwoPlayersMode: viewModel.isTwoPlayerMode, player: player, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isBackup: false,)));
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, isTwoPlayersMode: viewModel.isTwoPlayerMode, player: player, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isBackup: false, currentCardColor: "", currentCardValue: "", currentCard: "",)));
                    viewModel.notifyListeners();
                  }
 

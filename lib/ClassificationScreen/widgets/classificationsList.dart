@@ -46,7 +46,7 @@ class ClassificationsList extends StatelessWidget{
                     // Name
                     SizedBox(width: width * 0.1,),
                     Text(viewModel.classifications[index].userName, style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-                    SizedBox(width: width * 0.4,),
+                    const Spacer(),
                     Text(viewModel.classifications[index].userVictories.toString(), style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25), ),
                     SizedBox(width: width * 0.1,)
                   ],

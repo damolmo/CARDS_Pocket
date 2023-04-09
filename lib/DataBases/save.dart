@@ -9,6 +9,8 @@ class Save {
     required this.playerOneScore,
     required this.playerTwoScore,
     required this.currentCard,
+    required this.currentCardColor,
+    required this.currentCardValue,
     required this.playerOneCardsUri,
     required this.playerTwoCardsUri,
 });
@@ -19,6 +21,8 @@ class Save {
   final String playerOneScore;
   final String playerTwoScore;
   final String currentCard;
+  final String currentCardColor;
+  final String currentCardValue;
   final String playerOneCardsUri;
   final String playerTwoCardsUri;
 
@@ -31,6 +35,8 @@ class Save {
       playerOneScore TEXT,
       playerTwoScore TEXT,
       currentCard TEXT,
+      currentCardColor TEXT,
+      currentCardValue TEXT,
       playerOneCardsUri TEXT,
       playerTwoCardsUri TEXT);
   """;
@@ -43,6 +49,8 @@ class Save {
       "playerOneScore" :  playerOneScore,
       "playerTwoScore" :  playerTwoScore,
       "currentCard" :  currentCard,
+      "currentCardColor" : currentCardColor,
+      "currentCardValue" :  currentCardValue,
       "playerOneCardsUri" : playerOneCardsUri,
       "playerTwoCardsUri" :  playerTwoCardsUri,
     };
@@ -56,6 +64,8 @@ class Save {
     playerOneScore: map["playerOneScore"],
     playerTwoScore: map["playerTwoScore"],
     currentCard: map["currentCard"],
+    currentCardColor :  map["currentCardColor"],
+    currentCardValue: map["currentCardValue"],
     playerOneCardsUri: map["playerOneCardsUri"],
     playerTwoCardsUri: map["playerTwoCardsUri"],
   );

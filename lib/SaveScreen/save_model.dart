@@ -83,7 +83,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
 
     // Time to Navigate to board, again
     player.pause();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: true, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true,)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: true, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true, currentCardValue: save.currentCardValue, currentCard: save.currentCard, currentCardColor: save.currentCardColor,)));
 
   }
 
@@ -149,6 +149,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
         playerOneScore: boardModel.playerOneScore.toString(),
         playerTwoScore: boardModel.playerTwoScore.toString(),
         currentCard: boardModel.currentCard,
+        currentCardValue: boardModel.currentCardValue,
+        currentCardColor: boardModel.currentCardColor,
         playerOneCardsUri: playerOneCardsUri,
         playerTwoCardsUri: playerTwoCardsUri);
 
