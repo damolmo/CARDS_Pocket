@@ -35,7 +35,7 @@ class WinnerMenu extends StatelessWidget{
                 ),
                 onPressed: (){
                   viewModel.addWinnerToRanking();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.winnerName, playerTwoName: viewModel.looseName, isTwoPlayersMode: true, player: viewModel.player, playerOneScore: 0, playerOneCards: [], playerTwoCards: [], playerTwoScore: 0, isBackup: false,)));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.winnerName, playerTwoName: viewModel.looseName, isTwoPlayersMode: true, player: viewModel.player, playerOneScore: 0, playerOneCards: [], playerTwoCards: [], playerTwoScore: 0, isBackup: false, currentCardColor: "", currentCard: "", currentCardValue: "",)));
                 },
                 child: const Text("Volver a jugar", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
               ),

@@ -16,6 +16,9 @@ class BoardView extends StackedView<BoardModel>{
     required this.playerOneCards,
     required this.playerTwoCards,
     required this.isTwoPlayersMode,
+    required this.currentCard,
+    required this.currentCardColor,
+    required this.currentCardValue,
     required this.player,
     required this.isBackup,
     super.key,
@@ -23,6 +26,9 @@ class BoardView extends StackedView<BoardModel>{
 
   final String playerOneName;
   final String playerTwoName;
+  final String currentCard;
+  final String currentCardColor;
+  final String currentCardValue;
   int playerOneScore;
   int playerTwoScore;
   List<Cards> playerOneCards;
@@ -48,6 +54,10 @@ class BoardView extends StackedView<BoardModel>{
       viewModel.playerTwoScore = playerTwoScore;
       viewModel.playerOneCards = playerOneCards;
       viewModel.playerTwoCards = playerTwoCards;
+      viewModel.currentCard = currentCard;
+      viewModel.currentCardColor = currentCardColor;
+      viewModel.currentCardValue = currentCardValue;
+      viewModel.isBackup = isBackup;
       isBackup = false;
     }
 

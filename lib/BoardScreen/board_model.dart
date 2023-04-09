@@ -61,6 +61,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   String colorChangedStr = "";
   String wildCardStr = "";
   bool wildCardNotification =  false;
+  bool isBackup = false;
 
   @override
   void initialise(){
@@ -88,6 +89,11 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
             if (x2Card || x4Card) {
               if (consumedTurn == 1){
                 pickPunishmentCards();
+                current.pause();
+                fired = true;
+                nextTurn();
+                consumedTurn = 0;
+                notifyListeners();
               } else {
                 consumedTurn = 1;
                 fired = true;
@@ -128,7 +134,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     }
 
     availableCards =  cards.length;
-    setCurrentCard();
+    if (!isBackup) setCurrentCard();
     notifyListeners();
   }
 
@@ -146,7 +152,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     currentCardValue = cards[index].value;
     cards.removeAt(index);
     availableCards  = cards.length;
-    giveUserCard();
+    if (!isBackup) giveUserCard();
     notifyListeners();
   }
 
@@ -307,11 +313,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
            isPlayerOneTurn && consumedTurn == 1 ?  generateApplyRandomCard(true) :  generateApplyRandomCard(false);
          }
        }
-       userLaunched = true;
        x2Card = false;
        x2Counter = 0;
-       consumedTurn = 0;
-       youAreFired();
        notifyListeners();
 
 
@@ -325,11 +328,9 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
            isPlayerOneTurn && consumedTurn == 1 ? generateApplyRandomCard(true) : generateApplyRandomCard(false);
          }
        }
-       userLaunched = true;
+
        x4Card = false;
        x4Counter = 0;
-       consumedTurn = 0;
-       youAreFired();
        notifyListeners();
      }
    }
@@ -417,7 +418,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       }
     }
 
-    else if (card.name.contains("x4") && !x4Card && !x2Card){
+    else if (card.name.contains("x4") && !x4Card && !x2Card && !blockCurrentUser){
       // NEXT USER SHOULD USE X4 TOO
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
@@ -457,7 +458,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         }
     }
 
-    else if (card.name.contains("x2") && !x2Card && !x4Card){
+    else if (card.name.contains("x2") && !x2Card && !x4Card && !blockCurrentUser){
       // NEXT USER SHOULD USE X2 TOO
       if (currentCardColor == card.color || currentCard.contains("draw_2")){
         setCurrentCardValues(card);
@@ -475,7 +476,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
     }
 
-    else if (currentCardColor == card.color && !x4Card && !x2Card){
+    else if (currentCardColor == card.color && !x4Card && !x2Card && !blockCurrentUser){
       print("same color?");
       // Both cards have the same color
       // This complaints with the main rule of the game
@@ -486,7 +487,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       blockCurrentUser = true;
       userLaunched = true;
       notifyListeners();
-    } else if (currentCardValue == card.value && !x4Card && !x2Card && !card.name.contains("Skip") && !card.name.contains("Reverse") ){
+    } else if (currentCardValue == card.value && !x4Card && !x2Card && !card.name.contains("Skip") && !card.name.contains("Reverse") && !blockCurrentUser ){
       print("same value?");
       // Different color but same value
       // Passed
