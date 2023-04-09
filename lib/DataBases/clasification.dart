@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class Classification{
 
@@ -46,24 +48,47 @@ class Classification{
 
   static createClassificationTable() async {
     // A simple method to create the classifications table
-    final Database db = await openDatabase("uno.db");
 
-    db.transaction((txn) => txn.execute(classificationTable));
+    if (kIsWeb){
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.transaction((txn) => txn.execute(classificationTable));
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.transaction((txn) => txn.execute(classificationTable));
+
+    }
+
+
   }
 
   static insertEntryClassification(Classification classification) async {
     // A simple method to insert
-    final Database db = await openDatabase("uno.db");
 
-    db.insert("classifications",
-        classification.toMap());
+    if (kIsWeb){
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.insert("classifications", classification.toMap());
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.insert("classifications", classification.toMap());
+    }
+
+
   }
 
   static updateEntryClassification(Classification classification) async {
     // A simple method to update
-    final Database db = await openDatabase("uno.db");
 
-    db.update("classifications", classification.toMap(), where: 'userName = ?', whereArgs: [classification.userName] );
+    if (kIsWeb){
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.update("classifications", classification.toMap(), where: "userName = ?", whereArgs: [classification.userName]);
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.update("classifications", classification.toMap(), where: "userName = ?", whereArgs: [classification.userName]);
+    }
+
 
   }
 
@@ -84,8 +109,18 @@ class Classification{
 
     }
 
-    final Database db = await openDatabase("uno.db");
-    List<Map<String,dynamic>> rawClassifications = await db.query("classifications");
+    List<Map<String,dynamic>> rawClassifications = [];
+
+    if (kIsWeb){
+      // Retrieve web entries
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      rawClassifications = await db.query("classifications");
+    } else {
+      final Database db = await openDatabase("uno.db");
+      rawClassifications = await db.query("classifications");
+    }
+
     List<Classification> classifications  = getClassifications(rawClassifications);
 
     return classifications;

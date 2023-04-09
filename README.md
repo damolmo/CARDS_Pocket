@@ -10,6 +10,7 @@ Juego de cartas multiplataforma escrito en Flutter
 - [x] android
 - [x] iOS
 - [x] macOS
+- [x] web
 
 # Dependencias
 Las dependencias de software libre que hacen que este proyecto sea posible

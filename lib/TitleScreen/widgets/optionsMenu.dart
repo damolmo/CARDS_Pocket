@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uno_pocket/BoardScreen/board_model.dart';
 import 'package:uno_pocket/ClassificationScreen/classification_view.dart';
@@ -59,7 +60,12 @@ class OptionsMenu extends StatelessWidget{
                     backgroundColor: Colors.black
                 ),
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(boardModel: BoardModel(), isSaveGame: false, player: player)));
+                  if (!kIsWeb){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(boardModel: BoardModel(), isSaveGame: false, player: player)));
+                  } else {
+                    var snack = SnackBar(content: Text("No se puede guardar en la web", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 35), textAlign: TextAlign.center, ), behavior: SnackBarBehavior.floating ,);
+                    ScaffoldMessenger.of(context).showSnackBar(snack);
+                  }
                 },
                 child: const Text("Reanudar Partida", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
               ),

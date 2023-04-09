@@ -118,20 +118,15 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
   getCards() async {
     // Get all cards from database
-    if (IO.Platform.isMacOS || IO.Platform.isAndroid || IO.Platform.isIOS) {
       try {
       cards = await Cards.retrieveCards();
       notifyListeners();
       }
-    catch (e){
+      catch (e){
         CardsData.insertCards();
         cards = await Cards.retrieveCards();
         notifyListeners();
       }
-    } else {
-      cards = CardsData.webAssets();
-      notifyListeners();
-    }
 
     availableCards =  cards.length;
     if (!isBackup) setCurrentCard();
