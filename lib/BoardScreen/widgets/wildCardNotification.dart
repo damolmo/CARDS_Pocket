@@ -19,7 +19,7 @@ class WildCardNotification extends StatelessWidget{
     return Container(
       width: width  * 0.8,
       height: height * 0.15,
-      margin: EdgeInsets.only(top: viewModel.showColorChangerNotification ? height * 0.22 :  height * 0.05, left: width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(top: viewModel.showColorChangerNotification ? height * 0.22 :  height * 0.05, left: width * 0.05, right: width * 0.05),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.5),
         borderRadius: BorderRadius.circular(30),
