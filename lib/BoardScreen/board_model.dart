@@ -311,6 +311,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
        x2Card = false;
        x2Counter = 0;
        consumedTurn = 0;
+       youAreFired();
        notifyListeners();
 
 
@@ -328,6 +329,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
        x4Card = false;
        x4Counter = 0;
        consumedTurn = 0;
+       youAreFired();
        notifyListeners();
      }
    }
