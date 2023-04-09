@@ -390,7 +390,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         x2Counter++;
         userLaunched = true;
         wildCardNotification = true;
-        wildCardStr = "Tu rival respondió con una carta x2";
+        wildCardStr = "Se lanzó una carta x2 (2)";
         // PUNISHMENT MUST BE APPLIED
         pickPunishmentCards();
         notifyListeners();
@@ -408,7 +408,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         userLaunched = true;
         colorChanger = true;
         wildCardNotification = true;
-        wildCardStr = "Tu rival respondió con una carta x4";
+        wildCardStr = "Se lanzó una carta x4 (2)";
         // PUNISHMENT MUST BE APPLIED
         pickPunishmentCards();
         notifyListeners();
@@ -425,7 +425,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       blockCurrentUser = true;
       colorChanger = true;
       wildCardNotification = true;
-      wildCardStr = "Tu rival ha lanzado una carta x4";
+      wildCardStr = "Se lanzó una carta x4";
       notifyListeners();
       currentCardDetails();
       currentPlayerDetails();
@@ -465,7 +465,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         userLaunched = true;
         blockCurrentUser = true;
         wildCardNotification = true;
-        wildCardStr = "Tu rival ha lanzado una carta x2";
+        wildCardStr = "Se lanzó una carta x2";
         notifyListeners();
         currentCardDetails();
         currentPlayerDetails();
