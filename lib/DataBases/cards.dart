@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class Cards{
 
@@ -41,18 +43,30 @@ class Cards{
 
   static createTable() async {
     // A simple method to create the cards table
-    final Database db = await openDatabase("uno.db");
 
-    db.transaction((txn) => txn.execute(cardsTable));
+    if (kIsWeb){
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.transaction((txn) => txn.execute(cardsTable));
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.transaction((txn) => txn.execute(cardsTable));
+    }
+
   }
 
   static insertCardIntoTable(Cards card) async {
     // A method to insert a card into the database
-    final Database db = await openDatabase("uno.db");
 
-    db.insert(
-        "cards",
-    card.toMap());
+    if (kIsWeb){
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.insert("cards", card.toMap());
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.insert("cards", card.toMap());
+    }
+
   }
 
   static Future<List<Cards>> retrieveCards() async {
@@ -68,11 +82,18 @@ class Cards{
       return cards;
     }
 
-    final Database db = await openDatabase("uno.db");
-    List<Map<String,dynamic>> rawCards = await db.query("cards");
-    List<Cards> cards = getCards(rawCards);
+    List<Map<String,dynamic>> rawCards = [];
 
-    cards.forEach((element) {print(element.name);});
+    if (kIsWeb){
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      rawCards = await db.query("cards");
+    } else {
+      final Database db = await openDatabase("uno.db");
+      rawCards = await db.query("cards");
+    }
+
+    List<Cards> cards = getCards(rawCards);
 
     return cards;
   }

@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
 class Save {
 
@@ -72,27 +74,48 @@ class Save {
 
   static createSavesTable() async {
     // A method to create the saves table
-    final Database db = await openDatabase("uno.db");
 
-    db.transaction((txn) => txn.execute(savesTable));
+    if (kIsWeb){
+      // Create web table
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.transaction((txn) => txn.execute(savesTable));
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.transaction((txn) => txn.execute(savesTable));
+    }
+
   }
 
   static updateSave(Save save) async {
     // Just in case a save already exists
-    final Database db = await openDatabase("uno.db");
 
-    db.update("saves",
-              save.toMap(),
-              where: "saveName = ? ",
-              whereArgs: [save.saveName]);
+    if (kIsWeb){
+      // Update web table
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.update("saves", save.toMap(), where: "saveName = ?", whereArgs: [save.saveName]);
+
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.update("saves", save.toMap(), where: "saveName = ?", whereArgs: [save.saveName]);
+    }
+
+
   }
 
   static insertSavesIntoDataBase(Save save) async {
     // This method is used to insert new entries into database
-    final Database db = await openDatabase("uno.db");
+    var db = await openDatabase("uno.db");
 
-    db.insert("saves",
-        save.toMap());
+    if (kIsWeb){
+      // Insert into web database
+      var factory = databaseFactoryFfiWeb;
+      db = await factory.openDatabase("uno.db");
+    }
+
+    db.insert("saves", save.toMap());
+
   }
 
   static Future<List<Save>> retrieveSavesFromDataBase() async {
@@ -108,9 +131,18 @@ class Save {
       return saves;
     }
 
+    List<Map<String,dynamic>> rawSaves = [];
 
-    final Database db = await openDatabase("uno.db");
-    List<Map<String,dynamic>> rawSaves = await db.query("saves");
+    if (kIsWeb){
+      // Retrieve web entries
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      rawSaves = await db.query("saves");
+    } else {
+      final Database db = await openDatabase("uno.db");
+      rawSaves = await db.query("saves");
+    }
+
     List<Save> saves = getSaves(rawSaves);
 
     return saves;

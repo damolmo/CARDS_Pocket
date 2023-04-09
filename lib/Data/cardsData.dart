@@ -92,20 +92,4 @@ class CardsData{
       }
     }
   }
-
-  static List<Cards> webAssets(){
-    // Since SQFLITE doesn't support web
-    // We need to locally create the connections to assets
-    List<Cards> cardsFinal  = [];
-
-    for (String color in cards.keys){
-      for (String card in cards[color].keys){
-        Cards currentCard =  Cards(name: card, color: cards[color][card][0], value: cards[color][card][1], uri: cards[color][card][2]);
-        cardsFinal.add(currentCard);
-      }
-    }
-
-    return cardsFinal;
-  }
-
 }
