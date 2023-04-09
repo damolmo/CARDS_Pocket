@@ -17,11 +17,11 @@ class ColorChangerNotification extends StatelessWidget{
     final width = MediaQuery.of(context).size.width;
 
     return Container(
-      width: double.maxFinite,
+      width: width * 0.8,
       height: height * 0.15,
-      margin: EdgeInsets.only(left: width * 0.05, right: width * 0.05, top: height * 0.1),
+      margin: EdgeInsets.only(left: width * 0.1, right: width * 0.1, top: height * 0.05),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.9),
+        color: Colors.black.withOpacity(0.5),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Row(
@@ -29,24 +29,25 @@ class ColorChangerNotification extends StatelessWidget{
           // Color Square
           SizedBox(width: width * 0.05,),
           Container(
-            width: width * 0.1,
+            width: width * 0.075,
             height: height * 0.05,
-            margin: EdgeInsets.only(right: width * 0.05, top: height * 0.05, bottom: height * 0.05),
+            margin: EdgeInsets.only(top: height * 0.05, bottom: height * 0.05),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: viewModel.colorChanged,
             ),
           ),
 
+          const Spacer(),
           // Message
-          Text(viewModel.colorChangedStr, style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
-          SizedBox(width: width * 0.02,),
+          Text(viewModel.colorChangedStr, style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+          const Spacer(),
           IconButton(
               onPressed: (){
                 viewModel.showColorChangerNotification = false;
                 viewModel.notifyListeners();
               }
-              , icon: Icon(Icons.close_rounded, color: Colors.white, size: 25,)),
+              , icon: const Icon(Icons.close_rounded, color: Colors.white, size: 25,)),
           SizedBox(width: width * 0.05,)
         ],
       ),
