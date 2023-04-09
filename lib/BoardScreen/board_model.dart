@@ -59,6 +59,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   bool showColorChangerNotification = false;
   Color colorChanged = Colors.red;
   String colorChangedStr = "";
+  String wildCardStr = "";
+  bool wildCardNotification =  false;
 
   @override
   void initialise(){
@@ -387,6 +389,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         updateUserValuesAfterLaunch(card);
         x2Counter++;
         userLaunched = true;
+        wildCardNotification = true;
+        wildCardStr = "Tu rival respondió con una carta x2";
         // PUNISHMENT MUST BE APPLIED
         pickPunishmentCards();
         notifyListeners();
@@ -403,6 +407,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         x4Counter++;
         userLaunched = true;
         colorChanger = true;
+        wildCardNotification = true;
+        wildCardStr = "Tu rival respondió con una carta x4";
         // PUNISHMENT MUST BE APPLIED
         pickPunishmentCards();
         notifyListeners();
@@ -418,6 +424,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       userLaunched = true;
       blockCurrentUser = true;
       colorChanger = true;
+      wildCardNotification = true;
+      wildCardStr = "Tu rival ha lanzado una carta x4";
       notifyListeners();
       currentCardDetails();
       currentPlayerDetails();
@@ -456,6 +464,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         x2Counter++;
         userLaunched = true;
         blockCurrentUser = true;
+        wildCardNotification = true;
+        wildCardStr = "Tu rival ha lanzado una carta x2";
         notifyListeners();
         currentCardDetails();
         currentPlayerDetails();
@@ -512,7 +522,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       newTurnButton = true;
       playerOnePicked = false;
       currentWidgetTimer = 30;
-      blockCurrentUser = false;
       userLaunched = false;
       fired = false;
       notifyListeners();
@@ -522,7 +531,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       newTurnButton = true;
       playerTwoPicked = false;
       currentWidgetTimer = 30;
-      blockCurrentUser = false;
       userLaunched = false;
       fired = false;
       notifyListeners();

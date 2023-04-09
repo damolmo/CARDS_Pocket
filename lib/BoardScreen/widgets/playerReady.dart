@@ -93,6 +93,7 @@ class StartButton extends StatelessWidget{
       onTap: (){
         viewModel.newTurnButton = false;
         viewModel.youAreFired();
+        viewModel.blockCurrentUser = false;
         viewModel.notifyListeners();
       },
         child : Container(

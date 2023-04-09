@@ -140,8 +140,12 @@ class BoardView extends StackedView<BoardModel>{
                 UnoScreen(viewModel: viewModel),
 
               // Show Color Changed Notification
-              if (viewModel.showColorChangerNotification)
+              if (viewModel.showColorChangerNotification && !viewModel.newTurnButton)
                 ColorChangerNotification(viewModel: viewModel),
+
+              // Show Wild card notification
+              if (viewModel.wildCardNotification && !viewModel.newTurnButton && !viewModel.colorChanger)
+                WildCardNotification(viewModel: viewModel),
 
             ],
           ),
