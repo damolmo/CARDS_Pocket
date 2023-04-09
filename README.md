@@ -10,9 +10,9 @@ Juego de cartas multiplataforma escrito en Flutter
 # Descargas
 Descarga o juega en línea a CARDS Pocket
 
-<a href="https://play.google.com/store/apps/details?id=com.daviiid99.uno_pocket"><img src="buttons/android.png" width="130" height="80"></a>
-<a href="https://github.com/daviiid99/CARDS_Pocket/releases/download/latest/CARDS_Pocket_Beta_macOS-aarch64.zip"><img src="buttons/apple.png" width="80" height="80"></a>
-<a href="https://daviiid99.github.io/CARDS_Pocket/webApp"><img src="buttons/chrome.png" width="80" height="80"></a>
+<a href="https://play.google.com/store/apps/details?id=com.daviiid99.uno_pocket"><img src="buttons/android.png" width="400" height="100"></a></br>
+<a href="https://github.com/daviiid99/CARDS_Pocket/releases/download/latest/CARDS_Pocket_Beta_macOS-aarch64.zip"><img src="buttons/apple.png" width="400" height="100"></a></br>
+<a href="https://daviiid99.github.io/CARDS_Pocket/webApp"><img src="buttons/chrome.png" width="400" height="100"></a></br>
 
 # Compatibilidad
 - [x] android
