@@ -59,6 +59,7 @@ class BoardView extends StackedView<BoardModel>{
       viewModel.currentCardColor = currentCardColor;
       viewModel.currentCardValue = currentCardValue;
       viewModel.isBackup = isBackup;
+      if (kIsWeb) viewModel.isMusicPlaying = false; // By default isn't initialized on web, requires user action
       isBackup = false;
     }
 

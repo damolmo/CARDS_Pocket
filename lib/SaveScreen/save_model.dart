@@ -15,8 +15,6 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
   late BoardModel boardModel;
   List<Save> saves = [];
   late String boardPreview;
-  String playerOneCardsUri = "";
-  String playerTwoCardsUri = "";
   late AudioPlayer player;
   String playerOneCardsStr = "";
   String playerTwoCardsStr =  "";
@@ -53,7 +51,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     Save save = saves[index];
 
     print("Cartas>>>");
-    print(playerOneCardsUri);
+    print(playerOneCardsStr);
 
     // Decode JSON files
     List<dynamic> playerOneCardsRaw = jsonDecode(save.playerOneCardsUri);
@@ -104,8 +102,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     }
 
     // Generate JSON files
-    playerOneCardsUri =  jsonEncode(playerOneCards);
-    playerTwoCardsUri =  jsonEncode(playerTwoCards);
+    playerOneCardsStr =  jsonEncode(playerOneCards);
+    playerTwoCardsStr =  jsonEncode(playerTwoCards);
     notifyListeners();
 
   }
