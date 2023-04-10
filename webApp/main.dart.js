@@ -68496,15 +68496,15 @@ for(;q.go.length<r;)q.hz(!0)}}},
 Kl(a){var s,r,q,p,o=this,n="    Player 1 :  ",m=",\n    Player 2 : ",l="Reverse"
 if(o.p2){if(B.c.B(a.a,"x2")){o.iF(a)
 o.jb(a);++o.p3
+o.Cj()
 o.aj=o.rx=!0
 o.aq="Se lanz\xf3 una carta x2 (2)"
-o.Cj()
 if(!o.av$)o.aF()}}else if(o.p4){if(B.c.B(a.a,"x4")){o.iF(a)
 o.jb(a);++o.R8
-o.aj=o.aD=o.rx=!0
-o.aq="Se lanz\xf3 una carta x4 (2)"
 o.Cj()
-if(!o.av$)o.aF()}}else{s=a.a
+if(!o.av$)o.aF()
+o.aj=o.aD=o.rx=!0
+o.aq="Se lanz\xf3 una carta x4 (2)"}}else{s=a.a
 if(B.c.B(s,"x4"))r=!o.p1
 else r=!1
 if(r){o.iF(a)
@@ -68592,9 +68592,9 @@ s=r.a4
 s===$&&A.b()
 s.dX(0)
 r.RG=!0
-r.BX()
 r.x1=0
-if(!r.av$)r.aF()}else{r.x1=1
+if(!r.av$)r.aF()
+r.BX()}else{r.x1=1
 r.RG=!0
 s=r.a4
 s===$&&A.b()

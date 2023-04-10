@@ -88,13 +88,16 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           if (currentWidgetTimer == 0 || userLaunched) {
             if (x2Card || x4Card) {
               if (consumedTurn == 1){
+                // Current user didn't throw a x2 or x4 card
                 pickPunishmentCards();
                 current.pause();
                 fired = true;
-                nextTurn();
                 consumedTurn = 0;
                 notifyListeners();
+                nextTurn();
               } else {
+                // An x2 or x4 card is active
+                // Next user should launch a new card before time is over
                 consumedTurn = 1;
                 fired = true;
                 current.pause();
@@ -386,11 +389,12 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         setCurrentCardValues(card);
         updateUserValuesAfterLaunch(card);
         x2Counter++;
+        // PUNISHMENT MUST BE APPLIED
+        pickPunishmentCards();
+        // SKIP TURN AND SHOW NOTIFICATION
         userLaunched = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x2 (2)";
-        // PUNISHMENT MUST BE APPLIED
-        pickPunishmentCards();
         notifyListeners();
       }
     }
@@ -403,13 +407,14 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         setCurrentCardValues(card);
         updateUserValuesAfterLaunch(card);
         x4Counter++;
+        // PUNISHMENT MUST BE APPLIED
+        pickPunishmentCards();
+        notifyListeners();
+        // SKIP TURN AND SHOW NOTIFICATION
         userLaunched = true;
         colorChanger = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x4 (2)";
-        // PUNISHMENT MUST BE APPLIED
-        pickPunishmentCards();
-        notifyListeners();
       }
     }
 
