@@ -60,12 +60,8 @@ class OptionsMenu extends StatelessWidget{
                     backgroundColor: Colors.black
                 ),
                 onPressed: (){
-                  if (!kIsWeb){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(boardModel: BoardModel(), isSaveGame: false, player: player)));
-                  } else {
-                    var snack = SnackBar(content: Text("No se puede guardar en la web", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 35), textAlign: TextAlign.center, ), behavior: SnackBarBehavior.floating ,);
-                    ScaffoldMessenger.of(context).showSnackBar(snack);
-                  }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(boardModel: BoardModel(), isSaveGame: false, player: player)));
+
                 },
                 child: const Text("Reanudar Partida", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
               ),
