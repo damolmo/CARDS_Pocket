@@ -16,7 +16,7 @@ class WinnerMessage extends StatelessWidget{
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/winners/winner.png"),
-          fit: BoxFit.fitWidth
+          fit: BoxFit.fitHeight
         )
       ),
     );

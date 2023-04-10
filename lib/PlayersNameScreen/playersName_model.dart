@@ -11,6 +11,7 @@ class PlayersNameModel extends BaseViewModel with MusicControl implements Initia
   TextEditingController playerTwoName = TextEditingController(text: "");
   AudioPlayer player = AudioPlayer();
   bool isWriting = false;
+  String errorMessage = "";
 
   @override
   void initialise(){

@@ -19,7 +19,7 @@ class DismissWindows extends StatelessWidget{
     return Stack(
         children: [
           // Background Theme
-          BackgroundTheme(),
+          viewModel.isPlayerOneTurn ? BackgroundTheme() :  BackgroundTheme(const Color.fromRGBO(9, 86, 191, 1.0)),
 
           // Warning Banner
           WarningBanner(),

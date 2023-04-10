@@ -73,7 +73,7 @@ class BoardView extends StackedView<BoardModel>{
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0.0,
-            backgroundColor: Color.fromRGBO(238, 34, 41, 1.0),
+            backgroundColor: viewModel.isPlayerOneTurn ? Color.fromRGBO(238, 34, 41, 1.0) : Color.fromRGBO(9, 86, 191, 1.0)  ,
             title: Row(
               children: [
                 IconButton(
@@ -108,56 +108,58 @@ class BoardView extends StackedView<BoardModel>{
             children: [
               // Background Theme
               if (!viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-              BackgroundTheme(),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) BackgroundTheme(),
+                if (viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode) BackgroundTheme(const Color.fromRGBO(9, 86, 191, 1.0)),
+
 
               // UserName Widget
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-              UserNameWidget(viewModel: viewModel,),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) UserNameWidget(viewModel: viewModel,),
 
               // Timer Widget
               if (!viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-              TimerWidget(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) TimerWidget(viewModel: viewModel),
 
               // New Turn Button
               // Only shows if a turn comes to an end
               if (viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.unoEvent)
-                PlayerReady(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) PlayerReady(viewModel: viewModel),
 
               // Current Card
               if(!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-              CurrentCard(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) CurrentCard(viewModel: viewModel),
 
               // Current User Cards
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                UserCards(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode) UserCards(viewModel: viewModel),
 
               // User Buttons
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                Buttons(viewModel: viewModel,),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) Buttons(viewModel: viewModel,),
 
               // User Score
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                UserScore(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) UserScore(viewModel: viewModel),
 
               // Dismiss Windows
               if (viewModel.userDismised)
-                DismissWindows(viewModel: viewModel, player: viewModel.player,),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) DismissWindows(viewModel: viewModel, player: viewModel.player,),
 
               // Color Changer screen
               if (viewModel.colorChanger)
-                ColorChanger(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) ColorChanger(viewModel: viewModel),
 
               // UNO Event window
               if (viewModel.unoEvent)
-                UnoScreen(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) UnoScreen(viewModel: viewModel),
 
               // Show Color Changed Notification
               if (viewModel.showColorChangerNotification && !viewModel.newTurnButton)
-                ColorChangerNotification(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) ColorChangerNotification(viewModel: viewModel),
 
               // Show Wild card notification
               if (viewModel.wildCardNotification && !viewModel.newTurnButton && !viewModel.colorChanger)
-                WildCardNotification(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) WildCardNotification(viewModel: viewModel),
 
             ],
           ),

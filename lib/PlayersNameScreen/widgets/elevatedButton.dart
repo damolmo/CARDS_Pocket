@@ -79,16 +79,41 @@ class PlayerField extends StatelessWidget{
                  }
 
                  if (viewModel.isTwoPlayerMode && viewModel.isPlayerOneFieldComplete){
-                   print("Player 2 :  ${viewModel.playerTwoName.text}");
-                   player.pause();
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, isTwoPlayersMode: viewModel.isTwoPlayerMode, player: player, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isBackup: false, currentCardColor: "", currentCardValue: "", currentCard: "",)));
-                   viewModel.notifyListeners();
+                   if(viewModel.playerTwoName.text.isNotEmpty){
+                     print("Player 2 :  ${viewModel.playerTwoName.text}");
+                     player.pause();
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, isTwoPlayersMode: viewModel.isTwoPlayerMode, player: player, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isBackup: false, currentCardColor: "", currentCardValue: "", currentCard: "",)));
+                     viewModel.errorMessage = "";
+                     viewModel.notifyListeners();
+                   } else {
+                     viewModel.errorMessage =  "¡El nombre es obligatorio!";
+                   }
+
                  }
 
                  if (viewModel.isTwoPlayerMode && !viewModel.isPlayerOneFieldComplete){
-                   print("Player 1 :  ${viewModel.playerOneName.text}");
-                   viewModel.isPlayerOneFieldComplete = true;
-                   viewModel.notifyListeners();
+                   if (viewModel.playerOneName.text.isNotEmpty){
+                     print("Player 1 :  ${viewModel.playerOneName.text}");
+                     viewModel.isPlayerOneFieldComplete = true;
+                     viewModel.errorMessage = "";
+                     viewModel.notifyListeners();
+                   } else {
+                     viewModel.errorMessage =  "¡El nombre es obligatorio!";
+                     viewModel.notifyListeners();
+                   }
+
+                 }
+
+                 if (!viewModel.isTwoPlayerMode){
+                   // We're playing against the CPU
+                   if (viewModel.playerOneName.text.isNotEmpty){
+                     print("Player 1 : ${viewModel.playerOneName.text}");
+                     viewModel.playerTwoName.text = "CPU";
+                     viewModel.isPlayerOneFieldComplete = true;
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isTwoPlayersMode: false, currentCard: "", currentCardColor: "", currentCardValue: "", player: player, isBackup: false)));
+                   }
+
+
                  }
 
 

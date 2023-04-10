@@ -34,7 +34,7 @@ class WinnerView extends StackedView<WinnerModel>{
       body: Stack(
         children: [
           // Background Theme
-          const BackgroundTheme(),
+          BackgroundTheme(),
 
           // Winner Message
           const WinnerMessage(),

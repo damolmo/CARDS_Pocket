@@ -41,13 +41,25 @@ class TitleDialog extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: height * 0.2,
+      height: height * 0.3,
       margin: EdgeInsets.only(top: height * 0.1, bottom: height * 0.1, left:  width * 0.1, right: width * 0.1),
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/saveGame/loadGame.png"),
-          fit: BoxFit.fitWidth
-        )
+      child: Stack(
+        children: [
+
+          Container(
+            width: double.maxFinite,
+            height: height * 0.3,
+            margin: EdgeInsets.only(right: width * 0.55),
+            child: Image.asset("assets/logo/logo.png", width: width * 0.3, height: height * 0.3,),
+          ),
+
+          Container(
+            width: double.maxFinite,
+            height: height * 0.3,
+            margin: EdgeInsets.only(left: width * 0.4),
+            child: Image.asset("assets/saveGame/loadGame.png", width: width * 0.45, height: height * 0.3,),
+          ),
+        ],
       ),
     );
   }
@@ -144,7 +156,7 @@ backupPreview (BuildContext context, SaveModel viewModel, int index){
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
                       image: AssetImage("assets/logo/logo.png"),
-                      fit: BoxFit.fill
+                      fit: BoxFit.fitHeight
                     )
                   ),
                 ),
