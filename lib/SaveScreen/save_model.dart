@@ -52,9 +52,12 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     // Point to the choosed save
     Save save = saves[index];
 
+    print("Cartas>>>");
+    print(playerOneCardsUri);
+
     // Decode JSON files
-    List<dynamic> playerOneCardsRaw = jsonDecode(playerOneCardsUri);
-    List<dynamic> playerTwoCardsRaw = jsonDecode(playerTwoCardsUri);
+    List<dynamic> playerOneCardsRaw = jsonDecode(save.playerOneCardsUri);
+    List<dynamic> playerTwoCardsRaw = jsonDecode(save.playerTwoCardsUri);
 
     // Create Cards instance from map
     List<Cards> playerOneCards = [];
