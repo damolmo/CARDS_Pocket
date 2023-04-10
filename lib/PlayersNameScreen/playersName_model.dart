@@ -12,6 +12,7 @@ class PlayersNameModel extends BaseViewModel with MusicControl implements Initia
   AudioPlayer player = AudioPlayer();
   bool isWriting = false;
   String errorMessage = "";
+  bool isFieldCompleted = false;
 
   @override
   void initialise(){

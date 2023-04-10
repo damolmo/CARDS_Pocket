@@ -23,7 +23,7 @@ class FieldName extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: height * 0.7,
+      height: height * 0.6,
       margin: EdgeInsets.only(top: height * 0.4, left: width * 0.05, right: width * 0.05),
       child: Column(
         children: [
@@ -86,7 +86,8 @@ class PlayerField extends StatelessWidget{
                      viewModel.errorMessage = "";
                      viewModel.notifyListeners();
                    } else {
-                     viewModel.errorMessage =  "¡El nombre es obligatorio!";
+                     var snack = SnackBar(content: Text("¡El nombre es obligatorio!", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),behavior:  SnackBarBehavior.floating,);
+                     ScaffoldMessenger.of(context).showSnackBar(snack);
                    }
 
                  }
@@ -98,7 +99,8 @@ class PlayerField extends StatelessWidget{
                      viewModel.errorMessage = "";
                      viewModel.notifyListeners();
                    } else {
-                     viewModel.errorMessage =  "¡El nombre es obligatorio!";
+                     var snack = SnackBar(content: Text("¡El nombre es obligatorio!", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),behavior:  SnackBarBehavior.floating,);
+                     ScaffoldMessenger.of(context).showSnackBar(snack);
                      viewModel.notifyListeners();
                    }
 
