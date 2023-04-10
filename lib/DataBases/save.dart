@@ -106,15 +106,16 @@ class Save {
 
   static insertSavesIntoDataBase(Save save) async {
     // This method is used to insert new entries into database
-    var db = await openDatabase("uno.db");
 
     if (kIsWeb){
       // Insert into web database
       var factory = databaseFactoryFfiWeb;
-      db = await factory.openDatabase("uno.db");
+      var db = await factory.openDatabase("uno.db");
+      db.insert("saves", save.toMap());
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.insert("saves", save.toMap());
     }
-
-    db.insert("saves", save.toMap());
 
   }
 
