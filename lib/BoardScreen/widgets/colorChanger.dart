@@ -45,7 +45,7 @@ class ColorsTitle extends StatelessWidget{
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/colorChanger/colorChanger.png"),
-          fit: BoxFit.fitWidth
+          fit: BoxFit.fitHeight
         )
       ),
 

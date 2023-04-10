@@ -48,6 +48,9 @@ class ElevatedFieldName extends StatelessWidget{
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
+                    alignLabelWithHint: true,
+                    errorText: viewModel.errorMessage,
+                    errorStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     filled: true,
                     fillColor: Colors.white,
                   ),

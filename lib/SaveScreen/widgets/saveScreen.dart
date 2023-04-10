@@ -49,7 +49,7 @@ class SaveScreenTitle extends StatelessWidget{
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/saveGame/saveGame.png"),
-          fit: BoxFit.fitWidth
+          fit: BoxFit.fitHeight
         )
       ),
     );
@@ -104,6 +104,8 @@ class SaveField extends StatelessWidget{
                   },
                   decoration: InputDecoration(
                     fillColor: Colors.white,
+                    errorText: viewModel.errorMessage,
+                    errorStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                     filled: true,
                   ),
                   controller: viewModel.saveName,
@@ -143,9 +145,17 @@ class SaveButton extends StatelessWidget{
           backgroundColor: Colors.greenAccent,
         ),
         onPressed : (){
-          viewModel.writeSaveIntoDataBase(viewModel.saveName.text);
-          viewModel.killCurrentMusic(viewModel.player);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
+          if (viewModel.saveName.text.isNotEmpty){
+            viewModel.writeSaveIntoDataBase(viewModel.saveName.text);
+            viewModel.killCurrentMusic(viewModel.player);
+            viewModel.errorMessage = "";
+            viewModel.notifyListeners();
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
+          } else {
+            viewModel.errorMessage =  "El nombre es obligatorio";
+            viewModel.notifyListeners();
+          }
+
         },
         child: Text("Guardar Partida", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
         ),

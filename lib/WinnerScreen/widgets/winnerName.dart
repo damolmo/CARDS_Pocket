@@ -19,7 +19,7 @@ class WinnerName extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.2,
-      margin: EdgeInsets.only(top: height * 0.25, left: width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(top: height * 0.05, left: width * 0.1, right: width * 0.1),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

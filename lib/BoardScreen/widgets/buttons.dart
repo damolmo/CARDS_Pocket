@@ -26,14 +26,14 @@ class Buttons extends StatelessWidget{
             onTap : (){
               viewModel.checkUnoChance();
              },
-            child : Image.asset("assets/buttons/UNO.png", width: width * 0.2, height: height * 0.2,)),
+            child : Image.asset(viewModel.isPlayerOneTurn ? "assets/buttons/UNO.png" :  "assets/buttons/UNO_blue.png", width: width * 0.2, height: height * 0.2,)),
           SizedBox(width: width * 0.55,),
           InkWell(
             onTap: (){
              viewModel.userLaunched = true;
              viewModel.notifyListeners();
             },
-            child : Image.asset("assets/buttons/next_turn.png", width: width * 0.2, height: height * 0.2,)),
+            child : Image.asset(viewModel.isPlayerOneTurn ? "assets/buttons/next_turn.png" :  "assets/buttons/next_turn_blue.png", width: width * 0.2, height: height * 0.2,)),
         ],
       ),
     );

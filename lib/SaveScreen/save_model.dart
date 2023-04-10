@@ -18,6 +18,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
   late AudioPlayer player;
   String playerOneCardsStr = "";
   String playerTwoCardsStr =  "";
+  String errorMessage = "";
 
   @override
   void initialise(){
