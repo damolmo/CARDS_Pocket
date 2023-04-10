@@ -17,10 +17,10 @@ class ElevatedFieldName extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: double.maxFinite,
+      height:  double.maxFinite,
       margin: EdgeInsets.only(left: width * 0.05, right:  width * 0.05, top: viewModel.isWriting ? height * 0.02: height * 0.6),
       child:  SizedBox(
-        height :  double.maxFinite,
+        height : double.maxFinite,
         width: double.maxFinite,
         child : ListView(
             children  : [
@@ -47,10 +47,8 @@ class ElevatedFieldName extends StatelessWidget{
 
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     alignLabelWithHint: true,
-                    errorText: viewModel.errorMessage,
-                    errorStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     filled: true,
                     fillColor: Colors.white,
                   ),

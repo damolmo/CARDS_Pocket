@@ -42,23 +42,25 @@ class TitleDialog extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.3,
-      margin: EdgeInsets.only(top: height * 0.1, bottom: height * 0.1, left:  width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(bottom: height * 0.1, left:  width * 0.02, right: width * 0.02),
       child: Stack(
         children: [
 
           Container(
             width: double.maxFinite,
             height: height * 0.3,
-            margin: EdgeInsets.only(right: width * 0.55),
-            child: Image.asset("assets/logo/logo.png", width: width * 0.3, height: height * 0.3,),
+            margin: EdgeInsets.only(top: height * 0.05, right: width * 0.55),
+            child: Image.asset("assets/logo/logo.png", height: height * 0.01, width: width * 0.3,),
           ),
 
+          // Centered
+          // Classification Title
           Container(
             width: double.maxFinite,
             height: height * 0.3,
-            margin: EdgeInsets.only(left: width * 0.4),
-            child: Image.asset("assets/saveGame/loadGame.png", width: width * 0.45, height: height * 0.3,),
-          ),
+            margin: EdgeInsets.only(top: height * 0.05, left: width * 0.4, right: width * 0.05),
+            child: Image.asset("assets/saveGame/loadGame.png", width: width * 0.45,),
+          )
         ],
       ),
     );
