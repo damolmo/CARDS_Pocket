@@ -94,15 +94,9 @@ class BoardView extends StackedView<BoardModel>{
                 const Spacer(),
                 IconButton(
                     onPressed: (){
-                      if (!kIsWeb){
-                        viewModel.saving = true;
-                        viewModel.notifyListeners();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player)));
-                      } else {
-                        var snack = SnackBar(content: Text("No se puede guardar en la web", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 35), textAlign: TextAlign.center, ), behavior: SnackBarBehavior.floating ,);
-                        ScaffoldMessenger.of(context).showSnackBar(snack);
-                      }
-
+                      viewModel.saving = true;
+                      viewModel.notifyListeners();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player)));
                     },
                     icon: Icon(Icons.save_rounded, color: Colors.white, size: 35,)),
 

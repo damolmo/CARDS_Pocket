@@ -18,6 +18,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
   String playerOneCardsUri = "";
   String playerTwoCardsUri = "";
   late AudioPlayer player;
+  String playerOneCardsStr = "";
+  String playerTwoCardsStr =  "";
 
   @override
   void initialise(){
@@ -50,22 +52,9 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     // Point to the choosed save
     Save save = saves[index];
 
-    // Assign JSON path to local variable
-    playerOneCardsUri =  save.playerOneCardsUri;
-    playerTwoCardsUri = save.playerTwoCardsUri;
-
-    // Create files with given uri
-    File playerOneCardsFile = File(playerOneCardsUri);
-    File playerTwoCardsFile = File(playerTwoCardsUri);
-    print("uri :  ${playerOneCardsUri}");
-
-    // Decode JSON files into strings
-    String playerOneCardsStr = playerOneCardsFile.readAsStringSync();
-    String playerTwoCardsStr = playerTwoCardsFile.readAsStringSync();
-
     // Decode JSON files
-    List<dynamic> playerOneCardsRaw = jsonDecode(playerOneCardsStr);
-    List<dynamic> playerTwoCardsRaw = jsonDecode(playerTwoCardsStr);
+    List<dynamic> playerOneCardsRaw = jsonDecode(playerOneCardsUri);
+    List<dynamic> playerTwoCardsRaw = jsonDecode(playerTwoCardsUri);
 
     // Create Cards instance from map
     List<Cards> playerOneCards = [];
@@ -87,14 +76,11 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
 
   }
 
-  createCardsJsonFiles(String fileName) async {
+  createCardsStr(String fileName) async {
     // This method will create two JSON files under data
     // Usefull to restore users cards later
 
     // First, get Documents path
-    final Directory data = await getApplicationDocumentsDirectory();
-
-    print("Directory => ${data}");
 
     // Recover users Cards
     List<Cards> playerOne = boardModel.playerOneCards;
@@ -115,21 +101,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
     }
 
     // Generate JSON files
-    File playerOneJson = File("${data.path}/${fileName}_${boardModel.playerOneName}.json");
-    playerOneJson.createSync();
-    String jsonString = jsonEncode(playerOneCards);
-    playerOneJson.writeAsStringSync(jsonString);
-    playerOneCardsUri = playerOneJson.path;
-    print("Directory => ${playerOneCardsUri}");
-
-    notifyListeners();
-
-    File playerTwoJson = File("${data.path}/${fileName}_${boardModel.playerTwoName}.json");
-    playerTwoJson.createSync();
-    jsonString = jsonEncode(playerTwoCards);
-    playerTwoJson.writeAsStringSync(jsonString);
-    playerTwoCardsUri =  playerTwoJson.path;
-    print("Directory => ${playerTwoCardsUri}");
+    playerOneCardsUri =  jsonEncode(playerOneCards);
+    playerTwoCardsUri =  jsonEncode(playerTwoCards);
     notifyListeners();
 
   }
@@ -137,7 +110,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
   writeSaveIntoDataBase(String saveName) async {
     // This method is used to write a new save into db
     bool saveExists = false;
-    await createCardsJsonFiles(saveName);
+    await createCardsStr(saveName);
 
     Save.createSavesTable();
 
@@ -151,8 +124,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
         currentCard: boardModel.currentCard,
         currentCardValue: boardModel.currentCardValue,
         currentCardColor: boardModel.currentCardColor,
-        playerOneCardsUri: playerOneCardsUri,
-        playerTwoCardsUri: playerTwoCardsUri);
+        playerOneCardsUri: playerOneCardsStr,
+        playerTwoCardsUri: playerTwoCardsStr);
 
     // Check if fileName exists before creating a new entry
     List<Save> temp = await Save.retrieveSavesFromDataBase();
