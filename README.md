@@ -29,6 +29,7 @@ Las dependencias de software libre que hacen que este proyecto sea posible
   sqflite: ^2.2.6
   quiver: ^3.2.1
   path_provider: ^2.0.14
+  sqflite_common_ffi_web: ^0.3.3+3
 ```
 
 # Capturas de pantalla
