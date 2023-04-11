@@ -11,12 +11,12 @@ class WinnerMessage extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: height * 0.3,
-      margin: EdgeInsets.only(top: height * 0.1, left: width * 0.1, right: width * 0.1),
+      height: height * 0.2,
+      margin: EdgeInsets.only(top: height * 0.1, left: width * 0.3, right: width * 0.3),
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/winners/winner.png"),
-          fit: BoxFit.fitHeight
+          fit: BoxFit.fitWidth
         )
       ),
     );

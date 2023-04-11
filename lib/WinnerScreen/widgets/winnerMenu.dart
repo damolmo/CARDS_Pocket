@@ -18,7 +18,7 @@ class WinnerMenu extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.4,
-      margin: EdgeInsets.only(top: height * 0.5, left: width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(top: height * 0.6, left: width * 0.1, right: width * 0.1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

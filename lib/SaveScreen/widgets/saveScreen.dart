@@ -45,11 +45,11 @@ class SaveScreenTitle extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.2,
-      margin: EdgeInsets.only(top: height * 0.1, right: width * 0.1, left: width * 0.1, bottom: height * 0.1),
+      margin: EdgeInsets.only(top: height * 0.1, right: width * 0.2, left: width * 0.2, bottom: height * 0.1),
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/saveGame/saveGame.png"),
-          fit: BoxFit.fitHeight
+          fit: BoxFit.fitWidth
         )
       ),
     );
@@ -104,7 +104,6 @@ class SaveField extends StatelessWidget{
                   },
                   decoration: InputDecoration(
                     fillColor: Colors.white,
-                    errorText: viewModel.errorMessage,
                     errorStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
                     filled: true,
                   ),
@@ -148,11 +147,11 @@ class SaveButton extends StatelessWidget{
           if (viewModel.saveName.text.isNotEmpty){
             viewModel.writeSaveIntoDataBase(viewModel.saveName.text);
             viewModel.killCurrentMusic(viewModel.player);
-            viewModel.errorMessage = "";
             viewModel.notifyListeners();
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
           } else {
-            viewModel.errorMessage =  "El nombre es obligatorio";
+            var snack = SnackBar(content: Text("El nombre es obligatorio", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 25), textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating ,);
+            ScaffoldMessenger.of(context).showSnackBar(snack);
             viewModel.notifyListeners();
           }
 

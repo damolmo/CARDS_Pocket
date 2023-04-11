@@ -19,12 +19,12 @@ class WinnerName extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.2,
-      margin: EdgeInsets.only(top: height * 0.05, left: width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(top: height * 0.35, left: width * 0.1, right: width * 0.1),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Spacer(),
-          Text(viewModel.winnerName, style:  TextStyle(color: Colors.white, fontSize: width * 0.15, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+          Text(viewModel.winnerName, style:  TextStyle(color: Colors.white, fontSize: width * 0.10, fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
           const Spacer(),
         ],
       ),
