@@ -582,6 +582,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   nextTurn(){
     // Some events should skip the turn, that why this method exists
     if (isPlayerOneTurn){
+      currentUserCards();
       isPlayerOneTurn = false;
       isPlayerTwoTurn = true;
       newTurnButton = true;
@@ -589,12 +590,13 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       currentWidgetTimer = 30;
       userLaunched = false;
       fired = false;
+      notifyListeners();
       if (!isTwoPlayersMode) {
         robyTurn();
       }
-      notifyListeners();
 
     } else {
+      currentUserCards();
       isPlayerOneTurn = true;
       isPlayerTwoTurn = false;
       newTurnButton = true;
@@ -615,126 +617,185 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     }
   }
 
-  robyTurn() async {
+  forceTurn(){
+    userLaunched = true;
+    youAreFired();
+    notifyListeners();
+  }
 
+  robyTurn() {
     checkRobyDeck(){
       // Check and compare deck and currentcard
 
-      if(playerTwoCards.isNotEmpty){
+      int launchedCard = 999;
+      bool robyLaunched = false;
+
+      robyX2Cards(Cards card){
+        // Defines a sequential actions to execute
+        // Set current card values
+        setCurrentCardValues(card);
+        currentRobyDetails(card);
+
+        // Update user values later
+        launchedCard =  playerTwoCards.indexOf(card);
+
+        // Set x2 counters
+        if (x2Card) {
+          x2Counter = 2;
+          notifyListeners();
+          pickPunishmentCards();
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x2 (2)";
+          currentNotificationTimeOut();
+          robyLaunched = true;
+        } else {
+          x2Card = true;
+          x2Counter = 1;
+          userLaunched = true;
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x2";
+          currentNotificationTimeOut();
+          notifyListeners();
+        }
+      }
+
+      robyX4Cards(Cards card){
+        // This is a wild card with counter
+        // Increment x4 counters
+
+        // Set current card values
+        currentRobyDetails(card);
+
+        // Set random color
+        List<String> colors = ["rojo", "naranja", "verde", "azul"];
+        Random randomColor = Random();
+        int index = randomColor.nextInt(colors.length);
+
+        // Update current card details
+        currentCard = card.uri;
+        currentCardValue = card.uri;
+        currentCardColor = colors[index];
+
+        // Update user values later
+        launchedCard = playerTwoCards.indexOf(card);
+
+        // Update x4 counters
+        if (x4Card) {
+          x4Counter = 2;
+          notifyListeners();
+          pickPunishmentCards();
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x4 (2)";
+          currentNotificationTimeOut();
+          robyLaunched = true;
+          notifyListeners();
+        } else {
+          x4Counter = 1;
+          x4Card = true;
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x4";
+          currentNotificationTimeOut();
+          robyLaunched = true;
+          notifyListeners();
+        }
+      }
+
+      if(playerTwoCards.isNotEmpty && !userLaunched){
         for(Cards card in playerTwoCards){
-          if (currentCardColor == card.color || currentCardValue == card.value){
-            if (card.name.contains("Wild") && !card.name.contains("x4")){
-              // Wild cards are special
-
-              // Set random color
-              List<String> colors = ["rojo", "naranja", "verde", "azul"];
-              Random randomColor = Random();
-              int index = randomColor.nextInt(colors.length);
-
-              // Update current card details
-              setCurrentCardValues(card);
-              currentRobyDetails(card);
-
-              // Update user values
-              updateUserValuesAfterLaunch(card);
-
-              // Next turn
-              userLaunched = true;
-              notifyListeners();
-
-
-            } else if (card.name.contains("x4")) {
-              // This is a wild card with counter
-              // Increment x4 counters
-
-              // Set current card values
-              setCurrentCardValues(card);
-              currentRobyDetails(card);
-
-              // Update user values
-              updateUserValuesAfterLaunch(card);
-
-              // Update x4 counters
-              if(x4Card) {
-                x4Counter++;
+          if (!robyLaunched){
+            if(x2Card || x4Card){
+              // A card of the same type must be provided
+              if(x2Card && card.name.contains("x2")){
+                robyX2Cards(card);
+              } else if(x4Card && card.name.contains("x4")){
+                robyX4Cards(card);
+              } else {
+                consumedTurn = 1;
+                currentRobyCardName = "";
+                currentRobyCard = "";
+                showRobyMessage = true;
+                userLaunched = true;
                 notifyListeners();
                 pickPunishmentCards();
-                wildCardNotification = true;
-                wildCardStr = "Se lanzó una carta x4 (2)";
-                userLaunched = true;
-                notifyListeners();
                 currentNotificationTimeOut();
-              } else {
-                x4Counter++;
-                x4Card = true;
-                wildCardNotification = true;
-                wildCardStr = "Se lanzó una carta x4";
-                userLaunched = true;
-                notifyListeners();
-                currentNotificationTimeOut();
+                youAreFired();
               }
 
+            } else {
+              if (card.name.contains("Wild") && !card.name.contains("x4")) {
+                // Wild cards are special
 
+                // Set random color
+                List<String> colors = ["rojo", "naranja", "verde", "azul"];
+                Random randomColor = Random();
+                int index = randomColor.nextInt(colors.length);
 
-            } else if(card.name.contains("x2") && currentCardColor == card.color || card.name.contains("x2") && currentCard.contains("draw_2")) {
-              // X2 Cards are special card types too
-
-              // Set current card values
-              setCurrentCardValues(card);
-              currentRobyDetails(card);
-
-              // Update user values
-              updateUserValuesAfterLaunch(card);
-
-              // Set x2 counters
-              if (x2Card) {
-                x2Counter++;
+                // Update current card details
+                currentCard = card.uri;
+                currentCardValue = card.uri;
+                currentCardColor = colors[index];
+                showRobyMessage = true;
                 notifyListeners();
-                pickPunishmentCards();
-                userLaunched = true;
-                wildCardNotification = true;
-                wildCardStr = "Se lanzó una carta x2 (2)";
+                currentRobyDetails(card);
+
+                // Update user values later
+                launchedCard =  playerTwoCards.indexOf(card);
+
+              } else if (card.name.contains("x4")) {
+                robyX4Cards(card);
+
+              } else if (card.name.contains("x2") && currentCardColor == card.color ||
+                  card.name.contains("x2") && currentCard.contains("draw_2")) {
+                // X2 Cards are special card types too
+                robyX2Cards(card);
+
+              } else if (currentCardColor == card.color ||
+                  currentCardValue == card.value) {
+                // Update deck card details
+                setCurrentCardValues(card);
+
+                // Update Roby details
+                currentRobyDetails(card);
+
+                // Update user values later
+                launchedCard =  playerTwoCards.indexOf(card);
+
+                robyLaunched = true;
                 notifyListeners();
-                currentNotificationTimeOut();
-              } else {
-                x2Card = true;
-                x2Counter++;
-                userLaunched = true;
-                wildCardNotification = true;
-                wildCardStr = "Se lanzó una carta x2";
-                notifyListeners();
-                currentNotificationTimeOut();
               }
-
-            } else if (currentCardColor == card.color || currentCardValue == card.value) {
-
-              // Update deck card details
-              setCurrentCardValues(card);
-
-              // Update Roby details
-              currentRobyDetails(card);
-              updateUserValuesAfterLaunch(card);
-              userLaunched = true;
-              showRobyMessage = true;
-              currentNotificationTimeOut();
-              notifyListeners();
             }
-
           }
         }
       }
 
-      if (!userLaunched){
+      if (!robyLaunched){
         if(!playerTwoPicked){
           pickCardFromDeck();
           currentRobyCardName = "";
           currentRobyCard = "";
-          nextTurn();
+          showRobyMessage = true;
+          currentNotificationTimeOut();
+          userLaunched = true;
+          notifyListeners();
+          youAreFired();
+        } else {
+          currentRobyCardName = "";
+          currentRobyCard = "";
+          showRobyMessage = true;
+          currentNotificationTimeOut();
         }
       } else {
-        userLaunched = true;
-        notifyListeners();
-        nextTurn();
+        // Update user values later
+        if(launchedCard != 999){
+          playerTwoScore += int.parse(playerTwoCards.elementAt(launchedCard).value);
+          playerTwoCards.removeAt(launchedCard);
+          userLaunched = true;
+          showRobyMessage = true;
+          currentNotificationTimeOut();
+          youAreFired();
+          notifyListeners();
+        }
+
       }
 
       }
@@ -768,6 +829,13 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     Player 1 :  ${playerOneScore},
     Player 2 : ${playerTwoScore},
   """);
+  }
+
+  currentUserCards(){
+    // Print current users cards after every turn
+    print("Player 1 Cards : [${playerOneCards}]");
+    print("Player 2 Cards : [${playerTwoCards}]");
+
   }
 
 }

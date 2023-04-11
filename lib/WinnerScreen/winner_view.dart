@@ -11,12 +11,14 @@ class WinnerView extends StackedView<WinnerModel>{
     required this.loosePlayer,
     required this.winnerScore,
     required this.looserScore,
+    required this.isTwoPlayersMode,
     super.key});
 
   final String winnerPlayer;
   final String loosePlayer;
   final int winnerScore;
   final int looserScore;
+  final bool isTwoPlayersMode;
 
   @override
   Widget builder(
@@ -29,6 +31,7 @@ class WinnerView extends StackedView<WinnerModel>{
     viewModel.looseName = loosePlayer;
     viewModel.winnerScore = winnerScore;
     viewModel.looserScore = looserScore;
+    viewModel.isTwoPlayersMode = isTwoPlayersMode;
 
     return Scaffold(
       body: Stack(

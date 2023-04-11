@@ -67,18 +67,6 @@ class RobyChoosedCardDialog extends StatelessWidget{
               ],
             ),
 
-            Container(
-              width: width * 0.1,
-              height: height * 0.1,
-              margin: EdgeInsets.only(right: width * 0.85, top: height * 0.05),
-              child: IconButton(
-                  onPressed: (){
-                    viewModel.showRobyMessage = false;
-                    viewModel.notifyListeners();
-                  },
-                  icon: const Icon(Icons.close_rounded, color: Colors.white, size: 35,)),
-            ),
-
           ],
       )
     );
