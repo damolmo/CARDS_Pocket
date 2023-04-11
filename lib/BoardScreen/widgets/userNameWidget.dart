@@ -20,7 +20,7 @@ class UserNameWidget extends StatelessWidget{
       width: double.maxFinite,
       height: height * 0.2,
       margin: EdgeInsets.only( left: width * 0.1, right: width * 0.1),
-      child: viewModel.isTwoPlayersMode && viewModel.isPlayerOneTurn ?  Text("${viewModel.playerOneName}", style: const TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center,) :  Text("${viewModel.playerTwoName}",  style: const TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+      child: viewModel.isPlayerOneTurn ?  Text("${viewModel.playerOneName}", style: const TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center,) :  Text("${viewModel.playerTwoName}",  style: const TextStyle(color: Colors.white, fontSize: 50, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
     );
   }
 }

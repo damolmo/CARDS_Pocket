@@ -123,7 +123,7 @@ class BoardView extends StackedView<BoardModel>{
               // New Turn Button
               // Only shows if a turn comes to an end
               if (viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.unoEvent)
-                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) PlayerReady(viewModel: viewModel),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode ) PlayerReady(viewModel: viewModel),
 
               // Current Card
               if(!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
@@ -160,6 +160,10 @@ class BoardView extends StackedView<BoardModel>{
               // Show Wild card notification
               if (viewModel.wildCardNotification && !viewModel.newTurnButton && !viewModel.colorChanger)
                 if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) WildCardNotification(viewModel: viewModel),
+
+              // Show Roby Screen
+              if (viewModel.showRobyMessage)
+                RobyChoosedCardDialog(viewModel: viewModel),
 
             ],
           ),

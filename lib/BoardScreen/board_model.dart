@@ -62,11 +62,59 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   String wildCardStr = "";
   bool wildCardNotification =  false;
   bool isBackup = false;
+  String currentRobyCard = "";
+  String currentRobyCardName = "";
+  bool showRobyMessage = false;
+
 
   @override
   void initialise(){
     getCards();
     youAreFired();
+  }
+
+  currentNotificationTimeOut(){
+    // This method enables a countdown for notifications on display
+      // Clear color changer notification after some time
+      Duration total = Duration(seconds: 5);
+      Duration counter = Duration(seconds: 1);
+      int colorNotification = 2;
+      int wildNotification = 3;
+      int robyNotification = 2;
+
+      CountdownTimer countdownTimer =  CountdownTimer(total, counter);
+      var timer = countdownTimer.listen(null);
+      timer.onData((time) {
+
+        if (showColorChangerNotification){
+          if (colorNotification > 0) colorNotification -= counter.inSeconds;
+          if (colorNotification == 0){
+            showColorChangerNotification = false;
+            notifyListeners();
+          }
+        }
+
+        if (wildCardNotification){
+          if (wildNotification > 0) wildNotification -= counter.inSeconds;
+          if (wildNotification == 0){
+            wildCardNotification = false;
+            notifyListeners();
+          }
+        }
+
+        if (showRobyMessage){
+          if (robyNotification > 0) robyNotification -= counter.inSeconds;
+          if (robyNotification == 0) {
+            showRobyMessage = false;
+            notifyListeners();
+          }
+        }
+
+        if (!showColorChangerNotification && !showRobyMessage && !wildCardNotification){
+          timer.pause();
+          notifyListeners();
+        }
+      });
   }
 
   preventWindowClose(){
@@ -395,6 +443,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         userLaunched = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x2 (2)";
+        currentNotificationTimeOut();
         notifyListeners();
       }
     }
@@ -415,6 +464,9 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         colorChanger = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x4 (2)";
+        currentNotificationTimeOut();
+        if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
+
       }
     }
 
@@ -429,9 +481,12 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       colorChanger = true;
       wildCardNotification = true;
       wildCardStr = "Se lanzó una carta x4";
+      currentNotificationTimeOut();
       notifyListeners();
       currentCardDetails();
       currentPlayerDetails();
+      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
+
     }
 
     else if (card.name.contains("Skip") || card.name.contains("Reverse") ){
@@ -444,8 +499,9 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           notifyListeners();
           currentCardDetails();
           currentPlayerDetails();
+          if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
-      } else if (currentCard.contains("reverse") && card.name.contains("Reverse") || card.color == currentCardColor ){
+        } else if (currentCard.contains("reverse") && card.name.contains("Reverse") || card.color == currentCardColor ){
           // CURRENT USER HAVE DOUBLE TURN
           setCurrentCardValues(card);
           updateUserValuesAfterLaunch(card);
@@ -454,6 +510,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           notifyListeners();
           currentCardDetails();
           currentPlayerDetails();
+          if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
         }
     }
@@ -469,9 +526,12 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         blockCurrentUser = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x2";
+        currentNotificationTimeOut();
         notifyListeners();
         currentCardDetails();
         currentPlayerDetails();
+        if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
+
       }
 
     }
@@ -483,6 +543,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
       currentCardDetails();
+      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
       currentPlayerDetails();
       blockCurrentUser = true;
       userLaunched = true;
@@ -494,6 +555,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
       currentCardDetails();
+      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
       currentPlayerDetails();
       blockCurrentUser = true;
       userLaunched = true;
@@ -504,6 +566,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
       currentCardDetails();
+      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
       currentPlayerDetails();
       blockCurrentUser = true;
       userLaunched =  true;
@@ -517,9 +580,17 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     notifyListeners();
   }
 
+  currentRobyDetails(Cards card){
+    // Set roby current card attributes
+    currentRobyCardName = card.name;
+    currentRobyCard = card.uri;
+    notifyListeners();
+
+  }
+
   nextTurn(){
     // Some events should skip the turn, that why this method exists
-    if (isPlayerOneTurn && x2Counter < 2){
+    if (isPlayerOneTurn){
       isPlayerOneTurn = false;
       isPlayerTwoTurn = true;
       newTurnButton = true;
@@ -527,7 +598,11 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       currentWidgetTimer = 30;
       userLaunched = false;
       fired = false;
+      if (!isTwoPlayersMode) {
+        robyTurn();
+      }
       notifyListeners();
+
     } else {
       isPlayerOneTurn = true;
       isPlayerTwoTurn = false;
@@ -537,7 +612,53 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       userLaunched = false;
       fired = false;
       notifyListeners();
+      if (!isTwoPlayersMode){
+        showRobyMessage = true;
+        currentNotificationTimeOut();
+        blockCurrentUser = false;
+        newTurnButton = false;
+        youAreFired();
+        notifyListeners();
+      }
+
     }
+  }
+
+  robyTurn() async {
+
+    checkRobyDeck(){
+      // Check and compare deck and currentcard
+
+      if(playerTwoCards.isNotEmpty){
+        for(Cards card in playerTwoCards){
+          if (!userLaunched) {
+            checkUserSelectedCard(card);
+          }
+        }
+      }
+
+      if (!userLaunched){
+        if(!playerTwoPicked){
+          pickCardFromDeck();
+          currentRobyCardName = "";
+          currentRobyCard = "";
+          nextTurn();
+        }
+      } else {
+        userLaunched = true;
+        notifyListeners();
+        nextTurn();
+      }
+
+      }
+
+    // Roby is our official Pet
+    // He'll be playing as a normal user but he's faster of course
+
+    // Check if roby has some cards on his deck
+    checkRobyDeck();
+
+
   }
 
   currentCardDetails() async {
