@@ -45,6 +45,7 @@ class RobyChoosedCardDialog extends StatelessWidget{
             children: [
               // Left - Current Card
               SizedBox(width: width * 0.05,),
+              if(viewModel.currentRobyCard.isNotEmpty)
               Container(
                 width: width * 0.15,
                 height: height * 0.1,

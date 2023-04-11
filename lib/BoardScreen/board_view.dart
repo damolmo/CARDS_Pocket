@@ -114,13 +114,13 @@ class BoardView extends StackedView<BoardModel>{
             children: [
               // Background Theme
               if (!viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) BackgroundTheme(),
-                if (viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode) BackgroundTheme(const Color.fromRGBO(9, 86, 191, 1.0)),
+                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode) BackgroundTheme(),
+                if (viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && !viewModel.isTwoPlayersMode ) BackgroundTheme(const Color.fromRGBO(9, 86, 191, 1.0)),
 
 
               // UserName Widget
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) UserNameWidget(viewModel: viewModel,),
+               UserNameWidget(viewModel: viewModel,),
 
               // Timer Widget
               if (!viewModel.newTurnButton  && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
@@ -133,11 +133,11 @@ class BoardView extends StackedView<BoardModel>{
 
               // Current Card
               if(!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode ) CurrentCard(viewModel: viewModel),
+                CurrentCard(viewModel: viewModel),
 
               // Current User Cards
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
-                if (viewModel.isPlayerOneTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerTwoTurn && viewModel.isTwoPlayersMode || viewModel.isPlayerOneTurn && !viewModel.isTwoPlayersMode) UserCards(viewModel: viewModel),
+                UserCards(viewModel: viewModel),
 
               // User Buttons
               if (!viewModel.newTurnButton && !viewModel.userDismised && !viewModel.colorChanger && !viewModel.unoEvent)
