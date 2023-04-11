@@ -437,6 +437,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         setCurrentCardValues(card);
         updateUserValuesAfterLaunch(card);
         x2Counter++;
+        notifyListeners();
         // PUNISHMENT MUST BE APPLIED
         pickPunishmentCards();
         // SKIP TURN AND SHOW NOTIFICATION
@@ -444,6 +445,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x2 (2)";
         notifyListeners();
+
       }
     }
 
@@ -463,7 +465,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         colorChanger = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x4 (2)";
-        if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
+        notifyListeners();
 
       }
     }
@@ -482,7 +484,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       notifyListeners();
       currentCardDetails();
       currentPlayerDetails();
-      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
     }
 
@@ -496,7 +497,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           notifyListeners();
           currentCardDetails();
           currentPlayerDetails();
-          if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
         } else if (currentCard.contains("reverse") && card.name.contains("Reverse") || card.color == currentCardColor ){
           // CURRENT USER HAVE DOUBLE TURN
@@ -507,7 +507,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           notifyListeners();
           currentCardDetails();
           currentPlayerDetails();
-          if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
         }
     }
@@ -526,7 +525,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         notifyListeners();
         currentCardDetails();
         currentPlayerDetails();
-        if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
       }
 
@@ -539,7 +537,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
       currentCardDetails();
-      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
       currentPlayerDetails();
       blockCurrentUser = true;
       userLaunched = true;
@@ -551,7 +548,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
       currentCardDetails();
-      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
       currentPlayerDetails();
       blockCurrentUser = true;
       userLaunched = true;
@@ -562,7 +558,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       setCurrentCardValues(card);
       updateUserValuesAfterLaunch(card);
       currentCardDetails();
-      if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
       currentPlayerDetails();
       blockCurrentUser = true;
       userLaunched =  true;
@@ -627,8 +622,104 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
       if(playerTwoCards.isNotEmpty){
         for(Cards card in playerTwoCards){
-          if (!userLaunched) {
-            checkUserSelectedCard(card);
+          if (currentCardColor == card.color || currentCardValue == card.value){
+            if (card.name.contains("Wild") && !card.name.contains("x4")){
+              // Wild cards are special
+
+              // Set random color
+              List<String> colors = ["rojo", "naranja", "verde", "azul"];
+              Random randomColor = Random();
+              int index = randomColor.nextInt(colors.length);
+
+              // Update current card details
+              setCurrentCardValues(card);
+              currentRobyDetails(card);
+
+              // Update user values
+              updateUserValuesAfterLaunch(card);
+
+              // Next turn
+              userLaunched = true;
+              notifyListeners();
+
+
+            } else if (card.name.contains("x4")) {
+              // This is a wild card with counter
+              // Increment x4 counters
+
+              // Set current card values
+              setCurrentCardValues(card);
+              currentRobyDetails(card);
+
+              // Update user values
+              updateUserValuesAfterLaunch(card);
+
+              // Update x4 counters
+              if(x4Card) {
+                x4Counter++;
+                notifyListeners();
+                pickPunishmentCards();
+                wildCardNotification = true;
+                wildCardStr = "Se lanzó una carta x4 (2)";
+                userLaunched = true;
+                notifyListeners();
+                currentNotificationTimeOut();
+              } else {
+                x4Counter++;
+                x4Card = true;
+                wildCardNotification = true;
+                wildCardStr = "Se lanzó una carta x4";
+                userLaunched = true;
+                notifyListeners();
+                currentNotificationTimeOut();
+              }
+
+
+
+            } else if(card.name.contains("x2") && currentCardColor == card.color || card.name.contains("x2") && currentCard.contains("draw_2")) {
+              // X2 Cards are special card types too
+
+              // Set current card values
+              setCurrentCardValues(card);
+              currentRobyDetails(card);
+
+              // Update user values
+              updateUserValuesAfterLaunch(card);
+
+              // Set x2 counters
+              if (x2Card) {
+                x2Counter++;
+                notifyListeners();
+                pickPunishmentCards();
+                userLaunched = true;
+                wildCardNotification = true;
+                wildCardStr = "Se lanzó una carta x2 (2)";
+                notifyListeners();
+                currentNotificationTimeOut();
+              } else {
+                x2Card = true;
+                x2Counter++;
+                userLaunched = true;
+                wildCardNotification = true;
+                wildCardStr = "Se lanzó una carta x2";
+                notifyListeners();
+                currentNotificationTimeOut();
+              }
+
+            } else if (currentCardColor == card.color || currentCardValue == card.value) {
+
+              // Update deck card details
+              setCurrentCardValues(card);
+
+              // Update Roby details
+              currentRobyDetails(card);
+              updateUserValuesAfterLaunch(card);
+              userLaunched = true;
+              showRobyMessage = true;
+              currentNotificationTimeOut();
+              notifyListeners();
+            }
+
           }
         }
       }
