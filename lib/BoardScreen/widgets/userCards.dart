@@ -29,11 +29,24 @@ class UserCards extends StatelessWidget{
               crossAxisSpacing: 1,
               mainAxisSpacing: width / 200),
           itemBuilder: (BuildContext, index ){
+
+            List<String> fakeCards = [];
+            List<Cards> playerTwoCards = [];
+
+            for (Cards card in viewModel.playerTwoCards){
+              if (!viewModel.isTwoPlayersMode){
+                playerTwoCards.add(Cards(name: "name", color: "color", value: "", uri: "assets/logo/deck.png"));
+              } else {
+                playerTwoCards.add(card);
+              }
+
+            }
+
             return InkWell(
                 onTap: (){
                   viewModel.isPlayerOneTurn ?
                   viewModel.checkUserSelectedCard(viewModel.playerOneCards[index]) :
-                  viewModel.checkUserSelectedCard(viewModel.playerTwoCards[index]);
+                  viewModel.checkUserSelectedCard(playerTwoCards[index]);
                   if (viewModel.winnerDetected == true){
                     viewModel.killCurrentMusic(viewModel.player);
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode,)));
@@ -41,7 +54,7 @@ class UserCards extends StatelessWidget{
                 },
                 child : viewModel.isPlayerOneTurn ?
                   Image.asset(viewModel.playerOneCards[index].uri) :
-                  Image.asset(viewModel.playerTwoCards[index].uri),
+                  Image.asset(playerTwoCards[index].uri),
                 );
             },
       ),

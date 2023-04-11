@@ -592,6 +592,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       fired = false;
       notifyListeners();
       if (!isTwoPlayersMode) {
+        newTurnButton = false;
+        notifyListeners();
         robyTurn();
       }
 
