@@ -443,7 +443,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         userLaunched = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x2 (2)";
-        currentNotificationTimeOut();
         notifyListeners();
       }
     }
@@ -464,7 +463,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         colorChanger = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x4 (2)";
-        currentNotificationTimeOut();
         if (!isTwoPlayersMode && isPlayerTwoTurn) currentRobyDetails(card);
 
       }
@@ -481,7 +479,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       colorChanger = true;
       wildCardNotification = true;
       wildCardStr = "Se lanzó una carta x4";
-      currentNotificationTimeOut();
       notifyListeners();
       currentCardDetails();
       currentPlayerDetails();
@@ -526,7 +523,6 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         blockCurrentUser = true;
         wildCardNotification = true;
         wildCardStr = "Se lanzó una carta x2";
-        currentNotificationTimeOut();
         notifyListeners();
         currentCardDetails();
         currentPlayerDetails();

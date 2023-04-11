@@ -18,7 +18,7 @@ class ColorChanger extends StatelessWidget{
       body: Stack(
         children: [
           // Background Theme
-          BackgroundTheme(),
+          viewModel.isPlayerTwoTurn ? BackgroundTheme(const Color.fromRGBO(9, 86, 191, 1.0)) :  BackgroundTheme(),
 
           // Colors Title
           ColorsTitle(),
@@ -39,13 +39,13 @@ class ColorsTitle extends StatelessWidget{
     final width = MediaQuery.of(context).size.width;
 
     return Container(
-      margin: EdgeInsets.only(left: width * 0.1, right: width * 0.1, bottom: height * 0.1),
+      margin: EdgeInsets.only(left: width * 0.3, right: width * 0.3, bottom: height * 0.1),
       width: double.maxFinite,
       height: height * 0.2,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/colorChanger/colorChanger.png"),
-          fit: BoxFit.fitHeight
+          fit: BoxFit.fitWidth
         )
       ),
 
@@ -87,7 +87,6 @@ class ColorsBox extends StatelessWidget{
                   viewModel.colorChanged = Colors.red;
                   viewModel.colorChangedStr = "El color cambió a Rojo";
                   viewModel.showColorChangerNotification = true;
-                  viewModel.currentNotificationTimeOut();
                   viewModel.notifyListeners();
 
                  },
@@ -114,7 +113,6 @@ class ColorsBox extends StatelessWidget{
                   viewModel.colorChanged = Colors.blue;
                   viewModel.colorChangedStr = "El color cambió a Azul";
                   viewModel.showColorChangerNotification = true;
-                  viewModel.currentNotificationTimeOut();
                   viewModel.notifyListeners();
                 },
                 child : Container(
@@ -144,7 +142,6 @@ class ColorsBox extends StatelessWidget{
                   viewModel.colorChanged = Colors.green;
                   viewModel.colorChangedStr = "El color cambió a Verde";
                   viewModel.showColorChangerNotification = true;
-                  viewModel.currentNotificationTimeOut();
                   viewModel.colorChanger = false;
                   viewModel.notifyListeners();
                 },
@@ -169,7 +166,6 @@ class ColorsBox extends StatelessWidget{
                  viewModel.colorChanged = Colors.orange;
                  viewModel.colorChangedStr = "El color cambió a Naranja";
                  viewModel.showColorChangerNotification = true;
-                 viewModel.currentNotificationTimeOut();
                  viewModel.colorChanger = false;
                  viewModel.notifyListeners();
 
