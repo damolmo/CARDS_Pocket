@@ -21,7 +21,7 @@ class PlayersNameView extends StackedView<PlayersNameModel>{
       Widget? child
       ){
 
-    isTwoPlayersMode ?  viewModel.isTwoPlayerMode =  true : viewModel.isTwoPlayerMode = false;
+    viewModel.isTwoPlayerMode = isTwoPlayersMode;
     viewModel.player = player;
     viewModel.keepMusic(player, context, "keep");
 

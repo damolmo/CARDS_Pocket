@@ -74,10 +74,6 @@ class PlayerField extends StatelessWidget{
                ),
                onPressed: (){
 
-                 if (!viewModel.isTwoPlayerMode){
-                   print("Player 1 :  ${viewModel.playerOneName.text}");
-                 }
-
                  if (viewModel.isTwoPlayerMode && viewModel.isPlayerOneFieldComplete){
                    if(viewModel.playerTwoName.text.isNotEmpty){
                      print("Player 2 :  ${viewModel.playerTwoName.text}");
@@ -109,9 +105,10 @@ class PlayerField extends StatelessWidget{
                  if (!viewModel.isTwoPlayerMode){
                    // We're playing against the CPU
                    if (viewModel.playerOneName.text.isNotEmpty){
+                     viewModel.playerTwoName.text = "Roby";
+                     viewModel.notifyListeners();
                      print("Player 1 : ${viewModel.playerOneName.text}");
-                     viewModel.playerTwoName.text = "CPU";
-                     viewModel.isPlayerOneFieldComplete = true;
+                     print("Player 2 : ${viewModel.playerTwoName.text}");
                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isTwoPlayersMode: false, currentCard: "", currentCardColor: "", currentCardValue: "", player: player, isBackup: false)));
                    }
 

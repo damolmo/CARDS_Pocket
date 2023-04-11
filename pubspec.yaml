@@ -84,6 +84,7 @@ flutter:
     - assets/saveGame/
     - assets/loadGame/
     - assets/unoChance/
+    - assets/pet/
 
 flutter_icons:
   image_path: "assets/logo/logo.png"

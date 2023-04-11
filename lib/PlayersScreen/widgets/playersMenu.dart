@@ -29,10 +29,8 @@ class PlayersMenu extends StatelessWidget{
             borderRadius: BorderRadius.circular(30),
             child : InkWell(
               onTap: (){
-                var snack = SnackBar(content: Text("Modo disponible próximamente", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold, ), textAlign: TextAlign.center,),behavior: SnackBarBehavior.floating ,);
-                ScaffoldMessenger.of(context).showSnackBar(snack);
-                //player.pause();
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => PlayersNameView(isTwoPlayersMode: viewModel.isTwoPlayersMode = false, player: player,)));
+                 player.pause();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayersNameView(isTwoPlayersMode: viewModel.isTwoPlayersMode = false, player: player,)));
               },
               child : Container(
               width: double.maxFinite,

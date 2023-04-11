@@ -87,6 +87,7 @@ class ColorsBox extends StatelessWidget{
                   viewModel.colorChanged = Colors.red;
                   viewModel.colorChangedStr = "El color cambió a Rojo";
                   viewModel.showColorChangerNotification = true;
+                  viewModel.currentNotificationTimeOut();
                   viewModel.notifyListeners();
 
                  },
@@ -113,6 +114,7 @@ class ColorsBox extends StatelessWidget{
                   viewModel.colorChanged = Colors.blue;
                   viewModel.colorChangedStr = "El color cambió a Azul";
                   viewModel.showColorChangerNotification = true;
+                  viewModel.currentNotificationTimeOut();
                   viewModel.notifyListeners();
                 },
                 child : Container(
@@ -142,6 +144,7 @@ class ColorsBox extends StatelessWidget{
                   viewModel.colorChanged = Colors.green;
                   viewModel.colorChangedStr = "El color cambió a Verde";
                   viewModel.showColorChangerNotification = true;
+                  viewModel.currentNotificationTimeOut();
                   viewModel.colorChanger = false;
                   viewModel.notifyListeners();
                 },
@@ -166,6 +169,7 @@ class ColorsBox extends StatelessWidget{
                  viewModel.colorChanged = Colors.orange;
                  viewModel.colorChangedStr = "El color cambió a Naranja";
                  viewModel.showColorChangerNotification = true;
+                 viewModel.currentNotificationTimeOut();
                  viewModel.colorChanger = false;
                  viewModel.notifyListeners();
 
