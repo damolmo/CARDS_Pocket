@@ -95,9 +95,15 @@ class BoardView extends StackedView<BoardModel>{
                 const Spacer(),
                 IconButton(
                     onPressed: (){
-                      viewModel.saving = true;
-                      viewModel.notifyListeners();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player)));
+                      if (viewModel.isTwoPlayersMode){
+                        viewModel.saving = true;
+                        viewModel.notifyListeners();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player)));
+                      } else {
+                        var snack = SnackBar(content: Text("No se puede guardar en el modo 1 jugador", style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating ,);
+                        ScaffoldMessenger.of(context).showSnackBar(snack);
+                      }
+
                     },
                     icon: Icon(Icons.save_rounded, color: Colors.white, size: 35,)),
 

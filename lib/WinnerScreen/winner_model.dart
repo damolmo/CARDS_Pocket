@@ -11,6 +11,7 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
   String looseName =  "";
   int winnerScore = 0;
   int looserScore = 0;
+  bool isTwoPlayersMode = false;
 
   @override
   void initialise(){

@@ -36,7 +36,7 @@ class UserCards extends StatelessWidget{
                   viewModel.checkUserSelectedCard(viewModel.playerTwoCards[index]);
                   if (viewModel.winnerDetected == true){
                     viewModel.killCurrentMusic(viewModel.player);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore,)));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode,)));
                   }
                 },
                 child : viewModel.isPlayerOneTurn ?
