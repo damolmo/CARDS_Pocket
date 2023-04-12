@@ -56,6 +56,9 @@ class RobyChoosedCardDialog extends StatelessWidget{
                 ),
                 child: Image.asset(viewModel.currentRobyCard),
               ),
+              if(viewModel.currentRobyCard.isEmpty)
+                SizedBox(width: width * 0.1,),
+
               const Spacer(),
               Container(
                 width: double.maxFinite,

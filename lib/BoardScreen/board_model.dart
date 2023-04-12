@@ -65,7 +65,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   String currentRobyCard = "";
   String currentRobyCardName = "";
   bool showRobyMessage = false;
-
+  BuildContext? context ;
 
   @override
   void initialise(){
@@ -626,11 +626,13 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   }
 
   robyTurn() {
+
     checkRobyDeck(){
       // Check and compare deck and currentcard
 
       int launchedCard = 999;
       bool robyLaunched = false;
+      bool skipTurn = false;
 
       robyX2Cards(Cards card){
         // Defines a sequential actions to execute
@@ -653,7 +655,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         } else {
           x2Card = true;
           x2Counter = 1;
-          userLaunched = true;
+          robyLaunched = true;
           wildCardNotification = true;
           wildCardStr = "Se lanzó una carta x2";
           currentNotificationTimeOut();
@@ -674,12 +676,18 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         int index = randomColor.nextInt(colors.length);
 
         // Update current card details
+        currentCardValue = card.value;
         currentCard = card.uri;
-        currentCardValue = card.uri;
         currentCardColor = colors[index];
+
+        // Wild card notification
+        wildCardNotification = true;
+        wildCardStr  = "Se lanzó una carta x4";
+        currentNotificationTimeOut();
 
         // Update user values later
         launchedCard = playerTwoCards.indexOf(card);
+        notifyListeners();
 
         // Update x4 counters
         if (x4Card) {
@@ -695,11 +703,44 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           x4Counter = 1;
           x4Card = true;
           wildCardNotification = true;
-          wildCardStr = "Se lanzó una carta x4";
+          wildCardStr  = "Se lanzó una carta x4";
           currentNotificationTimeOut();
           robyLaunched = true;
           notifyListeners();
         }
+      }
+
+      robySkipReverse(Cards card){
+        // To execute if Roby used any of these cards
+
+        // Set current cards values
+        setCurrentCardValues(card);
+
+        // Save launched card for later
+        launchedCard = playerTwoCards.indexOf(card);
+        notifyListeners();
+
+        // Set roby values
+        currentRobyDetails(card);
+
+        // Roby's turn again
+        robyLaunched = true;
+        skipTurn = true;
+        notifyListeners();
+
+      }
+
+      robyUnoCheck(){
+        // Since Roby doesn't know thta he must press the UNO button
+        // We need a random check by roby if remaining cards is one
+          List<bool> trueFalse = [true, false];
+          Random randomCheck = Random();
+          int index = randomCheck.nextInt(trueFalse.length);
+
+          if (trueFalse[index] ==  true){
+            checkUnoChance();
+          }
+
       }
 
       if(playerTwoCards.isNotEmpty && !userLaunched){
@@ -713,14 +754,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
                 robyX4Cards(card);
               } else {
                 consumedTurn = 1;
-                currentRobyCardName = "";
-                currentRobyCard = "";
-                showRobyMessage = true;
-                userLaunched = true;
                 notifyListeners();
-                pickPunishmentCards();
-                currentNotificationTimeOut();
-                youAreFired();
               }
 
             } else {
@@ -736,12 +770,16 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
                 currentCard = card.uri;
                 currentCardValue = card.uri;
                 currentCardColor = colors[index];
-                showRobyMessage = true;
-                notifyListeners();
-                currentRobyDetails(card);
 
                 // Update user values later
                 launchedCard =  playerTwoCards.indexOf(card);
+                robyLaunched = true;
+                showRobyMessage = true;
+                wildCardNotification = true;
+                wildCardStr  = "Se lanzó una carta Wild";
+                currentNotificationTimeOut();
+                currentRobyDetails(card);
+                notifyListeners();
 
               } else if (card.name.contains("x4")) {
                 robyX4Cards(card);
@@ -750,6 +788,17 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
                   card.name.contains("x2") && currentCard.contains("draw_2")) {
                 // X2 Cards are special card types too
                 robyX2Cards(card);
+
+              } else if (card.name.contains("Reverse") || card.name.contains("Skip")){
+                if (card.name.contains("Skip")){
+                  if (currentCard.contains("skip") || currentCardColor == card.color){
+                    robySkipReverse(card);
+                  }
+                } else if (card.name.contains("Reverse")){
+                  if (currentCard.contains("reverse") || currentCardColor == card.color){
+                    robySkipReverse(card);
+                  }
+                }
 
               } else if (currentCardColor == card.color ||
                   currentCardValue == card.value) {
@@ -771,36 +820,71 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       }
 
       if (!robyLaunched){
-        if(!playerTwoPicked){
-          pickCardFromDeck();
+
+        if (consumedTurn == 1){
+          pickPunishmentCards();
           currentRobyCardName = "";
           currentRobyCard = "";
           showRobyMessage = true;
-          currentNotificationTimeOut();
           userLaunched = true;
           notifyListeners();
+          currentNotificationTimeOut();
           youAreFired();
+        }
+
+        else if(!playerTwoPicked){
+          pickCardFromDeck();
+          print("Roby a picado una carta");
+          print("Cartas restantes :  ${playerTwoCards.length}");
+          robyLaunched = true;
+          currentRobyCardName = "";
+          currentRobyCard = "";
+          showRobyMessage = true;
+          userLaunched = true;
+          notifyListeners();
+          currentNotificationTimeOut();
+          youAreFired();
+
         } else {
           currentRobyCardName = "";
           currentRobyCard = "";
           showRobyMessage = true;
+          userLaunched = true;
+          notifyListeners();
           currentNotificationTimeOut();
+          youAreFired();
         }
       } else {
+        print("Roby launched ${playerTwoCards[launchedCard].name}");
         // Update user values later
         if(launchedCard != 999){
           playerTwoScore += int.parse(playerTwoCards.elementAt(launchedCard).value);
           playerTwoCards.removeAt(launchedCard);
-          userLaunched = true;
-          showRobyMessage = true;
-          currentNotificationTimeOut();
-          youAreFired();
           notifyListeners();
+          if (playerTwoCards.length == 1) robyUnoCheck();
+
+          if(playerTwoCards.isEmpty){
+            checkPossibleWinner();
+            Navigator.pushReplacement(context!, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: winnerName, loosePlayer: looserName, winnerScore: winnerScore, looserScore: looserScore, isTwoPlayersMode: false)));
+
+          }
+
+          print("Cartas restantes :  ${playerTwoCards.length}");
+          showRobyMessage = true;
+          notifyListeners();
+          currentNotificationTimeOut();
+          if(!skipTurn){
+            userLaunched = true;
+            checkPossibleWinner();
+            youAreFired();
+            notifyListeners();
+          } else {
+            print("Le vuelve a tocar a Roby");
+            checkRobyDeck();
+          }
         }
-
       }
-
-      }
+    }
 
     // Roby is our official Pet
     // He'll be playing as a normal user but he's faster of course
