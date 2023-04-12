@@ -50,6 +50,11 @@ class BoardView extends StackedView<BoardModel>{
 
     viewModel.playerOneName =  playerOneName;
     viewModel.playerTwoName = playerTwoName;
+
+    if (!isBackup){
+      viewModel.context = context;
+    }
+
     if (isBackup){
       viewModel.playerOneScore = playerOneScore;
       viewModel.playerTwoScore = playerTwoScore;
