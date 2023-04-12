@@ -865,6 +865,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
           if(playerTwoCards.isEmpty){
             checkPossibleWinner();
+            player.pause();
+            notifyListeners();
             Navigator.pushReplacement(context!, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: winnerName, loosePlayer: looserName, winnerScore: winnerScore, looserScore: looserScore, isTwoPlayersMode: false)));
 
           }
