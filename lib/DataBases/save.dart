@@ -15,6 +15,7 @@ class Save {
     required this.currentCardValue,
     required this.playerOneCardsUri,
     required this.playerTwoCardsUri,
+    required this.isTwoPlayersMode,
 });
 
   final String saveName;
@@ -27,6 +28,7 @@ class Save {
   final String currentCardValue;
   final String playerOneCardsUri;
   final String playerTwoCardsUri;
+  final int isTwoPlayersMode;
 
 
   static const savesTable = """
@@ -40,7 +42,8 @@ class Save {
       currentCardColor TEXT,
       currentCardValue TEXT,
       playerOneCardsUri TEXT,
-      playerTwoCardsUri TEXT);
+      playerTwoCardsUri TEXT,
+      isTwoPlayersMode INTEGER);
   """;
 
   Map<String,dynamic> toMap(){
@@ -55,6 +58,7 @@ class Save {
       "currentCardValue" :  currentCardValue,
       "playerOneCardsUri" : playerOneCardsUri,
       "playerTwoCardsUri" :  playerTwoCardsUri,
+      "isTwoPlayersMode" :  isTwoPlayersMode,
     };
   }
 
@@ -70,6 +74,7 @@ class Save {
     currentCardValue: map["currentCardValue"],
     playerOneCardsUri: map["playerOneCardsUri"],
     playerTwoCardsUri: map["playerTwoCardsUri"],
+    isTwoPlayersMode: map["isTwoPlayersMode"],
   );
 
   static createSavesTable() async {
