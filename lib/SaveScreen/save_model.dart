@@ -74,7 +74,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
 
     // Time to Navigate to board, again
     player.pause();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: true, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true, currentCardValue: save.currentCardValue, currentCard: save.currentCard, currentCardColor: save.currentCardColor,)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: save.isTwoPlayersMode == 1 ? true :  false, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true, currentCardValue: save.currentCardValue, currentCard: save.currentCard, currentCardColor: save.currentCardColor,)));
 
   }
 
@@ -127,7 +127,8 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
         currentCardValue: boardModel.currentCardValue,
         currentCardColor: boardModel.currentCardColor,
         playerOneCardsUri: playerOneCardsStr,
-        playerTwoCardsUri: playerTwoCardsStr);
+        playerTwoCardsUri: playerTwoCardsStr,
+        isTwoPlayersMode: boardModel.isTwoPlayersMode ? 1 : 0);
 
     // Check if fileName exists before creating a new entry
     List<Save> temp = await Save.retrieveSavesFromDataBase();

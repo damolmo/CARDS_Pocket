@@ -34,6 +34,7 @@ class WinnerMenu extends StatelessWidget{
                   backgroundColor: Colors.blueAccent,
                 ),
                 onPressed: (){
+                  viewModel.player.stop();
                   viewModel.addWinnerToRanking();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.winnerName, playerTwoName: viewModel.looseName, isTwoPlayersMode: viewModel.isTwoPlayersMode, player: viewModel.player, playerOneScore: 0, playerOneCards: [], playerTwoCards: [], playerTwoScore: 0, isBackup: false, currentCardColor: "", currentCard: "", currentCardValue: "",)));
                 },
@@ -53,6 +54,7 @@ class WinnerMenu extends StatelessWidget{
                   backgroundColor: Colors.redAccent,
                 ),
                 onPressed: (){
+                  viewModel.player.stop();
                   viewModel.addWinnerToRanking();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
                 },
