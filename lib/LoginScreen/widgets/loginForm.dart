@@ -19,7 +19,7 @@ class LoginForm extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: height * 0.62,
+      height: height * 0.65,
       margin: EdgeInsets.only(top: height * 0.25, bottom: height * 0.05, left: width * 0.05, right: width * 0.05),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -60,9 +60,15 @@ class FormTitle extends StatelessWidget{
 
     return Container(
       width: double.maxFinite,
-      height: height * 0.1,
-      margin: EdgeInsets.only(top: height * 0.02, bottom: height * 0.05, left: width * 0.1, right: width * 0.1),
-      child: Text(viewModel.existingAccounts ? "Iniciar Sesión" : "Crear Cuenta", style: TextStyle(color: Colors.black, fontSize: width * 0.1, fontWeight: FontWeight.bold, ), textAlign: TextAlign.center, ),
+      height: height * 0.2,
+      margin: EdgeInsets.only(top: height * 0.02, bottom: height * 0.025, left: width * 0.1, right: width * 0.1),
+      child: Row(
+        children: [
+          const Spacer(),
+          Text(viewModel.existingAccounts ? "Iniciar Sesión" : "Crear Cuenta", style: TextStyle(color: Colors.black, fontSize: width * 0.08, fontWeight: FontWeight.bold, ), textAlign: TextAlign.center, ),
+          const Spacer(),
+        ],
+      )
     );
   }
 }

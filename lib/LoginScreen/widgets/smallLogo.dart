@@ -17,7 +17,7 @@ class SmallLogo extends StatelessWidget{
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/logo/logo.png"),
-          fit: BoxFit.fitWidth
+          fit: BoxFit.fitHeight
         )
       ),
     );

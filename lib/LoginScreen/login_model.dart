@@ -51,8 +51,13 @@ class LoginModel extends BaseViewModel implements Initialisable{
 
     if (userNameController.text.isEmpty) fieldNameError = "El campo usuario es obligatorio";
     if (userPasswordController.text.isEmpty) fieldPasswordError = "El campo contraseña es obligatorio";
-    if(userPasswordController.text.isNotEmpty && userNameController.text.isNotEmpty) allFieldsCompleted = true;
-    notifyListeners();
+    if(userPasswordController.text.isNotEmpty && userNameController.text.isNotEmpty) {
+      allFieldsCompleted = true;
+      notifyListeners();
+    } else {
+      allFieldsCompleted = false;
+      notifyListeners();
+    }
   }
 
   loginIntoAccount(){
@@ -76,11 +81,10 @@ class LoginModel extends BaseViewModel implements Initialisable{
             fieldNameError = "Esta cuenta no existe";
             notifyListeners();
           }
-
             if (account.userPassword == userPasswordController.text){
               // Password verified
               loginPassWordPassed = true;
-              loginSucceed = true;
+              if(loginNamePassed && loginPassWordPassed) loginSucceed = true;
               notifyListeners();
             } else {
               // Password wrongr
@@ -89,7 +93,6 @@ class LoginModel extends BaseViewModel implements Initialisable{
               notifyListeners();
             }
         }
-
       }
     }
 
@@ -121,7 +124,7 @@ class LoginModel extends BaseViewModel implements Initialisable{
       }
     }
 
-    if (!loginNamePassed){
+    if (!loginNamePassed && allFieldsCompleted){
       // Account doesn't exist
       // Time to add it
       Accounts newAccount = Accounts(userName: userNameController.text, userPassword: userPasswordController.text);
