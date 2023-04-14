@@ -170,7 +170,8 @@ class FormButton extends StatelessWidget{
           onPressed : (){
             viewModel.existingAccounts ?  viewModel.loginIntoAccount() :  viewModel.createAccount();
             if (viewModel.loginSucceed ) {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const TitleView()));
+              print("user ? :  ${viewModel.userNameController.text}");
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView(userName: viewModel.userNameController.text,)));
             }
           },
           child: Text(viewModel.existingAccounts ? "Iniciar" : "Registrar", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.center,),

@@ -66,6 +66,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   String currentRobyCardName = "";
   bool showRobyMessage = false;
   BuildContext? context ;
+  String userName = "";
 
   @override
   void initialise(){
@@ -867,7 +868,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
             checkPossibleWinner();
             player.pause();
             notifyListeners();
-            Navigator.pushReplacement(context!, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: winnerName, loosePlayer: looserName, winnerScore: winnerScore, looserScore: looserScore, isTwoPlayersMode: false)));
+            Navigator.pushReplacement(context!, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: winnerName, loosePlayer: looserName, winnerScore: winnerScore, looserScore: looserScore, isTwoPlayersMode: false, userName: userName,)));
 
           }
 

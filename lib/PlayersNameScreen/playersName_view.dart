@@ -7,12 +7,14 @@ import '../Screens/screens.dart';
 
 class PlayersNameView extends StackedView<PlayersNameModel>{
   PlayersNameView({
-   required this.isTwoPlayersMode,
+    required this.userName,
+    required this.isTwoPlayersMode,
     required this.player,
 });
 
   final bool isTwoPlayersMode;
   final AudioPlayer player;
+  final String userName;
 
   @override
   Widget builder(
@@ -21,6 +23,7 @@ class PlayersNameView extends StackedView<PlayersNameModel>{
       Widget? child
       ){
 
+    viewModel.userName =  userName;
     viewModel.isTwoPlayerMode = isTwoPlayersMode;
     viewModel.player = player;
     viewModel.keepMusic(player, context, "keep");

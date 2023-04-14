@@ -6,10 +6,13 @@ import '../Screens/screens.dart';
 class ClassificationView extends StackedView<ClassificationModel>{
   @override
   ClassificationView({
+    required this.userName,
     required this.player,
     super.key});
 
   final AudioPlayer player;
+  final String userName;
+  int refresh = 1;
 
   @override
   Widget builder(
@@ -20,6 +23,12 @@ class ClassificationView extends StackedView<ClassificationModel>{
 
     viewModel.player =  player;
     viewModel.keepMusic(player, context, "keep");
+
+    if (refresh == 1){
+      viewModel.userName =  userName;
+      viewModel.getClassifications();
+      refresh = 0;
+    }
 
     return Scaffold(
       body: Stack(

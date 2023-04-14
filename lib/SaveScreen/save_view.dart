@@ -5,16 +5,19 @@ import '../Screens/screens.dart';
 
 class SaveView extends StackedView<SaveModel>{
   @override
-  const SaveView({
+   SaveView({
     required this.boardModel,
     required this.isSaveGame,
     required this.player,
+    required this.userName,
     super.key
 });
 
   final bool isSaveGame;
   final BoardModel boardModel;
   final AudioPlayer player;
+  final String userName;
+  int refresh = 1;
 
   @override
   Widget builder(
@@ -23,9 +26,14 @@ class SaveView extends StackedView<SaveModel>{
       Widget? child,
       ){
 
+    viewModel.userName = userName;
     viewModel.saveGame = isSaveGame;
     viewModel.boardModel = boardModel;
     viewModel.player = player;
+    if(refresh == 1){
+      viewModel.readSavesFromDataBase();
+      refresh = 0;
+    }
 
     return WillPopScope(
       onWillPop: () => viewModel.onReturnToBoard(context),

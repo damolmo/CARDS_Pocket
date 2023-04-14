@@ -10,6 +10,7 @@ class Classification{
     required this.userVictories,
     required this.userPoints,
     required this.userGames,
+    required this.userID,
 
 });
   final String userName;
@@ -17,14 +18,18 @@ class Classification{
   final int userVictories;
   final int userPoints;
   final int userGames;
+  final String userID;
 
   static const classificationTable = """
     CREATE TABLE IF NOT EXISTS classifications(
-      userName TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY,
+      userName TEXT,
       userLosts INTEGER,
       userVictories INTEGER,
       userPoints INTEGER,
-      userGames INTEGER);
+      userGames INTEGER,
+      userID TEXT,
+      FOREIGN KEY(userID) REFERENCES accounts(userName));
   """;
 
   Map<String,dynamic> toMap(){
@@ -34,6 +39,7 @@ class Classification{
       "userVictories" :  userVictories,
       "userPoints" :  userPoints,
       "userGames" :  userGames,
+      "userID" : userID,
     };
   }
 
@@ -43,6 +49,7 @@ class Classification{
     userVictories: map["userVictories"],
     userPoints: map["userPoints"],
     userGames: map["userGames"],
+    userID: map["userID"],
   );
 
 
@@ -93,7 +100,7 @@ class Classification{
   }
 
 
-  static Future<List<Classification>> retrieveClassifications() async {
+  static Future<List<Classification>> retrieveClassifications(String id) async {
     // Reads current classifications from database
 
     List<Classification> getClassifications(List<Map<String,dynamic>> rawClassifications){
@@ -115,10 +122,10 @@ class Classification{
       // Retrieve web entries
       var factory = databaseFactoryFfiWeb;
       var db = await factory.openDatabase("uno.db");
-      rawClassifications = await db.query("classifications");
+      rawClassifications = await db.query("classifications", columns: ['userName', 'userLosts', 'userVictories', 'userPoints', 'userGames', 'userID'], where: "userID = ?", whereArgs: [id] );
     } else {
       final Database db = await openDatabase("uno.db");
-      rawClassifications = await db.query("classifications");
+      rawClassifications = await db.query("classifications", columns: ['userName', 'userLosts', 'userVictories', 'userPoints', 'userGames', 'userID'], where: "userID = ?", whereArgs: [id] );
     }
 
     List<Classification> classifications  = getClassifications(rawClassifications);
