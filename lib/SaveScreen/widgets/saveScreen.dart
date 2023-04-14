@@ -148,7 +148,7 @@ class SaveButton extends StatelessWidget{
             viewModel.writeSaveIntoDataBase(viewModel.saveName.text);
             viewModel.killCurrentMusic(viewModel.player);
             viewModel.notifyListeners();
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView(userName: viewModel.userName,)));
           } else {
             var snack = SnackBar(content: Text("El nombre es obligatorio", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontSize: 25), textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating ,);
             ScaffoldMessenger.of(context).showSnackBar(snack);

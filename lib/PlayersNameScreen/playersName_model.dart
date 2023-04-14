@@ -13,6 +13,7 @@ class PlayersNameModel extends BaseViewModel with MusicControl implements Initia
   bool isWriting = false;
   String errorMessage = "";
   bool isFieldCompleted = false;
+  String userName = "";
 
   @override
   void initialise(){

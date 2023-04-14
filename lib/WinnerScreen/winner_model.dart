@@ -12,6 +12,7 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
   int winnerScore = 0;
   int looserScore = 0;
   bool isTwoPlayersMode = false;
+  String userName = "";
 
   @override
   void initialise(){
@@ -27,7 +28,7 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
     // Add current winner to clasification screen
 
     try {
-      winners = await Classification.retrieveClassifications();
+      winners = await Classification.retrieveClassifications(userName);
       notifyListeners();
 
       if (winners.isNotEmpty){
@@ -51,9 +52,9 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
       }
 
       print("hubo un error");
-      Classification newWinner = Classification(userName: winnerName, userLosts: 0, userVictories: 1, userPoints: winnerScore, userGames: 1);
+      Classification newWinner = Classification(userName: winnerName, userLosts: 0, userVictories: 1, userPoints: winnerScore, userGames: 1, userID: userName);
       Classification.insertEntryClassification(newWinner);
-      Classification newLooser = Classification(userName: looseName, userLosts: 1, userVictories: 0, userPoints: looserScore, userGames: 1);
+      Classification newLooser = Classification(userName: looseName, userLosts: 1, userVictories: 0, userPoints: looserScore, userGames: 1, userID: userName);
       Classification.insertEntryClassification(newLooser);
     }
 
@@ -70,7 +71,8 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
               userLosts: winner.userLosts,
               userVictories: winner.userVictories + 1,
               userPoints: winner.userPoints + winnerScore,
-              userGames: winner.userGames + 1);
+              userGames: winner.userGames + 1,
+              userID: userName);
           Classification.updateEntryClassification(currentWinner);
           winnerExists = true;
           notifyListeners();
@@ -84,7 +86,8 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
               userLosts: winner.userLosts + 1,
               userVictories: winner.userVictories,
               userPoints: winner.userPoints + looserScore,
-              userGames: winner.userGames + 1);
+              userGames: winner.userGames + 1,
+              userID: userName);
           Classification.updateEntryClassification(currentLooser);
           looserExists = true;
           notifyListeners();
@@ -95,7 +98,8 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
               userLosts: 0,
               userVictories: 1,
               userPoints: winnerScore,
-              userGames: 1);
+              userGames: 1,
+              userID: userName);
           Classification.insertEntryClassification(newWinner);
         }
 
@@ -104,7 +108,8 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
               userLosts: 1,
               userVictories: 0,
               userPoints: looserScore,
-              userGames: 1);
+              userGames: 1,
+              userID: userName);
           Classification.insertEntryClassification(newLooser);
         }
       }

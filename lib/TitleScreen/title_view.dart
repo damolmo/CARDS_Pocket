@@ -4,7 +4,11 @@ import 'package:stacked/stacked.dart';
 import '../Screens/screens.dart';
 
 class TitleView extends StackedView<TitleModel>{
-  const TitleView({super.key});
+  const TitleView({
+    required this.userName,
+    super.key});
+
+  final String userName;
 
   @override
   Widget builder(
@@ -12,6 +16,9 @@ class TitleView extends StackedView<TitleModel>{
       TitleModel viewModel,
       Widget? child
       ){
+
+    viewModel.userName = userName;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -27,7 +34,7 @@ class TitleView extends StackedView<TitleModel>{
           // Menu
           ListView(
             children: [
-              OptionsMenu(player: viewModel.player,)
+              OptionsMenu(player: viewModel.player, viewModel: viewModel,)
             ]),
 
 

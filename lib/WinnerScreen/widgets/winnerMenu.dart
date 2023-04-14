@@ -36,7 +36,7 @@ class WinnerMenu extends StatelessWidget{
                 onPressed: (){
                   viewModel.player.stop();
                   viewModel.addWinnerToRanking();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.winnerName, playerTwoName: viewModel.looseName, isTwoPlayersMode: viewModel.isTwoPlayersMode, player: viewModel.player, playerOneScore: 0, playerOneCards: [], playerTwoCards: [], playerTwoScore: 0, isBackup: false, currentCardColor: "", currentCard: "", currentCardValue: "",)));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.winnerName, playerTwoName: viewModel.looseName, isTwoPlayersMode: viewModel.isTwoPlayersMode, player: viewModel.player, playerOneScore: 0, playerOneCards: [], playerTwoCards: [], playerTwoScore: 0, isBackup: false, currentCardColor: "", currentCard: "", currentCardValue: "", userName: viewModel.userName,)));
                 },
                 child: const Text("Volver a jugar", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
               ),
@@ -56,7 +56,7 @@ class WinnerMenu extends StatelessWidget{
                 onPressed: (){
                   viewModel.player.stop();
                   viewModel.addWinnerToRanking();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView()));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView(userName: viewModel.userName,)));
                 },
                 child: const Text("Inicio", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),),
               ),

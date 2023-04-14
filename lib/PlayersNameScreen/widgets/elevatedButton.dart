@@ -78,7 +78,7 @@ class PlayerField extends StatelessWidget{
                    if(viewModel.playerTwoName.text.isNotEmpty){
                      print("Player 2 :  ${viewModel.playerTwoName.text}");
                      player.pause();
-                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, isTwoPlayersMode: viewModel.isTwoPlayerMode, player: player, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isBackup: false, currentCardColor: "", currentCardValue: "", currentCard: "",)));
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, isTwoPlayersMode: viewModel.isTwoPlayerMode, player: player, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isBackup: false, currentCardColor: "", currentCardValue: "", currentCard: "", userName: viewModel.userName,)));
                      viewModel.errorMessage = "";
                      viewModel.notifyListeners();
                    } else {
@@ -109,7 +109,7 @@ class PlayerField extends StatelessWidget{
                      viewModel.notifyListeners();
                      print("Player 1 : ${viewModel.playerOneName.text}");
                      print("Player 2 : ${viewModel.playerTwoName.text}");
-                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isTwoPlayersMode: false, currentCard: "", currentCardColor: "", currentCardValue: "", player: player, isBackup: false)));
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: viewModel.playerOneName.text, playerTwoName: viewModel.playerTwoName.text, playerOneScore: 0, playerTwoScore: 0, playerOneCards: [], playerTwoCards: [], isTwoPlayersMode: false, currentCard: "", currentCardColor: "", currentCardValue: "", player: player, isBackup: false, userName: viewModel.userName,)));
                    }
 
 

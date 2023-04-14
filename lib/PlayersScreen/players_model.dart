@@ -5,6 +5,7 @@ import 'package:uno_pocket/musicControl.dart';
 class PlayersModel extends BaseViewModel with MusicControl implements Initialisable {
   bool isTwoPlayersMode = false;
   AudioPlayer player = AudioPlayer();
+  String userName = "";
 
   @override
   void initialise(){

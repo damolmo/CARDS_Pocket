@@ -19,10 +19,10 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
   String playerOneCardsStr = "";
   String playerTwoCardsStr =  "";
   String errorMessage = "";
+  late String userName;
 
   @override
   void initialise(){
-    readSavesFromDataBase();
   }
 
   onReturnToBoard(BuildContext context){
@@ -34,8 +34,9 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
 
   readSavesFromDataBase() async {
     // A method to read all existing saves on database
+    print("userName => $userName" );
     try {
-      saves =  await Save.retrieveSavesFromDataBase();
+      saves =  await Save.retrieveSavesFromDataBase(userName);
       saves.forEach((element) {print(element.saveName);});
       notifyListeners();
     }
@@ -74,7 +75,7 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
 
     // Time to Navigate to board, again
     player.pause();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: save.isTwoPlayersMode == 1 ? true :  false, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true, currentCardValue: save.currentCardValue, currentCard: save.currentCard, currentCardColor: save.currentCardColor,)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: save.isTwoPlayersMode == 1 ? true :  false, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true, currentCardValue: save.currentCardValue, currentCard: save.currentCard, currentCardColor: save.currentCardColor, userName: save.userID,)));
 
   }
 
@@ -128,10 +129,11 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
         currentCardColor: boardModel.currentCardColor,
         playerOneCardsUri: playerOneCardsStr,
         playerTwoCardsUri: playerTwoCardsStr,
+        userID: boardModel.userName,
         isTwoPlayersMode: boardModel.isTwoPlayersMode ? 1 : 0);
 
     // Check if fileName exists before creating a new entry
-    List<Save> temp = await Save.retrieveSavesFromDataBase();
+    List<Save> temp = await Save.retrieveSavesFromDataBase(userName);
     temp.forEach((save) {
       if (save.saveName ==  saveName){
         saveExists = true;

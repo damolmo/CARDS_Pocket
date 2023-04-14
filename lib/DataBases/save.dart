@@ -16,6 +16,7 @@ class Save {
     required this.playerOneCardsUri,
     required this.playerTwoCardsUri,
     required this.isTwoPlayersMode,
+    required this.userID,
 });
 
   final String saveName;
@@ -29,11 +30,13 @@ class Save {
   final String playerOneCardsUri;
   final String playerTwoCardsUri;
   final int isTwoPlayersMode;
+  final String userID;
 
 
   static const savesTable = """
     CREATE TABLE IF NOT EXISTS saves (
-      saveName TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY,
+      saveName TEXT,
       playerOneName TEXT,
       playerTwoName TEXT,
       playerOneScore TEXT,
@@ -43,7 +46,9 @@ class Save {
       currentCardValue TEXT,
       playerOneCardsUri TEXT,
       playerTwoCardsUri TEXT,
-      isTwoPlayersMode INTEGER);
+      isTwoPlayersMode INTEGER,
+      userID TEXT,
+      FOREIGN KEY(userID) REFERENCES accounts(userName));
   """;
 
   Map<String,dynamic> toMap(){
@@ -59,6 +64,7 @@ class Save {
       "playerOneCardsUri" : playerOneCardsUri,
       "playerTwoCardsUri" :  playerTwoCardsUri,
       "isTwoPlayersMode" :  isTwoPlayersMode,
+      "userID" :  userID,
     };
   }
 
@@ -75,6 +81,7 @@ class Save {
     playerOneCardsUri: map["playerOneCardsUri"],
     playerTwoCardsUri: map["playerTwoCardsUri"],
     isTwoPlayersMode: map["isTwoPlayersMode"],
+    userID: map["userID"],
   );
 
   static createSavesTable() async {
@@ -124,7 +131,7 @@ class Save {
 
   }
 
-  static Future<List<Save>> retrieveSavesFromDataBase() async {
+  static Future<List<Save>> retrieveSavesFromDataBase(String id) async {
     // A method to get all saves on existing database
 
     List<Save> getSaves(List<Map<String,dynamic>> rawSaves) {
@@ -143,10 +150,10 @@ class Save {
       // Retrieve web entries
       var factory = databaseFactoryFfiWeb;
       var db = await factory.openDatabase("uno.db");
-      rawSaves = await db.query("saves");
+      rawSaves = await db.query("saves", columns: ['saveName', 'playerOneName', 'playerTwoName', 'playerOneScore', 'playerTwoScore', 'currentCard', 'currentCardColor', 'currentCardValue', 'playerOneCardsUri', 'playerTwoCardsUri', 'isTwoPlayersMode', 'userID'], where: "userID = ?", whereArgs: [id]);
     } else {
       final Database db = await openDatabase("uno.db");
-      rawSaves = await db.query("saves");
+      rawSaves = await db.query("saves", columns: ['saveName', 'playerOneName', 'playerTwoName', 'playerOneScore', 'playerTwoScore', 'currentCard', 'currentCardColor', 'currentCardValue', 'playerOneCardsUri', 'playerTwoCardsUri', 'isTwoPlayersMode', 'userID'], where: "userID = ?", whereArgs: [id]);
     }
 
     List<Save> saves = getSaves(rawSaves);

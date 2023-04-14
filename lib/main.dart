@@ -13,11 +13,9 @@ class MaterialGame extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return  MaterialApp(
-      home: TitleView(),
       initialRoute: "login",
       routes: {
-      "login" : (_) => LoginView(),
-      "title" : (_) => TitleView(),
+      "login" : (_) => const LoginView(),
       }
       );
   }

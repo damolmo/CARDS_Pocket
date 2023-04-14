@@ -30,7 +30,7 @@ class PlayersMenu extends StatelessWidget{
             child : InkWell(
               onTap: (){
                  player.pause();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayersNameView(isTwoPlayersMode: viewModel.isTwoPlayersMode = false, player: player,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayersNameView(isTwoPlayersMode: viewModel.isTwoPlayersMode = false, player: player, userName: viewModel.userName,)));
               },
               child : Container(
               width: double.maxFinite,
@@ -59,7 +59,7 @@ class PlayersMenu extends StatelessWidget{
             child : InkWell(
               onTap: (){
                 player.pause();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayersNameView(isTwoPlayersMode: viewModel.isTwoPlayersMode = true, player: player,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PlayersNameView(isTwoPlayersMode: viewModel.isTwoPlayersMode = true, player: player, userName: viewModel.userName,)));
               },
               child : Container(
                 width: double.maxFinite,

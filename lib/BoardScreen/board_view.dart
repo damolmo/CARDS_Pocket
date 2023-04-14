@@ -22,6 +22,7 @@ class BoardView extends StackedView<BoardModel>{
     required this.currentCardValue,
     required this.player,
     required this.isBackup,
+    required this.userName,
     super.key,
 });
 
@@ -37,6 +38,7 @@ class BoardView extends StackedView<BoardModel>{
   final bool isTwoPlayersMode;
   final AudioPlayer player;
   bool isBackup;
+  final String userName;
 
 
   @override
@@ -53,6 +55,7 @@ class BoardView extends StackedView<BoardModel>{
 
     if (!isBackup){
       viewModel.context = context;
+      viewModel.userName = userName;
     }
 
     if (isBackup){
@@ -102,7 +105,7 @@ class BoardView extends StackedView<BoardModel>{
                     onPressed: (){
                         viewModel.saving = true;
                         viewModel.notifyListeners();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SaveView(isSaveGame: true, boardModel: viewModel, player: viewModel.player, userName: viewModel.userName,)));
                     },
                     icon: Icon(Icons.save_rounded, color: Colors.white, size: 35,)),
 

@@ -24,7 +24,7 @@ class CurrentCard extends StatelessWidget{
               viewModel.pickCardFromDeck();
               if (viewModel.winnerDetected){
                 viewModel.killCurrentMusic(viewModel.player);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode,)));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode, userName: viewModel.userName,)));
               }
             },
             child : Container(
