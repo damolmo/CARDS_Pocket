@@ -84,6 +84,7 @@ class LogoutMenu extends StatelessWidget{
               child : TextButton(
                 onPressed : (){
                   CheckCurrentLogin.deleteCurrentLogin(viewModel.userName);
+                  viewModel.player.pause();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginView()));
                 },
                 style: TextButton.styleFrom(
