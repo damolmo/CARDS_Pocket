@@ -13,7 +13,7 @@ class Login{
   static const loginTable = """
     CREATE TABLE IF NOT EXISTS login(
       userID TEXT PRIMARY KEY,
-      FOREIGN KEY(userID) REFERENCES accounts(userID));
+      FOREIGN KEY(userID) REFERENCES accounts(userName));
   """;
 
   Map<String,dynamic> toMap(){
