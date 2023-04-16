@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../Screens/screens.dart';
+import 'package:quiver/async.dart';
 
 class LoginModel extends BaseViewModel implements Initialisable{
 
@@ -14,12 +16,48 @@ class LoginModel extends BaseViewModel implements Initialisable{
   bool loginNamePassed = false;
   bool loginPassWordPassed = false;
   bool loginSucceed = false;
+  bool loginExists = false;
+  String userID = "";
 
   @override
   void initialise(){
-    getExistingAccounts(); // First of all, get ALL accounts
+    checkExistingLogin(); // First of all, check if a login account exists
   }
 
+  startCountDown(BuildContext context){
+    // This method starts a countdown before launching the next screen
+    int countDown = 3;
+    CountdownTimer newCountdown = CountdownTimer(Duration(seconds: 3), Duration(seconds: 1));
+    var count = newCountdown.listen(null);
+
+    count.onData((data) {
+      if (countDown > 0) countDown--;
+      if (countDown == 0){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView(userName: userID)));
+        count.pause();
+      }
+    });
+
+  }
+
+  checkExistingLogin() async {
+    // Check if there's an existing login account
+    // If true, logs into Title screen
+
+    userID = await CheckCurrentLogin.retrieveCurrentLogin();
+
+    if (userID.isNotEmpty){
+      // Log into title screen
+      print("LOGIN EXISTS! (MODEL)");
+      print(userID);
+      loginExists = true;
+      notifyListeners();
+    } else {
+      // Allow user to log in or create a new account
+      getExistingAccounts();
+    }
+
+  }
 
   getExistingAccounts() async {
     // This method get access to our existing database and ask for accounts
@@ -84,8 +122,13 @@ class LoginModel extends BaseViewModel implements Initialisable{
             if (account.userPassword == userPasswordController.text){
               // Password verified
               loginPassWordPassed = true;
-              if(loginNamePassed && loginPassWordPassed) loginSucceed = true;
-              notifyListeners();
+              if(loginNamePassed && loginPassWordPassed){
+                Login.createLoginTable();
+                Login newLogin = Login(userID: userNameController.text);
+                Login.insertLogin(newLogin);
+                loginSucceed = true;
+                notifyListeners();
+              }
             } else {
               // Password wrongr
               loginPassWordPassed = false;
@@ -117,6 +160,7 @@ class LoginModel extends BaseViewModel implements Initialisable{
         for (Accounts account in accounts){
           if (account.userName == userNameController.text){
             loginNamePassed = true;
+            notifyListeners();
             fieldNameError = "Cuenta existente. Inicia sesión";
             notifyListeners();
           }
@@ -129,6 +173,9 @@ class LoginModel extends BaseViewModel implements Initialisable{
       // Time to add it
       Accounts newAccount = Accounts(userName: userNameController.text, userPassword: userPasswordController.text);
       Accounts.insertAccountEntry(newAccount);
+      Login.createLoginTable();
+      Login newLogin = Login(userID: userNameController.text);
+      Login.insertLogin(newLogin);
       loginSucceed = true;
       notifyListeners();
     }

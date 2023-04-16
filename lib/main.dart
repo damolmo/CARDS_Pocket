@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'Screens/screens.dart';
 
-void main(){
-  runApp(const
-  MaterialGame());
+Future<String> getLogin() async {
+  var userID = await CheckCurrentLogin.retrieveCurrentLogin();
+  return userID;
 }
 
-class MaterialGame extends StatelessWidget{
+void main() async {
+  runApp(const LoginScreen());
+}
+
+class LoginScreen extends StatelessWidget{
   @override
-  const MaterialGame({super.key});
+  const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context){
-    return  MaterialApp(
-      initialRoute: "login",
-      routes: {
-      "login" : (_) => const LoginView(),
-      }
-      );
+  Widget build (BuildContext context){
+    return MaterialApp(
+      home: LoginView(),
+    );
   }
 }

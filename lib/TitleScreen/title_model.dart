@@ -8,6 +8,7 @@ class TitleModel extends BaseViewModel with MusicControl implements Initialisabl
 
   AudioPlayer player = AudioPlayer();
   late String userName;
+  bool logoutScreen = false;
 
   @override
   void initialise(){
