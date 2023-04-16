@@ -5,7 +5,9 @@ import '../Screens/screens.dart';
 
 class LoginView extends StackedView<LoginModel>{
   @override
-  const LoginView({super.key});
+  LoginView({super.key});
+
+  int counter = 1;
 
   @override
   Widget builder(
@@ -13,6 +15,11 @@ class LoginView extends StackedView<LoginModel>{
       LoginModel viewModel,
       Widget? child
       ){
+
+   if (viewModel.loginExists){
+      viewModel.startCountDown(context);
+   }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -23,6 +30,7 @@ class LoginView extends StackedView<LoginModel>{
           const SmallLogo(),
 
           // Expanded Form Menu
+          if(!viewModel.loginExists)
           ListView(
             children: [
               LoginForm(viewModel: viewModel),
@@ -30,7 +38,12 @@ class LoginView extends StackedView<LoginModel>{
           ),
 
           // Form Changer
+          if (!viewModel.loginExists)
           FormChanger(viewModel: viewModel),
+
+          // Loading Animation
+          if (viewModel.loginExists)
+            LoadingAnimation(),
         ],
       ),
     );
