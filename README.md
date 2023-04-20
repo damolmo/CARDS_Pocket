@@ -46,7 +46,7 @@ Muestra el menu principal junto a varias opciones, entre ellas :
 
 ## Tienda de Cartas
 Pantalla donde el usuario puede adquirir barajas de cartas tematizadas
-<img src="screens/screen_store.png">
+<img src="screens/screen_store.png" width="200" height="400">
 <br/>
 
 ## Pantalla de jugadores
