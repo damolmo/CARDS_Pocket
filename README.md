@@ -44,6 +44,11 @@ Muestra el menu principal junto a varias opciones, entre ellas :
 <img src="screens/screen_home.png" width="200" height="400">
 <br/>
 
+## Tienda de Cartas
+Pantalla donde el usuario puede adquirir barajas de cartas tematizadas
+<img src="screens/screen_store.png">
+<br/>
+
 ## Pantalla de jugadores
 Elige modo de juego, contra la CPU o modo dos jugadores
 

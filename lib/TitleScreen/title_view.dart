@@ -59,20 +59,24 @@ class TitleView extends StackedView<TitleModel>{
 
           // Logo
           if(!viewModel.logoutScreen)
-          BannerLogo(),
+          TitleLogo(),
 
           // Menu
           if(!viewModel.logoutScreen)
-          ListView(
-            children: [
-              OptionsMenu(player: viewModel.player, viewModel: viewModel,)
-            ]),
+            ListView(
+                children: [
+                  OptionsMenu(player: viewModel.player, viewModel: viewModel,)
+                ]),
+
+          // Floating Store Button
+          if (!viewModel.logoutScreen)
+            StoreButton(viewModel: viewModel),
+
+
 
           // Logout Screen
           if (viewModel.logoutScreen)
             LogoutScreen(viewModel: viewModel),
-
-
         ],
 
       ),

@@ -170,13 +170,36 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
 
   getCards() async {
     // Get all cards from database
+
+      Settings currentSettings = Settings(userID: "", collectionID: "");
+      List<Collections> collections = [];
+
+      // Get Current collections if any
+
+      try{
+        collections = Collections.retrieveCollections();
+      } catch (e){
+        CollectionsData.addCollectionsToDatabase();
+      }
+
+
+      Settings.createTableSettings();
+
+      // Get Current user config if any
+      try{
+        currentSettings = await Settings.retrieveCurrentSettings(userName);
+      } catch (e){
+        Settings.insertRowInSettings(Settings(userID: userName, collectionID: "CARDS Pocket Original"));
+        currentSettings = await Settings.retrieveCurrentSettings(userName);
+      }
+
       try {
-      cards = await Cards.retrieveCards();
-      notifyListeners();
+        cards = await Cards.retrieveCards(currentSettings.collectionID);
+        notifyListeners();
       }
       catch (e){
         CardsData.insertCards();
-        cards = await Cards.retrieveCards();
+        cards = await Cards.retrieveCards(currentSettings.collectionID);
         notifyListeners();
       }
 

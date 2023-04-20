@@ -35,7 +35,7 @@ class UserCards extends StatelessWidget{
 
             for (Cards card in viewModel.playerTwoCards){
               if (!viewModel.isTwoPlayersMode){
-                playerTwoCards.add(Cards(name: "name", color: "color", value: "", uri: "assets/logo/deck.png"));
+                playerTwoCards.add(Cards(name: "name", color: "color", value: "", uri: "assets/logo/deck.png", collection: ""));
               } else {
                 playerTwoCards.add(card);
               }
