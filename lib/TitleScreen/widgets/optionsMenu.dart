@@ -23,7 +23,7 @@ class OptionsMenu extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.4,
-      margin: EdgeInsets.only(left: width * 0.1, right: width * 0.1, top: height * 0.4, bottom: height * 0.1),
+      margin: EdgeInsets.only(left: width * 0.1, right: width * 0.1, top: height * 0.35, bottom: height * 0.1),
       child: Column(
         children: [
           // Start Game Button

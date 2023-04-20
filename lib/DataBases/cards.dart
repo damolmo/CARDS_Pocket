@@ -9,20 +9,25 @@ class Cards{
     required this.color,
     required this.value,
     required this.uri,
+    required this.collection,
 });
 
   final String name;
   final String color;
   final String value;
   final String uri;
+  final String collection;
 
 
   static const cardsTable = """
     CREATE TABLE IF NOT EXISTS cards(
-      name TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY,
+      name TEXT,
       color TEXT,
       value TEXT,
-      uri TEXT);
+      uri TEXT,
+      collection TEXT,
+      FOREIGN KEY(collection) REFERENCES collections(name));
   """;
 
   Map<String, dynamic> toMap(){
@@ -31,6 +36,7 @@ class Cards{
       "color" :  color,
       "value" :  value,
       "uri" : uri,
+      "collection" : collection,
     };
   }
 
@@ -38,7 +44,8 @@ class Cards{
     name: map["name"],
     color: map["color"],
     value: map["value"],
-    uri: map["uri"]
+    uri: map["uri"],
+    collection: map["collection"]
   );
 
   static createTable() async {
@@ -69,7 +76,7 @@ class Cards{
 
   }
 
-  static Future<List<Cards>> retrieveCards() async {
+  static Future<List<Cards>> retrieveCards(String collectionID) async {
     // A method to retrieve cards from database
     List<Cards> getCards(List<Map<String,dynamic>> rawCards){
       // Create instances of every card
@@ -87,14 +94,15 @@ class Cards{
     if (kIsWeb){
       var factory = databaseFactoryFfiWeb;
       var db = await factory.openDatabase("uno.db");
-      rawCards = await db.query("cards");
+      rawCards = await db.query("cards", columns: ["name", "color", "value", "uri", "collection"], where: "collection = ?", whereArgs: [collectionID]);
     } else {
       final Database db = await openDatabase("uno.db");
-      rawCards = await db.query("cards");
+      rawCards = await db.query("cards", columns: ["name", "color", "value", "uri", "collection"], where: "collection = ?", whereArgs: [collectionID]);
     }
 
     List<Cards> cards = getCards(rawCards);
 
+    print(cards);
     return cards;
   }
 
