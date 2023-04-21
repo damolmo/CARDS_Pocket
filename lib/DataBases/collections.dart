@@ -8,17 +8,23 @@ class Collections{
     required this.name,
     required this.thumbnail,
     required this.description,
+    required this.deck,
+    required this.theme,
   });
 
   final String name;
   final String thumbnail;
   final String description;
+  final String deck;
+  final String theme;
 
   static const collectionsTable = """
     CREATE TABLE IF NOT EXISTS collections(
       name TEXT PRIMARY KEY,
       thumbnail TEXT,
-      description TEXT);
+      description TEXT,
+      deck TEXT,
+      theme TEXT);
   """;
 
   Map<String,dynamic> toMap() {
@@ -26,6 +32,8 @@ class Collections{
       "name" : name,
       "thumbnail" : thumbnail,
       "description" : description,
+      "deck" : deck,
+      "theme" : theme,
     };
   }
 
@@ -33,7 +41,9 @@ class Collections{
       Collections(
           name: map["name"],
           thumbnail: map["thumbnail"],
-          description: map["description"]);
+          description: map["description"],
+          deck: map["deck"],
+          theme : map["theme"]);
 
   static createCollectionsTable() async {
     // This static method creates a table for collections

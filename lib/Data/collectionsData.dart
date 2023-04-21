@@ -4,20 +4,33 @@ class CollectionsData{
 
   static Map<String,dynamic> collections = {
 
-    "CARDS Pocket Original" : {
+    "CARDS_Pocket_Original" : {
       "description" :  "Cartas originales de CARDS Pocket",
-      "thumbnail" :  "assets/deck/original/thumbnail.png",
+      "thumbnail" :  "assets/deck/CARDS_Pocket_Original/thumbnail.png",
+      "deck" : "assets/deck/CARDS_Pocket_Original/deck.png",
+      "theme" :  "assets/deck/CARDS_Pocket_Original/theme.mp3",
     },
 
-    "Animal Crossing" : {
+    "Animal_Crossing" : {
       "description" : "Cartas con personajes de Animal Crossing",
-      "thumbnail" :  "assets/deck/animal_crossing/thumbnail.png",
+      "thumbnail" :  "assets/deck/Animal_Crossing/thumbnail.png",
+      "deck" : "assets/deck/Animal_Crossing/deck.png",
+      "theme" :  "assets/deck/Animal_Crossing/theme.mp3",
+  },
+
+    "Super_Mario" : {
+      "description" :  "Cartas con personajes de Super Mario",
+      "thumbnail" :  "assets/deck/Super_Mario/thumbnail.png",
+      "deck" : "assets/deck/Super_Mario/deck.png",
+      "theme" :  "assets/deck/Super_Mario/theme.mp3",
     },
 
-    "Super Mario" : {
-      "description" :  "Cartas con personajes de Super Mario",
-      "thumbnail" :  "assets/deck/super_mario/thumbnail.png",
-    },
+    "Pokemon" : {
+      "description" :  "Cartas con personajes de Pokémon",
+      "thumbnail" : "assets/deck/Pokemon/thumbnail.png",
+      "deck" : "assets/deck/Pokemon/deck.png",
+      "theme" :  "assets/deck/Pokemon/theme.mp3",
+    }
   };
 
   static addCollectionsToDatabase() async {
@@ -25,7 +38,7 @@ class CollectionsData{
     Collections.createCollectionsTable();
 
     for (String collection in collections.keys){
-      Collections  currentCollection = Collections(name: collection, thumbnail: collections[collection]["thumbnail"], description: collections[collection]["description"]);
+      Collections  currentCollection = Collections(name: collection, thumbnail: collections[collection]["thumbnail"], description: collections[collection]["description"], deck: collections[collection]["deck"], theme: collections[collection]["theme"]);
       Collections.insertCollectionIntoTable(currentCollection);
     }
   }

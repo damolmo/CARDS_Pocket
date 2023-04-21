@@ -93,8 +93,8 @@ class InteractiveButtons extends StatelessWidget{
                   backgroundColor: Colors.greenAccent
                 ),
                 onPressed: (){
-                  player.stop();
                   viewModel.killCurrentMusic(player);
+                  print("KILLL!!");
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TitleView(userName: viewModel.userName,)));
                 },
                 child: const Text("Aceptar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 35), textAlign: TextAlign.center,),

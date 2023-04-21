@@ -33,7 +33,7 @@ class CurrentCard extends StatelessWidget{
               margin: EdgeInsets.only(top: height * 0.16, right: width * 0.1, left: width * 0.45),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/logo/deck.png"),
+                      image: AssetImage(viewModel.currentCollectionDeck),
                       fit: BoxFit.fitHeight
                   )
               ),

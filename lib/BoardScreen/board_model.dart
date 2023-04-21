@@ -10,7 +10,7 @@ import 'dart:io' as IO;
 
 class BoardModel extends BaseViewModel with MusicControl implements Initialisable{
 
-  bool isMusicPlaying = true;
+  bool isMusicPlaying = false;
   Duration roundDuration =  Duration(seconds: 30);
   Duration counter = Duration(seconds: 1);
   int currentWidgetTimer = 30;
@@ -67,6 +67,11 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   bool showRobyMessage = false;
   BuildContext? context ;
   String userName = "";
+  String currentCollection = "";
+  String currentCollectionTheme = "";
+  String currentCollectionDeck = "";
+  Settings currentSettings = Settings(userID: "", collectionID: "");
+
 
   @override
   void initialise(){
@@ -171,41 +176,75 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   getCards() async {
     // Get all cards from database
 
-      Settings currentSettings = Settings(userID: "", collectionID: "");
       List<Collections> collections = [];
 
       // Get Current collections if any
 
       try{
-        collections = Collections.retrieveCollections();
+        Collections.createCollectionsTable();
+        collections = await Collections.retrieveCollections();
       } catch (e){
-        CollectionsData.addCollectionsToDatabase();
+        print(e);
       }
 
-
-      Settings.createTableSettings();
+      if(collections.isEmpty) CollectionsData.addCollectionsToDatabase();
 
       // Get Current user config if any
       try{
+        Settings.createTableSettings();
         currentSettings = await Settings.retrieveCurrentSettings(userName);
       } catch (e){
-        Settings.insertRowInSettings(Settings(userID: userName, collectionID: "CARDS Pocket Original"));
-        currentSettings = await Settings.retrieveCurrentSettings(userName);
+        print(e);
       }
 
+      currentCollection = currentSettings.collectionID;
+      if(currentSettings.collectionID.isEmpty) currentCollection = "CARDS_Pocket_Original";
+      notifyListeners();
+
+
       try {
-        cards = await Cards.retrieveCards(currentSettings.collectionID);
+        Cards.createTable();
+        cards = await Cards.retrieveCards(currentCollection);
         notifyListeners();
       }
       catch (e){
-        CardsData.insertCards();
-        cards = await Cards.retrieveCards(currentSettings.collectionID);
-        notifyListeners();
+       print(e);
       }
 
+      if (cards.isEmpty){
+        CardsData.insertCards();
+        cards = await Cards.retrieveCards(currentCollection);
+      }
+
+
     availableCards =  cards.length;
+    playCustomTheme();
     if (!isBackup) setCurrentCard();
     notifyListeners();
+  }
+
+  playCustomTheme() async {
+    // Playing custom music
+
+    List<Collections> collections = await Collections.retrieveCollections();
+
+    for (Collections collection in collections){
+      if (collection.name == currentCollection){
+        print("Colección : ${collection.name}");
+        currentCollectionDeck = collection.deck;
+        currentCollectionTheme = collection.theme;
+        notifyListeners();
+      }
+    }
+
+    if (!isMusicPlaying){
+      setCustomTheme(currentCollectionTheme.replaceAll("assets/", "" ));
+      startLoop(player);
+      isMusicPlaying = true;
+      notifyListeners();
+      print("Playing theme $currentCollectionTheme");
+    }
+
   }
 
   setCurrentCard(){
