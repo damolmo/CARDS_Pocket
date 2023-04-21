@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+23
+version: 1.0.0+25
 
 environment:
   sdk: '>=2.19.5 <3.0.0'
@@ -83,24 +83,31 @@ flutter:
     - assets/logout/
     - assets/guide/
     - assets/logo/logo.png
-    - assets/deck/original/
-    - assets/deck/original/blue/
-    - assets/deck/original/red/
-    - assets/deck/original/orange/
-    - assets/deck/original/green/
-    - assets/deck/original/wild/
-    - assets/deck/animal_crossing/
-    - assets/deck/animal_crossing/blue/
-    - assets/deck/animal_crossing/red/
-    - assets/deck/animal_crossing/orange/
-    - assets/deck/animal_crossing/green/
-    - assets/deck/animal_crossing/wild/
-    - assets/deck/super_mario/
-    - assets/deck/super_mario/blue/
-    - assets/deck/super_mario/red/
-    - assets/deck/super_mario/orange/
-    - assets/deck/super_mario/green/
-    - assets/deck/super_mario/wild/
+    - assets/deck/CARDS_Pocket_Original/
+    - assets/deck/CARDS_Pocket_Original/blue/
+    - assets/deck/CARDS_Pocket_Original/red/
+    - assets/deck/CARDS_Pocket_Original/orange/
+    - assets/deck/CARDS_Pocket_Original/green/
+    - assets/deck/CARDS_Pocket_Original/wild/
+    - assets/deck/Animal_Crossing/
+    - assets/deck/Animal_Crossing/blue/
+    - assets/deck/Animal_Crossing/red/
+    - assets/deck/Animal_Crossing/orange/
+    - assets/deck/Animal_Crossing/green/
+    - assets/deck/Animal_Crossing/wild/
+    - assets/deck/Super_Mario/
+    - assets/deck/Super_Mario/blue/
+    - assets/deck/Super_Mario/red/
+    - assets/deck/Super_Mario/orange/
+    - assets/deck/Super_Mario/green/
+    - assets/deck/Super_Mario/wild/
+    - assets/deck/Super_Mario/
+    - assets/deck/Pokemon/blue/
+    - assets/deck/Pokemon/red/
+    - assets/deck/Pokemon/orange/
+    - assets/deck/Pokemon/green/
+    - assets/deck/Pokemon/wild/
+    - assets/deck/Pokemon/
     - assets/store/
 
 flutter_icons:

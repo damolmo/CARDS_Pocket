@@ -59,7 +59,7 @@ class PreviewBanner extends StatelessWidget{
       child: Column(
         children: [
           const Spacer(),
-          Text(viewModel.collections[viewModel.choosedCollectionIndex].name, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.center,),
+          Text(viewModel.collections[viewModel.choosedCollectionIndex].name.replaceAll("_", " "), style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 25), textAlign: TextAlign.center,),
           const Spacer(),
         ],
       ),

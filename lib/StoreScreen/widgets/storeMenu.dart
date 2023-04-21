@@ -50,7 +50,7 @@ class StoreMenu extends StatelessWidget{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children  : [
                       const Spacer(),
-                      Text(viewModel.collections[index].name, style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                      Text(viewModel.collections[index].name.replaceAll("_", " "), style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                       const Spacer(),
                     ]
                   ),

@@ -143,7 +143,7 @@ class StoreModel extends BaseViewModel implements Initialisable{
   installTheme() async {
     // This method is used to install choosed cards into user profile
 
-    late Settings currentSettings;
+    Settings currentSettings = Settings(userID: "", collectionID: "");
 
     // Retrieve Settings if any
     try {
@@ -154,17 +154,18 @@ class StoreModel extends BaseViewModel implements Initialisable{
       print(e);
     }
 
-    if (currentSettings.userID.isEmpty){
-      // Create a new entry
-      Settings newSettings = Settings(
-          userID: userID,
-          collectionID: choosedCollection);
-      Settings.insertRowInSettings(newSettings);
-    } else {
-      Settings updateSettings = Settings(
-          userID: userID,
-          collectionID: choosedCollection);
-      Settings.updateSettings(updateSettings);
-    }
+      if (currentSettings.userID.isEmpty) {
+        // Create a new entry
+        Settings newSettings = Settings(
+            userID: userID,
+            collectionID: choosedCollection);
+        Settings.insertRowInSettings(newSettings);
+      } else {
+        Settings updateSettings = Settings(
+            userID: userID,
+            collectionID: choosedCollection);
+        Settings.updateSettings(updateSettings);
+      }
+
   }
 }

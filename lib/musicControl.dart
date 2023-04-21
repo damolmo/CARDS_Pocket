@@ -11,10 +11,16 @@ class MusicControl {
   String fullTrackDurationStr =  "";
   String fixedMusicPositionStr = "";
   String fixedMusicPositionStr2 = "";
+  String musicSource = "sounds/theme.mp3";
+
+  setCustomTheme(String path){
+    // A method to set a custom theme for soundtrack
+    musicSource = path;
+  }
 
   playCurrentMusic(AudioPlayer player){
     // Start playing the music
-    player.play(AssetSource("sounds/theme.mp3"));
+    player.play(AssetSource(musicSource));
   }
 
   pauseCurrentMusic(AudioPlayer player){

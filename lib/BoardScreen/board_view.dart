@@ -53,12 +53,14 @@ class BoardView extends StackedView<BoardModel>{
     viewModel.playerOneName =  playerOneName;
     viewModel.playerTwoName = playerTwoName;
 
+
     if (!isBackup){
       viewModel.context = context;
       viewModel.userName = userName;
     }
 
     if (isBackup){
+      viewModel.notifyListeners();
       viewModel.playerOneScore = playerOneScore;
       viewModel.playerTwoScore = playerTwoScore;
       viewModel.playerOneCards = playerOneCards;
@@ -67,13 +69,12 @@ class BoardView extends StackedView<BoardModel>{
       viewModel.currentCardColor = currentCardColor;
       viewModel.currentCardValue = currentCardValue;
       viewModel.isBackup = isBackup;
-      if (kIsWeb) viewModel.isMusicPlaying = false; // By default isn't initialized on web, requires user action
+      viewModel.notifyListeners();
       isBackup = false;
     }
 
+
     viewModel.isTwoPlayersMode =  isTwoPlayersMode;
-    viewModel.player = player;
-    viewModel.keepMusic(player, context, "keep");
 
     return WillPopScope(
         onWillPop: () => viewModel.preventWindowClose(),
