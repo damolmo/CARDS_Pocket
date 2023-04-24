@@ -64,15 +64,19 @@ class CurrentCard extends StatelessWidget{
 
               var snack = SnackBar(content: Text("¡Bien hecho!", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating);
               ScaffoldMessenger.of(context).showSnackBar(snack);
+              viewModel.dropCardNotification = true;
+              viewModel.notifyListeners();
+              viewModel.currentNotificationTimeOut();
 
-              if (viewModel.winnerDetected == true){
-                viewModel.killCurrentMusic(viewModel.player);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode, userName: viewModel.userName,)));
-              }
 
               if (viewModel.isCardDropped){
                 viewModel.isPlayerOneTurn ? viewModel.checkUserSelectedCard(viewModel.playerOneCards[index], "launch") : viewModel.checkUserSelectedCard(viewModel.playerTwoCards[index], "launch");
 
+              }
+
+              if (viewModel.winnerDetected == true){
+                viewModel.killCurrentMusic(viewModel.player);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode, userName: viewModel.userName,)));
               }
 
             },
