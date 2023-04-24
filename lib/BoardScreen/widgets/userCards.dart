@@ -40,7 +40,7 @@ class UserCards extends StatelessWidget{
               }
             }
 
-            viewModel.isPlayerOneTurn ?  viewModel.currentCards = viewModel.playerOneCards :  viewModel.currentCards = viewModel.playerTwoCards;
+            viewModel.isPlayerOneTurn ?  viewModel.currentCards = viewModel.playerOneCards :  viewModel.currentCards = playerTwoCards;
 
 
             return LongPressDraggable(
