@@ -30,7 +30,6 @@ class UserCards extends StatelessWidget{
               mainAxisSpacing: width / 200),
           itemBuilder: (BuildContext, index ){
 
-            List<String> fakeCards = [];
             List<Cards> playerTwoCards = [];
 
             for (Cards card in viewModel.playerTwoCards){
@@ -39,23 +38,27 @@ class UserCards extends StatelessWidget{
               } else {
                 playerTwoCards.add(card);
               }
-
             }
 
-            return InkWell(
-                onTap: (){
-                  viewModel.isPlayerOneTurn ?
-                  viewModel.checkUserSelectedCard(viewModel.playerOneCards[index]) :
-                  viewModel.checkUserSelectedCard(playerTwoCards[index]);
-                  if (viewModel.winnerDetected == true){
-                    viewModel.killCurrentMusic(viewModel.player);
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WinnerView(winnerPlayer: viewModel.winnerName, loosePlayer: viewModel.looserName, winnerScore: viewModel.winnerScore, looserScore: viewModel.looserScore, isTwoPlayersMode: viewModel.isTwoPlayersMode, userName: viewModel.userName,)));
-                  }
-                },
-                child : viewModel.isPlayerOneTurn ?
-                  Image.asset(viewModel.playerOneCards[index].uri) :
-                  Image.asset(playerTwoCards[index].uri),
-                );
+            viewModel.isPlayerOneTurn ?  viewModel.currentCards = viewModel.playerOneCards :  viewModel.currentCards = viewModel.playerTwoCards;
+
+
+            return LongPressDraggable(
+              data: viewModel.choosedCard = index,
+                child : Container(
+                  width : double.maxFinite,
+                  height : height * 0.35,
+                  child : Image.asset(viewModel.currentCards[index].uri),
+                ),
+              feedback: Container(
+                height: height * 0.45,
+                child: Image.asset(viewModel.currentCards[index].uri),
+                 ),
+              childWhenDragging: !viewModel.isCardDropped ? Container(
+                height: height * 0.35,
+                child: Image.asset("assets/deck/dragging.png"),
+              ) : Container(),
+            );
             },
       ),
     );

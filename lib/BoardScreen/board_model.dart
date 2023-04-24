@@ -71,7 +71,9 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   String currentCollectionTheme = "";
   String currentCollectionDeck = "";
   Settings currentSettings = Settings(userID: "", collectionID: "");
-
+  int choosedCard = 0;
+  List<Cards> currentCards = [];
+  bool isCardDropped = false;
 
   @override
   void initialise(){
@@ -488,7 +490,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
      }
    }
 
-  checkUserSelectedCard(Cards card){
+  checkUserSelectedCard(Cards card, String action){
     // This is the start of the game logic
     // UNO rules will be applied
 
@@ -497,17 +499,22 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       // CURRENT USER MUST USE A X2 CARD TOO
       if (card.name.contains("x2")){
         // USER LAUNCH A X2 CARD TOO
-        setCurrentCardValues(card);
-        updateUserValuesAfterLaunch(card);
-        x2Counter++;
-        notifyListeners();
-        // PUNISHMENT MUST BE APPLIED
-        pickPunishmentCards();
-        // SKIP TURN AND SHOW NOTIFICATION
-        userLaunched = true;
-        wildCardNotification = true;
-        wildCardStr = "Se lanzó una carta x2 (2)";
-        notifyListeners();
+        if (action == "check"){
+          isCardDropped = true;
+        } else {
+          setCurrentCardValues(card);
+          updateUserValuesAfterLaunch(card);
+          x2Counter++;
+          notifyListeners();
+          // PUNISHMENT MUST BE APPLIED
+          pickPunishmentCards();
+          // SKIP TURN AND SHOW NOTIFICATION
+          userLaunched = true;
+          isCardDropped = true;
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x2 (2)";
+          notifyListeners();
+        }
 
       }
     }
@@ -516,60 +523,78 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     else if (x4Card){
       // CURRENT USER MUST USE A X4 CARD TOO
       if (card.name.contains("x4")){
-        // USER LAUNCH A X4 CARD TOO
-        setCurrentCardValues(card);
-        updateUserValuesAfterLaunch(card);
-        x4Counter++;
-        // PUNISHMENT MUST BE APPLIED
-        pickPunishmentCards();
-        notifyListeners();
-        // SKIP TURN AND SHOW NOTIFICATION
-        userLaunched = true;
-        colorChanger = true;
-        wildCardNotification = true;
-        wildCardStr = "Se lanzó una carta x4 (2)";
-        notifyListeners();
+        if (action == "check"){
+          isCardDropped = true;
+        } else {
+          // USER LAUNCH A X4 CARD TOO
+          setCurrentCardValues(card);
+          updateUserValuesAfterLaunch(card);
+          x4Counter++;
+          // PUNISHMENT MUST BE APPLIED
+          pickPunishmentCards();
+          notifyListeners();
+          // SKIP TURN AND SHOW NOTIFICATION
+          userLaunched = true;
+          isCardDropped = true;
+          colorChanger = true;
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x4 (2)";
+          notifyListeners();
+        }
 
       }
     }
 
     else if (card.name.contains("x4") && !x4Card && !x2Card && !blockCurrentUser){
-      // NEXT USER SHOULD USE X4 TOO
-      setCurrentCardValues(card);
-      updateUserValuesAfterLaunch(card);
-      x4Card = true;
-      x4Counter++;
-      userLaunched = true;
-      blockCurrentUser = true;
-      colorChanger = true;
-      wildCardNotification = true;
-      wildCardStr = "Se lanzó una carta x4";
-      notifyListeners();
-      currentCardDetails();
-      currentPlayerDetails();
+      if (action == "check"){
+        isCardDropped = true;
+      } else {
+        // NEXT USER SHOULD USE X4 TOO
+        setCurrentCardValues(card);
+        updateUserValuesAfterLaunch(card);
+        x4Card = true;
+        x4Counter++;
+        userLaunched = true;
+        isCardDropped = true;
+        blockCurrentUser = true;
+        colorChanger = true;
+        wildCardNotification = true;
+        wildCardStr = "Se lanzó una carta x4";
+        notifyListeners();
+        currentCardDetails();
+        currentPlayerDetails();
+      }
 
     }
 
     else if (card.name.contains("Skip") || card.name.contains("Reverse") ){
         if (currentCard.contains("skip") && card.name.contains("Skip") || card.color == currentCardColor ){
           // CURRENT USER HAVE DOUBLE TURN
-          setCurrentCardValues(card);
-          updateUserValuesAfterLaunch(card);
-          currentWidgetTimer = 30;
-          isPlayerOneTurn ? playerOnePicked = false : playerTwoPicked = false;
-          notifyListeners();
-          currentCardDetails();
-          currentPlayerDetails();
+          if (action == "check"){
+            isCardDropped = true;
+          } else {
+            setCurrentCardValues(card);
+            updateUserValuesAfterLaunch(card);
+            currentWidgetTimer = 30;
+            isPlayerOneTurn ? playerOnePicked = false : playerTwoPicked = false;
+            notifyListeners();
+            currentCardDetails();
+            currentPlayerDetails();
+          }
 
         } else if (currentCard.contains("reverse") && card.name.contains("Reverse") || card.color == currentCardColor ){
           // CURRENT USER HAVE DOUBLE TURN
-          setCurrentCardValues(card);
-          updateUserValuesAfterLaunch(card);
-          currentWidgetTimer = 30;
-          isPlayerOneTurn ? playerOnePicked = false : playerTwoPicked = false;
-          notifyListeners();
-          currentCardDetails();
-          currentPlayerDetails();
+          if (action == "check"){
+            isCardDropped = true;
+          } else {
+            setCurrentCardValues(card);
+            updateUserValuesAfterLaunch(card);
+            currentWidgetTimer = 30;
+            isPlayerOneTurn ? playerOnePicked = false : playerTwoPicked = false;
+            notifyListeners();
+            currentCardDetails();
+            currentPlayerDetails();
+          }
 
         }
     }
@@ -577,17 +602,22 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
     else if (card.name.contains("x2") && !x2Card && !x4Card && !blockCurrentUser){
       // NEXT USER SHOULD USE X2 TOO
       if (currentCardColor == card.color || currentCard.contains("draw_2")){
-        setCurrentCardValues(card);
-        updateUserValuesAfterLaunch(card);
-        x2Card = true;
-        x2Counter++;
-        userLaunched = true;
-        blockCurrentUser = true;
-        wildCardNotification = true;
-        wildCardStr = "Se lanzó una carta x2";
-        notifyListeners();
-        currentCardDetails();
-        currentPlayerDetails();
+        if (action == "check"){
+          isCardDropped = true;
+        } else {
+          setCurrentCardValues(card);
+          updateUserValuesAfterLaunch(card);
+          x2Card = true;
+          x2Counter++;
+          userLaunched = true;
+          isCardDropped = true;
+          blockCurrentUser = true;
+          wildCardNotification = true;
+          wildCardStr = "Se lanzó una carta x2";
+          notifyListeners();
+          currentCardDetails();
+          currentPlayerDetails();
+        }
 
       }
 
@@ -597,35 +627,48 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       print("same color?");
       // Both cards have the same color
       // This complaints with the main rule of the game
-      setCurrentCardValues(card);
-      updateUserValuesAfterLaunch(card);
-      currentCardDetails();
-      currentPlayerDetails();
-      blockCurrentUser = true;
-      userLaunched = true;
-      notifyListeners();
+      if (action == "check"){
+        isCardDropped = true;
+      } else {
+        setCurrentCardValues(card);
+        updateUserValuesAfterLaunch(card);
+        currentCardDetails();
+        currentPlayerDetails();
+        blockCurrentUser = true;
+        userLaunched = true;
+        notifyListeners();
+      }
     } else if (currentCardValue == card.value && !x4Card && !x2Card && !card.name.contains("Skip") && !card.name.contains("Reverse") && !blockCurrentUser ){
       print("same value?");
-      // Different color but same value
-      // Passed
-      setCurrentCardValues(card);
-      updateUserValuesAfterLaunch(card);
-      currentCardDetails();
-      currentPlayerDetails();
-      blockCurrentUser = true;
-      userLaunched = true;
-      notifyListeners();
+      if (action == "check"){
+        isCardDropped = true;
+      } else {
+        // Different color but same value
+        // Passed
+        setCurrentCardValues(card);
+        updateUserValuesAfterLaunch(card);
+        currentCardDetails();
+        currentPlayerDetails();
+        blockCurrentUser = true;
+        userLaunched = true;
+        notifyListeners();
+      }
     } else if (card.color == "wild" && !x4Card && !x2Card && !blockCurrentUser){
       // User launched a wild card
       // Show color changer screen
-      setCurrentCardValues(card);
-      updateUserValuesAfterLaunch(card);
-      currentCardDetails();
-      currentPlayerDetails();
-      blockCurrentUser = true;
-      userLaunched =  true;
-      colorChanger = true;
-      notifyListeners();
+      if (action == "check"){
+        isCardDropped = true;
+      } else {
+        setCurrentCardValues(card);
+        updateUserValuesAfterLaunch(card);
+        currentCardDetails();
+        currentPlayerDetails();
+        blockCurrentUser = true;
+        userLaunched = true;
+        isCardDropped = true;
+        colorChanger = true;
+        notifyListeners();
+      }
     }
   }
 
@@ -652,6 +695,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       playerOnePicked = false;
       currentWidgetTimer = 30;
       userLaunched = false;
+      isCardDropped = false;
       fired = false;
       notifyListeners();
       if (!isTwoPlayersMode) {
@@ -668,6 +712,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       playerTwoPicked = false;
       currentWidgetTimer = 30;
       userLaunched = false;
+      isCardDropped = false;
       fired = false;
       notifyListeners();
       if (!isTwoPlayersMode){
