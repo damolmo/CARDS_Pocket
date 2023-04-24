@@ -71553,8 +71553,9 @@ A.adA.prototype={
 $2(a,b){var s,r,q,p,o,n,m,l=null,k=A.a([],t.I9)
 for(s=this.a.c,r=s.id,q=r.length,p=0;p<r.length;r.length===q||(0,A.S)(r),++p){o=r[p]
 if(!s.ch)k.push(new A.ft("name","color","","assets/logo/deck.png",""))
-else k.push(o)}r=s.CW?s.eb=s.go:s.eb=s.id
-q=this.b
+else k.push(o)}if(s.CW)r=s.eb=s.go
+else{s.eb=k
+r=k}q=this.b
 n=q*0.35
 r=r[b].d
 m=A.a5(l,A.cA(r,l,l,l),l,l,l,n,l,l,17976931348623157e292)
