@@ -74,6 +74,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
   int choosedCard = 0;
   List<Cards> currentCards = [];
   bool isCardDropped = false;
+  bool dropCardNotification = false;
 
   @override
   void initialise(){
@@ -89,6 +90,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
       int colorNotification = 2;
       int wildNotification = 3;
       int robyNotification = 2;
+      int dropCardNotificationCounter = 1;
 
       CountdownTimer countdownTimer =  CountdownTimer(total, counter);
       var timer = countdownTimer.listen(null);
@@ -122,6 +124,15 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
           timer.pause();
           notifyListeners();
         }
+
+        if (dropCardNotification){
+          if (dropCardNotificationCounter > 0) {
+            dropCardNotificationCounter -= counter.inSeconds;
+        } else{
+            dropCardNotification = false;
+            ScaffoldMessenger.of(context!).hideCurrentSnackBar();
+          }
+      }
       });
   }
 
@@ -791,6 +802,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
         // Wild card notification
         wildCardNotification = true;
         wildCardStr  = "Se lanzó una carta x4";
+        colorChangedStr = "El color cambió a ${colors[index]}";
+        showColorChangerNotification = true;
         currentNotificationTimeOut();
 
         // Update user values later
@@ -885,6 +898,8 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
                 showRobyMessage = true;
                 wildCardNotification = true;
                 wildCardStr  = "Se lanzó una carta Wild";
+                colorChangedStr = "El color cambió a ${colors[index]}";
+                showColorChangerNotification = true;
                 currentNotificationTimeOut();
                 currentRobyDetails(card);
                 notifyListeners();
