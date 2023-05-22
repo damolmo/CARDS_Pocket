@@ -19,7 +19,7 @@ class FormChanger extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.03,
-      margin: EdgeInsets.only(top: height * 0.93, bottom: height * 0.03),
+      margin: EdgeInsets.only(top: height * 0.95, bottom: height * 0.02),
       child: InkWell(
           onTap: (){
             viewModel.existingAccounts ? viewModel.existingAccounts = false : viewModel.existingAccounts = true;

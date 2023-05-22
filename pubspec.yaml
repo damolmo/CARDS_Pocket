@@ -110,6 +110,10 @@ flutter:
     - assets/deck/Pokemon/wild/
     - assets/deck/Pokemon/
     - assets/store/
+    - assets/guide/winner/
+    - assets/guide/players/
+    - assets/guide/choose/
+    - assets/logo/
 
 flutter_icons:
   image_path: "assets/logo/logo.png"

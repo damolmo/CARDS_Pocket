@@ -120,7 +120,7 @@ class FormFields extends StatelessWidget{
           Container(
             width: double.maxFinite,
             height: height * 0.12,
-            margin: EdgeInsets.only(left: width * 0.02, right: width * 0.02, bottom: height * 0.05),
+            margin: EdgeInsets.only(left: width * 0.02, right: width * 0.02, bottom: height * 0.025),
             child: TextField(
               style: const TextStyle(fontSize: 25),
               decoration: InputDecoration(
@@ -160,7 +160,7 @@ class FormButton extends StatelessWidget{
     return Container(
       width: double.maxFinite,
       height: height * 0.07,
-      margin: EdgeInsets.only(bottom: height * 0.05, left: width * 0.1, right: width * 0.1),
+      margin: EdgeInsets.only(bottom: height * 0.01, left: width * 0.1, right: width * 0.1),
       child: ClipRRect(
       borderRadius: BorderRadius.circular(30),
         child : TextButton(
