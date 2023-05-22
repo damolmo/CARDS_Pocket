@@ -28,7 +28,7 @@ class UserCards extends StatelessWidget{
               childAspectRatio: 1.3,
               crossAxisSpacing: 1,
               mainAxisSpacing: width / 200),
-          itemBuilder: (BuildContext, index ){
+          itemBuilder: (context, index ){
 
             List<Cards> playerTwoCards = [];
 
