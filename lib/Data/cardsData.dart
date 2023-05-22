@@ -288,6 +288,77 @@ class CardsData{
         "Wild" : ["wild", "50", "assets/deck/Pokemon/wild/wild.png"],
         "Wild x4" : ["wild", "50", "assets/deck/Pokemon/wild/wild_draw_4.png"],
       },
+    },
+
+    "The Legend of Zelda" : {
+      "blue" : {
+        "0 Azul" : ["azul", "0", "assets/deck/Zelda/blue/0.png"],
+        "1 Azul" : ["azul", "1", "assets/deck/Zelda/blue/1.png"],
+        "2 Azul" : ["azul", "2", "assets/deck/Zelda/blue/2.png"],
+        "3 Azul" : ["azul", "3", "assets/deck/Zelda/blue/3.png"],
+        "4 Azul" : ["azul", "4", "assets/deck/Zelda/blue/4.png"],
+        "5 Azul" : ["azul", "5", "assets/deck/Zelda/blue/5.png"],
+        "6 Azul" : ["azul", "6", "assets/deck/Zelda/blue/6.png"],
+        "7 Azul" : ["azul", "7", "assets/deck/Zelda/blue/7.png"],
+        "8 Azul" : ["azul", "8", "assets/deck/Zelda/blue/8.png"],
+        "9 Azul" : ["azul", "9", "assets/deck/Zelda/blue/9.png"],
+        "x2 Azul" : ["azul", "20", "assets/deck/Zelda/blue/draw_2.png"],
+        "Reverse Azul" : ["azul", "20", "assets/deck/Zelda/blue/reverse.png"],
+        "Skip Azul" : ["azul", "20", "assets/deck/Zelda/blue/skip.png"],
+      },
+
+      "green" : {
+        "0 Verde" : ["verde", "0", "assets/deck/Zelda/green/0.png"],
+        "1 Verde" : ["verde", "1", "assets/deck/Zelda/green/1.png"],
+        "2 Verde" : ["verde", "2", "assets/deck/Zelda/green/2.png"],
+        "3 Verde" : ["verde", "3", "assets/deck/Zelda/green/3.png"],
+        "4 Verde" : ["verde", "4", "assets/deck/Zelda/green/4.png"],
+        "5 Verde" : ["verde", "5", "assets/deck/Zelda/green/5.png"],
+        "6 Verde" : ["verde", "6", "assets/deck/Zelda/green/6.png"],
+        "7 Verde" : ["verde", "7", "assets/deck/Zelda/green/7.png"],
+        "8 Verde" : ["verde", "8", "assets/deck/Zelda/green/8.png"],
+        "9 Verde" : ["verde", "9", "assets/deck/Zelda/green/9.png"],
+        "x2 Verde" : ["verde", "20", "assets/deck/Zelda/green/draw_2.png"],
+        "Reverse Verde" : ["verde", "20", "assets/deck/Zelda/green/reverse.png"],
+        "Skip Verde" : ["verde", "20", "assets/deck/Zelda/green/skip.png"],
+      },
+
+      "orange" : {
+        "0 Naranja" : ["naranja", "0", "assets/deck/Zelda/orange/0.png"],
+        "1 Naranja" : ["naranja", "1", "assets/deck/Zelda/orange/1.png"],
+        "2 Naranja" : ["naranja", "2", "assets/deck/Zelda/orange/2.png"],
+        "3 Naranja" : ["naranja", "3", "assets/deck/Zelda/orange/3.png"],
+        "4 Naranja" : ["naranja", "4", "assets/deck/Zelda/orange/4.png"],
+        "5 Naranja" : ["naranja", "5", "assets/deck/Zelda/orange/5.png"],
+        "6 Naranja" : ["naranja", "6", "assets/deck/Zelda/orange/6.png"],
+        "7 Naranja" : ["naranja", "7", "assets/deck/Zelda/orange/7.png"],
+        "8 Naranja" : ["naranja", "8", "assets/deck/Zelda/orange/8.png"],
+        "9 Naranja" : ["naranja", "9", "assets/deck/Zelda/orange/9.png"],
+        "x2 Naranja" : ["naranja", "20", "assets/deck/Zelda/orange/draw_2.png"],
+        "Reverse Naranja" : ["naranja", "20", "assets/deck/Zelda/orange/reverse.png"],
+        "Skip Naranja" : ["naranja", "20", "assets/deck/Zelda/orange/skip.png"],
+      },
+
+      "red" : {
+        "0 Rojo" : ["rojo", "0", "assets/deck/Zelda/red/0.png"],
+        "1 Rojo" : ["rojo", "1", "assets/deck/Zelda/red/1.png"],
+        "2 Rojo" : ["rojo", "2", "assets/deck/Zelda/red/2.png"],
+        "3 Rojo" : ["rojo", "3", "assets/deck/Zelda/red/3.png"],
+        "4 Rojo" : ["rojo", "4", "assets/deck/Zelda/red/4.png"],
+        "5 Rojo" : ["rojo", "5", "assets/deck/Zelda/red/5.png"],
+        "6 Rojo" : ["rojo", "6", "assets/deck/Zelda/red/6.png"],
+        "7 Rojo" : ["rojo", "7", "assets/deck/Zelda/red/7.png"],
+        "8 Rojo" : ["rojo", "8", "assets/deck/Zelda/red/8.png"],
+        "9 Rojo" : ["rojo", "9", "assets/deck/Zelda/red/9.png"],
+        "x2 Rojo" : ["rojo", "20", "assets/deck/Zelda/red/draw_2.png"],
+        "Reverse Rojo" : ["rojo", "20", "assets/deck/Zelda/red/reverse.png"],
+        "Skip Rojo" : ["rojo", "20", "assets/deck/Zelda/red/skip.png"],
+      },
+
+      "wild" : {
+        "Wild" : ["wild", "50", "assets/deck/Zelda/wild/wild.png"],
+        "Wild x4" : ["wild", "50", "assets/deck/Zelda/wild/wild_draw_4.png"],
+      },
     }
 
 
