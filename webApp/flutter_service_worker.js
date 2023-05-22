@@ -2,13 +2,13 @@
 const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
-const RESOURCES = {
-  "version.json": "22aee11f65d27484d66982e1ea4acb9e",
-"index.html": "b0360a50f5df32469b6ffd46343d344a",
-"/": "b0360a50f5df32469b6ffd46343d344a",
-"main.dart.js": "260ffd4b9d0e9678d2c3f7d9dff4a077",
+
+const RESOURCES = {"version.json": "27e636e81bb05aff67ab83c8ef580038",
+"index.html": "08ff346e3de8b6585def2a07fd3f1d5c",
+"/": "08ff346e3de8b6585def2a07fd3f1d5c",
+"main.dart.js": "a52e3719aa84eacc32483c5d85925296",
 "sqlite3.wasm": "fc00695e0788464e5b26edef5cf408da",
-"flutter.js": "a85fcf6324d3c4d3ae3be1ae4931e9c5",
+"flutter.js": "6fef97aeca90b426343ba6c5c9dc5d4a",
 "favicon.png": "50d0433bcac15f9c50798d8c09120b51",
 "sqflite_sw.js": "c1eecf334474cc8e1df8b142bf91aaef",
 "icons/Icon-192.png": "7a38a31235c9ad80f5e146af38bf82a6",
@@ -16,13 +16,22 @@ const RESOURCES = {
 "icons/Icon-maskable-512.png": "4d3b00f2f6b3821c4ad4bd238ac146d3",
 "icons/Icon-512.png": "4d3b00f2f6b3821c4ad4bd238ac146d3",
 "manifest.json": "4b495fd116047ab3f3a2f0d732ce5eea",
-"assets/AssetManifest.json": "a8380c76326b5518f5387003b56618f9",
-"assets/NOTICES": "bb785a2676e355f9da01901b23c98487",
+"assets/AssetManifest.json": "de36d22ac2453217b9f04604596001d8",
+"assets/NOTICES": "29429b9fc772f9fe58df2ae8991f16c7",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-"assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
+"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "57d849d738900cfd590e9adc7e208250",
+"assets/shaders/ink_sparkle.frag": "f8b80e740d33eb157090be4e995febdf",
+"assets/AssetManifest.bin": "105f92d9851c180ffd4cb20ead156f90",
+"assets/fonts/MaterialIcons-Regular.otf": "d7b8e7f1b0d4c8e487cc90c88ea6a7b0",
+"assets/assets/guide/choose/screen_2.png": "f3a713dea2718f3d540b04d545feedba",
+"assets/assets/guide/choose/screen_1.png": "836894d397072e8500c59ac757c224f9",
+"assets/assets/guide/choose/screen_0.png": "58b3c9c0ce7064851437b9dbe9fee5bf",
+"assets/assets/guide/winner/screen_2.png": "57ae24b19d53cf37bf57a5fbedd9fd62",
+"assets/assets/guide/winner/screen_1.png": "d32c0963fb8b9b9094814c3612eaef06",
+"assets/assets/guide/winner/screen_0.png": "7614f3f73a9ff4120a144b2767d16b83",
 "assets/assets/guide/how_to_play.png": "7c789a4cd15faf4d3ca715b8474f01be",
 "assets/assets/guide/guide.png": "44a5325176911465d1c7d149a0028317",
+"assets/assets/guide/players/screen_players.png": "8a05f58523002ae073452794d924756a",
 "assets/assets/guide/playing_modes.png": "8738a24f194df87e028257257a51e06a",
 "assets/assets/guide/who_wins.png": "d3bfbe785fe27d64742fc854e0f3ecea",
 "assets/assets/guide/special_cards.png": "4856b795b580b46f8731623b3d23b1c1",
@@ -52,6 +61,63 @@ const RESOURCES = {
 "assets/assets/colorChanger/colorChanger.png": "c769ce9f13e08c5a501212d5179a18b2",
 "assets/assets/saveGame/saveGame.png": "9f2e1d6250a9baa032ba69a06c28e330",
 "assets/assets/saveGame/loadGame.png": "9da02e11ec092f3c92ae4c0fdc736acc",
+"assets/assets/deck/Zelda/green/8.png": "4268659f56d2edc20a6dde989a67a25a",
+"assets/assets/deck/Zelda/green/9.png": "c37e755ecace1b0e9a306e5a3db5fec1",
+"assets/assets/deck/Zelda/green/draw_2.png": "c23598eb01c4e90ace95eea41e7bc1cd",
+"assets/assets/deck/Zelda/green/skip.png": "0f4db1f92cbf34eca16958e4b3a62b1e",
+"assets/assets/deck/Zelda/green/reverse.png": "7c9589d5c339a3e7df5f0db4333bdde2",
+"assets/assets/deck/Zelda/green/4.png": "927e5a3f2e4cb530544bd687b7ef8d85",
+"assets/assets/deck/Zelda/green/5.png": "933971fca92b31dd75b75eaeeb7061e8",
+"assets/assets/deck/Zelda/green/7.png": "664f8d1f3afa0eeec8606a5d3a253155",
+"assets/assets/deck/Zelda/green/6.png": "0d96e05ac03ee1ed95ae2130d43a1dc9",
+"assets/assets/deck/Zelda/green/2.png": "fae9fc7a1b607efbf87d96bfc0f89eca",
+"assets/assets/deck/Zelda/green/3.png": "7b314cd0baa89dfbfa6fcc3fc159d19e",
+"assets/assets/deck/Zelda/green/1.png": "95e50490a78f3b8ab7931234cf8c22a5",
+"assets/assets/deck/Zelda/green/0.png": "5434b16587b66fb02e2ec188841a167c",
+"assets/assets/deck/Zelda/blue/8.png": "5b52e7be4175bb522003258c08bfe1d8",
+"assets/assets/deck/Zelda/blue/9.png": "a53c2a76aec47e540ca8bccded52dfa3",
+"assets/assets/deck/Zelda/blue/draw_2.png": "dd355244095b96dc5d5dc7a1f345cc4d",
+"assets/assets/deck/Zelda/blue/skip.png": "6ec8869107376d563ea8c412f7fc20e8",
+"assets/assets/deck/Zelda/blue/reverse.png": "dec208355fd539efe3f7b83202735d62",
+"assets/assets/deck/Zelda/blue/4.png": "b42a49bc57179d3b35786a4fe575bf94",
+"assets/assets/deck/Zelda/blue/5.png": "20d7beb1184bae6d1bcc8c59e4e4f0de",
+"assets/assets/deck/Zelda/blue/7.png": "5020485a6eafaed642b8594bfa9f771c",
+"assets/assets/deck/Zelda/blue/6.png": "e4d1411e2e3d7cd850f04d94bad30f5a",
+"assets/assets/deck/Zelda/blue/2.png": "b8b338a9a9d0c1071514dc9fe7f4654d",
+"assets/assets/deck/Zelda/blue/3.png": "65fdf42bc25e3bd74a25907a6d4e9900",
+"assets/assets/deck/Zelda/blue/1.png": "eb3e8eb906fd1ecf36de43db8ad1ae1e",
+"assets/assets/deck/Zelda/blue/0.png": "ee5286a3e36ee2ebde4557c388acaf16",
+"assets/assets/deck/Zelda/red/8.png": "743b47d44dec41e192b1d813ee254c89",
+"assets/assets/deck/Zelda/red/9.png": "17422dfac4e12a8746f8da8798f77cbf",
+"assets/assets/deck/Zelda/red/draw_2.png": "26cadf8649077808b201ba015e019d7f",
+"assets/assets/deck/Zelda/red/skip.png": "0eac5b8cc9b093bf944278c8bf7716b5",
+"assets/assets/deck/Zelda/red/reverse.png": "9071be8e8d2bde643dfc3493265585bd",
+"assets/assets/deck/Zelda/red/4.png": "db9f4b4def108fb42e1544419d791fc9",
+"assets/assets/deck/Zelda/red/5.png": "3ce15d3c972d53bd69815d7e2b1b76d3",
+"assets/assets/deck/Zelda/red/7.png": "842ca0c0d018d219e98e8703f75c22d1",
+"assets/assets/deck/Zelda/red/6.png": "8637ea646727fc0623c68806c07dc301",
+"assets/assets/deck/Zelda/red/2.png": "40aa42635b90008f8302d840649f437f",
+"assets/assets/deck/Zelda/red/3.png": "bf84e79c96684347f27050109aafe630",
+"assets/assets/deck/Zelda/red/1.png": "fd2757af507d2a42c792526196f2d55a",
+"assets/assets/deck/Zelda/red/0.png": "813e88d32ccc42f29111abaaea75ef7f",
+"assets/assets/deck/Zelda/wild/wild.png": "28343292364963179abbbb61384c9aad",
+"assets/assets/deck/Zelda/wild/wild_draw_4.png": "a4b4c8ec74fd81d2735b5b68c696f226",
+"assets/assets/deck/Zelda/theme.mp3": "684646202a157f4b5c5c3697def2c983",
+"assets/assets/deck/Zelda/deck.png": "81bba426ff07b77971f580db5efe73dc",
+"assets/assets/deck/Zelda/thumbnail.png": "bebaba5e16be5bf5d43f3c55a9479a35",
+"assets/assets/deck/Zelda/orange/8.png": "870d4dd2395699e2bd5efc34324e3fb6",
+"assets/assets/deck/Zelda/orange/9.png": "335bd86ee6e832818e581e078d694387",
+"assets/assets/deck/Zelda/orange/draw_2.png": "4c14af82d166efe400d41571c98272c4",
+"assets/assets/deck/Zelda/orange/skip.png": "f5bd23c075b1958428f85d7d0e11460f",
+"assets/assets/deck/Zelda/orange/reverse.png": "abbd2b6af7dd52eb75aa67d8154e97e6",
+"assets/assets/deck/Zelda/orange/4.png": "daceb26190c83ce61cf5c8f053cb473d",
+"assets/assets/deck/Zelda/orange/5.png": "8aaae1226ce5ebc25398d3b01cf27498",
+"assets/assets/deck/Zelda/orange/7.png": "ea759a43f4f03970048699ec32c50b9f",
+"assets/assets/deck/Zelda/orange/6.png": "0af5077e23b2f4f4651d9b529ecb62db",
+"assets/assets/deck/Zelda/orange/2.png": "c83b58ef1c240c78ea3eea9288f08b9a",
+"assets/assets/deck/Zelda/orange/3.png": "9aa1529634f2bcb65b156e88df2b9ead",
+"assets/assets/deck/Zelda/orange/1.png": "20ead9af0d5acf19d6505d762519b5d4",
+"assets/assets/deck/Zelda/orange/0.png": "6efefc629694eb747112c26828219750",
 "assets/assets/deck/dragging.png": "dbd89d90418656cb8bd6b8a5750d1d72",
 "assets/assets/deck/Pokemon/green/8.png": "5a662af3ff258abc31441c61815eb444",
 "assets/assets/deck/Pokemon/green/9.png": "2acfe213e2535df62944216ae99042e7",
@@ -287,19 +353,22 @@ const RESOURCES = {
 "assets/assets/warnings/dismiss_1.png": "b81e60111f84bb1bbe84ce10192934a1",
 "assets/assets/store/store.png": "97aeb30dcdf8726977def83be4c8d64c",
 "assets/assets/store/bag.png": "223c91fa6131d1f13f7349514e9b3cb4",
-"canvaskit/canvaskit.js": "97937cb4c2c2073c968525a3e08c86a3",
+"canvaskit/skwasm.js": "1df4d741f441fa1a4d10530ced463ef8",
+"canvaskit/skwasm.wasm": "6711032e17bf49924b2b001cef0d3ea3",
+"canvaskit/chromium/canvaskit.js": "8c8392ce4a4364cbb240aa09b5652e05",
+"canvaskit/chromium/canvaskit.wasm": "fc18c3010856029414b70cae1afc5cd9",
+"canvaskit/canvaskit.js": "76f7d822f42397160c5dfc69cbc9b2de",
 "canvaskit/profiling/canvaskit.js": "c21852696bc1cc82e8894d851c01921a",
 "canvaskit/profiling/canvaskit.wasm": "371bc4e204443b0d5e774d64a046eb99",
-"canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e"
-};
-
+"canvaskit/canvaskit.wasm": "f48eaf57cada79163ec6dec7929486ea",
+"canvaskit/skwasm.worker.js": "19659053a277272607529ef87acf9d8a"};
 // The application shell files that are downloaded before a service worker can
 // start.
-const CORE = [
-  "main.dart.js",
+const CORE = ["main.dart.js",
 "index.html",
 "assets/AssetManifest.json",
 "assets/FontManifest.json"];
+
 // During install, the TEMP cache is populated with the application shell files.
 self.addEventListener("install", (event) => {
   self.skipWaiting();
@@ -310,7 +379,6 @@ self.addEventListener("install", (event) => {
     })
   );
 });
-
 // During activate, the cache is populated with the temp files downloaded in
 // install. If this service worker is upgrading from one with a saved
 // MANIFEST, then use this to retain unchanged resource files.
@@ -332,6 +400,8 @@ self.addEventListener("activate", function(event) {
         await caches.delete(TEMP);
         // Save the manifest to make future upgrades efficient.
         await manifestCache.put('manifest', new Response(JSON.stringify(RESOURCES)));
+        // Claim client to enable caching on first launch
+        self.clients.claim();
         return;
       }
       var oldManifest = await manifest.json();
@@ -357,6 +427,8 @@ self.addEventListener("activate", function(event) {
       await caches.delete(TEMP);
       // Save the manifest to make future upgrades efficient.
       await manifestCache.put('manifest', new Response(JSON.stringify(RESOURCES)));
+      // Claim client to enable caching on first launch
+      self.clients.claim();
       return;
     } catch (err) {
       // On an unhandled exception the state of the cache cannot be guaranteed.
@@ -367,7 +439,6 @@ self.addEventListener("activate", function(event) {
     }
   }());
 });
-
 // The fetch handler redirects requests for RESOURCE files to the service
 // worker cache.
 self.addEventListener("fetch", (event) => {
@@ -407,7 +478,6 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
-
 self.addEventListener('message', (event) => {
   // SkipWaiting can be used to immediately activate a waiting service worker.
   // This will also require a page refresh triggered by the main worker.
@@ -420,7 +490,6 @@ self.addEventListener('message', (event) => {
     return;
   }
 });
-
 // Download offline will check the RESOURCES for all files not in the cache
 // and populate them.
 async function downloadOffline() {
@@ -441,7 +510,6 @@ async function downloadOffline() {
   }
   return contentCache.addAll(resources);
 }
-
 // Attempt to download the resource online before falling back to
 // the offline cache.
 function onlineFirst(event) {
