@@ -106,7 +106,7 @@ class DynamicCards extends StatelessWidget{
                     width: width * 0.4,
                     height: height * 0.2,
                     margin: EdgeInsets.only(top: height * 0.05, bottom: height * 0.05, left: width * 0.3, right: width * 0.3 ),
-                    child: Image.asset(viewModel.optionTitle[viewModel.choosedOption]["images"][index]),
+                    child: Image.asset(viewModel.optionTitle[viewModel.choosedOption]["images"][index], fit: BoxFit.fitHeight,),
                   ),
 
                   // Bottom - Description
@@ -114,7 +114,7 @@ class DynamicCards extends StatelessWidget{
                     width: width * 0.8,
                     height: height * 0.15,
                     margin: EdgeInsets.only(left: width * 0.1, right: width * 0.1, top:  height * 0.3),
-                    child: Text(viewModel.optionTitle[viewModel.choosedOption]["strings"][index], style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center,),
+                    child: Text(viewModel.optionTitle[viewModel.choosedOption]["strings"][index], style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.left,),
                   )
 
                 ],

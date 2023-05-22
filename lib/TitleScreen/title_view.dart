@@ -30,8 +30,7 @@ class TitleView extends StackedView<TitleModel>{
             IconButton(
                 onPressed: (){
                   // TO-DO
-                  var snack = const SnackBar(content: Text("Función disponible próximamente", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),), behavior: SnackBarBehavior.floating );
-                  ScaffoldMessenger.of(context).showSnackBar(snack);
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => GuideView()));
                 },
                 icon: const Icon(Icons.book_rounded, color: Colors.white, size: 25,)),
             const Spacer(),
