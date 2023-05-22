@@ -30,6 +30,13 @@ class CollectionsData{
       "thumbnail" : "assets/deck/Pokemon/thumbnail.png",
       "deck" : "assets/deck/Pokemon/deck.png",
       "theme" :  "assets/deck/Pokemon/theme.mp3",
+    },
+
+    "The Legend of Zelda" : {
+      "description" : "",
+      "thumbnail" :  "assets/deck/Zelda/thumbnail.png",
+      "deck" : "assets/deck/Zelda/deck.png",
+      "theme" :  "assets/deck/Zelda/theme.mp3",
     }
   };
 
