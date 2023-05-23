@@ -49,4 +49,26 @@ class CollectionsData{
       Collections.insertCollectionIntoTable(currentCollection);
     }
   }
+
+  static retrieveCollections() {
+    // A method to retrieve available collections objects without insert
+
+    List<Collections> collectionsList = [];
+
+    for (String collection in collections.keys){
+      Collections current = Collections(name: collection, thumbnail: collections[collection]["thumbnail"], description: collections[collection]["description"], deck: collections[collection]["deck"], theme: collections[collection]["theme"]);
+      collectionsList.add(current);
+    }
+
+    return collectionsList;
+
+  }
+
+  static addNewCollectionsToTable(List<Collections> remaining) async {
+    // A method for adding new collections
+
+    for (Collections collection in remaining){
+      Collections.insertCollectionIntoTable(collection);
+    }
+  }
 }
