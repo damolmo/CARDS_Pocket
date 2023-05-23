@@ -33,10 +33,7 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
 
       if (winners.isNotEmpty){
         incrementExistingUsers();
-      } else {
-        addNewUsers();
       }
-
     }
     catch (e) {
       addNewUsers();
