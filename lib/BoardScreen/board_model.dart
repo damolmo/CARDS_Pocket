@@ -130,7 +130,7 @@ class BoardModel extends BaseViewModel with MusicControl implements Initialisabl
             dropCardNotificationCounter -= counter.inSeconds;
         } else{
             dropCardNotification = false;
-            ScaffoldMessenger.of(context!).hideCurrentSnackBar();
+            if (!winnerDetected)ScaffoldMessenger.of(context!).hideCurrentSnackBar();
           }
       }
       });

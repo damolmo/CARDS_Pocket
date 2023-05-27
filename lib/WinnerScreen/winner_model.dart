@@ -13,6 +13,7 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
   int looserScore = 0;
   bool isTwoPlayersMode = false;
   String userName = "";
+  bool boardReady = false;
 
   @override
   void initialise(){
@@ -27,15 +28,23 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
   addWinnerToRanking() async {
     // Add current winner to clasification screen
 
+    print("-----------------------");
+    print(userName);
+    print("-----------------------");
+
+
+
     try {
       winners = await Classification.retrieveClassifications(userName);
       notifyListeners();
 
       if (winners.isNotEmpty){
+        print("-------> Incrementar Clasificacion");
         incrementExistingUsers();
       }
     }
     catch (e) {
+      print("-------> Nueva Clasificacion");
       addNewUsers();
     }
   }
@@ -89,27 +98,30 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
           looserExists = true;
           notifyListeners();
         }
-
-        if (!winnerExists) {
-          Classification newWinner = Classification(userName: winnerName,
-              userLosts: 0,
-              userVictories: 1,
-              userPoints: winnerScore,
-              userGames: 1,
-              userID: userName);
-          Classification.insertEntryClassification(newWinner);
-        }
-
-        if (!looserExists) {
-          Classification newLooser = Classification(userName: looseName,
-              userLosts: 1,
-              userVictories: 0,
-              userPoints: looserScore,
-              userGames: 1,
-              userID: userName);
-          Classification.insertEntryClassification(newLooser);
-        }
       }
+
+      if (!winnerExists) {
+        Classification newWinner = Classification(
+            userName: winnerName,
+            userLosts: 0,
+            userVictories: 1,
+            userPoints: winnerScore,
+            userGames: 1,
+            userID: userName);
+        Classification.insertEntryClassification(newWinner);
+      }
+
+      if (!looserExists) {
+        Classification newLooser = Classification(
+            userName: looseName,
+            userLosts: 1,
+            userVictories: 0,
+            userPoints: looserScore,
+            userGames: 1,
+            userID: userName);
+        Classification.insertEntryClassification(newLooser);
+      }
+
     }
 
 
