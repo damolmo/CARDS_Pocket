@@ -28,23 +28,15 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
   addWinnerToRanking() async {
     // Add current winner to clasification screen
 
-    print("-----------------------");
-    print(userName);
-    print("-----------------------");
-
-
-
     try {
       winners = await Classification.retrieveClassifications(userName);
       notifyListeners();
 
       if (winners.isNotEmpty){
-        print("-------> Incrementar Clasificacion");
         incrementExistingUsers();
       }
     }
     catch (e) {
-      print("-------> Nueva Clasificacion");
       addNewUsers();
     }
   }
@@ -57,7 +49,6 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
       print(e);
       }
 
-      print("hubo un error");
       Classification newWinner = Classification(userName: winnerName, userLosts: 0, userVictories: 1, userPoints: winnerScore, userGames: 1, userID: userName);
       Classification.insertEntryClassification(newWinner);
       Classification newLooser = Classification(userName: looseName, userLosts: 1, userVictories: 0, userPoints: looserScore, userGames: 1, userID: userName);
@@ -121,8 +112,5 @@ class WinnerModel extends BaseViewModel with MusicControl implements Initialisab
             userID: userName);
         Classification.insertEntryClassification(newLooser);
       }
-
     }
-
-
 }
