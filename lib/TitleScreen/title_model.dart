@@ -23,6 +23,8 @@ class TitleModel extends BaseViewModel with MusicControl implements Initialisabl
     // Checks if database is created first
     List<Collections> installedCollections = [];
     List<Collections> availableCollections = CollectionsData.retrieveCollections();
+    List<String> installedCollectionsName = [];
+    List<String> availableCollectionsName = [];
     List<Collections> pending = [];
 
     try {
@@ -39,8 +41,18 @@ class TitleModel extends BaseViewModel with MusicControl implements Initialisabl
         // New collections are available
 
         for (Collections collection in availableCollections){
-          if (!installedCollections.contains(collection)){
-            pending.add(collection);
+          // Save available collections name in str list
+          availableCollectionsName.add(collection.name);
+        }
+
+        for (Collections collection in installedCollections){
+          // Save installed collections name in str list
+          installedCollectionsName.add(collection.name);
+        }
+
+        for (String collection in availableCollectionsName){
+          if (!installedCollectionsName.contains(collection)){
+            pending.add(availableCollections.elementAt(availableCollectionsName.indexOf(collection)));
           }
         }
 
