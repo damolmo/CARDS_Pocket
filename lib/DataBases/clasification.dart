@@ -90,10 +90,10 @@ class Classification{
     if (kIsWeb){
       var factory = databaseFactoryFfiWeb;
       var db = await factory.openDatabase("uno.db");
-      db.update("classifications", classification.toMap(), where: "userName = ?", whereArgs: [classification.userName]);
+      db.update("classifications", classification.toMap(), where: "userName = ? AND userID = ?", whereArgs: [classification.userName, classification.userID]);
     } else {
       final Database db = await openDatabase("uno.db");
-      db.update("classifications", classification.toMap(), where: "userName = ?", whereArgs: [classification.userName]);
+      db.update("classifications", classification.toMap(), where: "userName = ? AND userID = ?", whereArgs: [classification.userName, classification.userID]);
     }
 
 

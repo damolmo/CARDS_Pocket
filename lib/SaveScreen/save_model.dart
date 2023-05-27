@@ -73,6 +73,9 @@ class SaveModel extends BaseViewModel with MusicControl implements Initialisable
       playerTwoCards.add(currentCard);
     }
 
+    // Remove existing save
+    Save.deleteExistingSave(save);
+
     // Time to Navigate to board, again
     player.pause();
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BoardView(playerOneName: save.playerOneName, playerTwoName: save.playerTwoName, isTwoPlayersMode: save.isTwoPlayersMode == 1 ? true :  false, player: player, playerOneScore: int.parse(save.playerOneScore), playerTwoScore: int.parse(save.playerTwoScore), playerOneCards: playerOneCards, playerTwoCards: playerTwoCards, isBackup: true, currentCardValue: save.currentCardValue, currentCard: save.currentCard, currentCardColor: save.currentCardColor, userName: save.userID,)));

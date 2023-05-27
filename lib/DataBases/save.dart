@@ -112,8 +112,21 @@ class Save {
       final Database db = await openDatabase("uno.db");
       db.update("saves", save.toMap(), where: "saveName = ?", whereArgs: [save.saveName]);
     }
+  }
 
+  static deleteExistingSave(Save save) async {
+    // Just in case a save already exists
 
+    if (kIsWeb){
+      // Update web table
+      var factory = databaseFactoryFfiWeb;
+      var db = await factory.openDatabase("uno.db");
+      db.delete("saves", where: "saveName = ?", whereArgs: [save.saveName]);
+
+    } else {
+      final Database db = await openDatabase("uno.db");
+      db.delete("saves", where: "saveName = ?", whereArgs: [save.saveName]);
+    }
   }
 
   static insertSavesIntoDataBase(Save save) async {
